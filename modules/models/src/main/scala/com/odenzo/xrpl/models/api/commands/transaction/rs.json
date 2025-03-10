@@ -1,0 +1,35 @@
+{
+  "result": {
+    "accepted": true,
+    "account_sequence_available": 30,
+    "account_sequence_next": 30,
+    "applied": true,
+    "broadcast": true,
+    "engine_result": "tesSUCCESS",
+    "engine_result_code": 0,
+    "engine_result_message": "The transaction was applied. Only final in a validated ledger.",
+    "kept": true,
+    "open_ledger_cost": "10",
+    "queued": false,
+    "status": "success",
+    "tx_blob": "1200072280000000240000001D2A2F36F6CC6440000000000F424065D48711E4FB1A60000000000000000000000000004E5A440000000000951DD4375CDCFB61757B708DC763E8846BE0FA0D68400000000000022B732102682F5A9FEE8CD7C135CC2AEDC489813FEF968B6430DE50EA74C53CDA0EA415F774473045022100E4B1B0D69DFA69DBD4605D7007C366703F41983B22449A598D92A00DB1372002022014BDAC7A099958D736319D917D8B210A71F6598927371E5CBD53E0A54FAF6D658114951DD4375CDCFB61757B708DC763E8846BE0FA0D",
+    "tx_json": {
+      "Account": "rNbTR3t3hBy57B8KHq29zuRtnS2iknuYJ4",
+      "Expiration": 792131276,
+      "Fee": "555",
+      "Flags": 2147483648,
+      "Sequence": 29,
+      "SigningPubKey": "02682F5A9FEE8CD7C135CC2AEDC489813FEF968B6430DE50EA74C53CDA0EA415F7",
+      "TakerGets": {
+        "currency": "NZD",
+        "issuer": "rNbTR3t3hBy57B8KHq29zuRtnS2iknuYJ4",
+        "value": "1.99"
+      },
+      "TakerPays": "1000000",
+      "TransactionType": "OfferCreate",
+      "TxnSignature": "3045022100E4B1B0D69DFA69DBD4605D7007C366703F41983B22449A598D92A00DB1372002022014BDAC7A099958D736319D917D8B210A71F6598927371E5CBD53E0A54FAF6D65",
+      "hash": "9746CE20AD67567F8A2D05A14C4C90AFA8169D9DC6D560C392887C3478B47E7D"
+    },
+    "validated_ledger_index": 32
+  }
+}
