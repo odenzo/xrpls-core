@@ -9,7 +9,7 @@ import cats.effect.syntax.all.*
 import cats.*
 import cats.data.*
 import cats.syntax.all.*
-import com.odenzo.xrpl.models.internal.definitions.{FieldEntryRaw, FieldMetaData}
+import com.odenzo.xrpl.models.internal.definitions.{ FieldEntryRaw, FieldMetaData }
 import com.odenzo.xrpl.models.scodecs.MetaData
 import com.tersesystems.blindsight.{ Condition, Logger, LoggerFactory }
 import io.circe
@@ -21,7 +21,7 @@ import scodec.{ *, given }
   */
 object EncoderController extends MyLogging {
   // I actually want to pass the condition or logger through to all scodecs
-  given log: Logger = LoggerFactory.getLogger.withCondition(Condition.never)
+  private given log: Logger = LoggerFactory.getLogger.withCondition(Condition.never)
 
   val topLevelSigningEncoder: Encoder[Json] = Encoder[Json] { json =>
     json.asObject match

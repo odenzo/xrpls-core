@@ -70,7 +70,7 @@
         </encoder>
     </appender>
     <logger name="com.odenzo.xrpl.models.scodecs" level="WARN" />
-    <logger name="com.odenzo.xrpl.communication" level="WARN" />
+    <logger name="com.odenzo.xrpl.communication" level="DEBUG" />
     <logger name="org.apache.kafka.common.utils.AppInfoParser" level="ERROR" />
     <logger name="org.apache.kafka.clients.consumer.KafkaConsumer" level="WARN" />
     <logger name="org.apache.kafka.clients.NetworkClient" level="WARN" />

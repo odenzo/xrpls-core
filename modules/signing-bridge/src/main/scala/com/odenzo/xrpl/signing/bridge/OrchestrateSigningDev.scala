@@ -27,7 +27,7 @@ object OrchestrateSigningDev {
     val encoded: BitVector  = XrpBinCodecAPI.encode(txJson, true)
     val signature           = TxnSignature(encoded.bytes)
     val keyType             = rq.keyType
-    val secretSeed: XrpSeed = rq.seedHex.getOrElse {
+    val secretSeed: XrpSeed = rq.seed.getOrElse {
       rq.passphrase match
         case Some(phrase) => convertPassphreaseToSeed(phrase)
         case None         => throw new IllegalArgumentException("No Passphrase or Seed in Sign Rq")

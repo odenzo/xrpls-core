@@ -8,14 +8,14 @@ import io.circe.{ Decoder, Encoder }
   * (?!) Sequence -- If this is set then it waits for that number to be
   * available? Allows propert sequencing of transactions on a per account level.
   */
-case class AccountTxnSequence(v: Long) {
+case class AccountTxnNumber(v: Long) {
 
   /** Returns new TxnSequence with incremented value */
-  def increment: AccountTxnSequence = AccountTxnSequence(v + 1)
+  def increment: AccountTxnNumber = AccountTxnNumber(v + 1)
 }
 
-object AccountTxnSequence {
-  implicit val encoder: Encoder[AccountTxnSequence] = Encoder.encodeLong.contramap[AccountTxnSequence](_.v)
-  implicit val decoder: Decoder[AccountTxnSequence] = Decoder.decodeLong.map(AccountTxnSequence(_))
+object AccountTxnNumber {
+  implicit val encoder: Encoder[AccountTxnNumber] = Encoder.encodeLong.contramap[AccountTxnNumber](_.v)
+  implicit val decoder: Decoder[AccountTxnNumber] = Decoder.decodeLong.map(AccountTxnNumber(_))
 
 }

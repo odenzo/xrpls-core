@@ -2,7 +2,7 @@ package com.odenzo.xrpl.models.api.commands.transaction
 
 import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{XrpCommand, XrpCommandRq, XrpCommandRs}
-import com.odenzo.xrpl.models.data.models.atoms.{AccountTxnSequence, TxBlob}
+import com.odenzo.xrpl.models.data.models.atoms.{AccountTxnNumber, TxBlob}
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
 import io.circe.JsonObject
 import io.circe.derivation.{Configuration, ConfiguredCodec}
@@ -27,19 +27,19 @@ object Submit extends XrpCommand[Submit.Rq, Submit.Rs] {
     * to TxBlob
     */
   case class Rs(
-      accepted: Boolean,
-      accountSequenceAvailable: AccountTxnSequence,
-      accountSequenceNext: AccountTxnSequence,
-      applied: Boolean,
-      broadcast: Boolean,
-      engineResult: String, // This is enumerated somewhere, but when not worth it.
-      engineResultCode: Long,
-      engineResultMessage: String,
-      kept: Boolean,
-      openLedgerCost: Drops,
-      queued: Boolean,
-      txBlob: TxBlob,
-      txJson: JsonObject,
+                 accepted: Boolean,
+                 accountSequenceAvailable: AccountTxnNumber,
+                 accountSequenceNext: AccountTxnNumber,
+                 applied: Boolean,
+                 broadcast: Boolean,
+                 engineResult: String, // This is enumerated somewhere, but when not worth it.
+                 engineResultCode: Long,
+                 engineResultMessage: String,
+                 kept: Boolean,
+                 openLedgerCost: Drops,
+                 queued: Boolean,
+                 txBlob: TxBlob,
+                 txJson: JsonObject,
   ) extends XrpCommandRs derives ConfiguredCodec
 
   object Rs:

@@ -13,18 +13,18 @@ import scodec.bits.ByteVector
   * These are really SeedOps tests, not detailed unit tests into RFC1751 yet
   */
 class RFC1751KeysTest extends WalletTestIOSpec {
-
+  import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
   private val log                                                              = LoggerFactory.getLogger
   import com.odenzo.xrpl.models.data.models.keys.XrpSeed.asRawSeed // Extension method
   def checkRFC(walletRs: WalletProposeResult)(using loc: munit.Location): Unit = {
-    test(s"${walletRs.account_id} - ${walletRs.key_type}") {
+    test(s"${walletRs.account_id.asBits.toHex}") {
       if walletRs.isRFC1751Passphrase then {
         val rfcPassphrase: String = walletRs.master_key
         log.debug(s"MasterKey: [$rfcPassphrase]")
         val masterSeedHex: String = walletRs.master_seed_hex
         val computed: ByteVector  = RFC1751Keys.twelveWordsAsBytes(rfcPassphrase).asRawSeed
         val hex: String           = computed.toHex(Alphabets.HexUppercase)
-        assertEquals(hex, masterSeedHex)
+        assertEquals(hex, masterSeedHex, "Master Seed Hex from RFC Incorrect")
       }
     }
   }

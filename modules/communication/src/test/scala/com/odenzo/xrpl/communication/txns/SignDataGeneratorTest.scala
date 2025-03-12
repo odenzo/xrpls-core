@@ -36,7 +36,7 @@ class SignDataGeneratorTest extends LocalCommsTest(TestScenarios.mode) {
       offerRq       = OfferCreateTx(
                         account       = issuer.accountAddress,
                         expiration    = RippleTime.now.plusSeconds(30).some,
-                        offerSequence = Option.empty[AccountTxnSequence],
+                        offerSequence = Option.empty[AccountTxnNumber],
                         takerGets     = script.amount("1.99"),
                         takerPays     = CurrencyAmount.xrp(1),
                       )
@@ -44,7 +44,7 @@ class SignDataGeneratorTest extends LocalCommsTest(TestScenarios.mode) {
       rs            = result.submitted
       txJson        = result.submitted.txJson
       // Use a pointer into AccountTxnSequence. Probably put in OfferCreateTx unless its more common
-      sequence     <- IO.fromOption(txJson("Sequence").flatMap(_.as[AccountTxnSequence].toOption))(
+      sequence     <- IO.fromOption(txJson("Sequence").flatMap(_.as[AccountTxnNumber].toOption))(
                         throw Throwable("Not Sequence key found")
                       )
       txnHashJ     <- IO.fromOption(txJson("hash"))(throw Throwable("Not hash key found"))

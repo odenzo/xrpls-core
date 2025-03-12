@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.data.models
 
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountTxnSequence, RippleTime }
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountTxnNumber, RippleTime }
 import com.odenzo.xrpl.models.data.models.flags.BitMaskFlags
 import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, Quality }
 import io.circe.*
@@ -15,12 +15,12 @@ import io.circe.derivation.Configuration
   * This is an OfferNode from the Ledger objects with addition of
   */
 case class OfferExtraFields(
-    expiration: Option[RippleTime],
-    flags: BitMaskFlags,
-    quality: Quality, // Redundant?
-    sequence: Option[AccountTxnSequence],
-    takerGets: CurrencyAmount,
-    takerPays: CurrencyAmount,
+                             expiration: Option[RippleTime],
+                             flags: BitMaskFlags,
+                             quality: Quality, // Redundant?
+                             sequence: Option[AccountTxnNumber],
+                             takerGets: CurrencyAmount,
+                             takerPays: CurrencyAmount,
 ) derives Codec.AsObject
 
 object OfferExtraFields:

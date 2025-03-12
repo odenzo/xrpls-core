@@ -55,7 +55,7 @@ object XrpSeed:
     * Strips away a 21 byte down to 16 bytes after stipping checking and
     * typeCode
     */
-  def unwrap(checksum58: ByteVector): XrpSeed =
+  def unwrap(checksum58: ByteVector): ByteVector =
     require(checksum58.size == 21, "XrpSeed/XrpSeed must be 21 bytes with typeCode and CheckSum")
     checksum58.drop(1).dropRight(4)
 
@@ -73,8 +73,8 @@ object XrpSeed:
 
     /**
       * The raw 16 byte seed for crypto work. currently not storing the
-      * checksum, only prefix
+      * checksum, only prefix, so only drop the prefix
       */
-    def asRawSeed: ByteVector = ms.drop(1).dropRight(4)
+    def asRawSeed: ByteVector = ms.drop(1)
 
 end XrpSeed

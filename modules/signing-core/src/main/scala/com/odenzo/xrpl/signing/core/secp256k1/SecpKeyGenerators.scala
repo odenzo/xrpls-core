@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.signing.core.secp256k1
 
-import com.odenzo.xrpl.models.data.models.keys.{ XrpKeyPair, XrpPrivateKey, XrpPublicKey, XrpSeed }
+import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpKeyPair, XrpPrivateKey, XrpPublicKey, XrpSeed }
 import com.odenzo.xrpl.signing.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.signing.common.utils.MyLogging
 import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.Constants.params
@@ -54,7 +54,7 @@ object SecpKeyGenerators extends MyLogging {
     // assert(masterPublicKeyA.equals(masterPublicKeyB), "SECP MasterPublicKeys Didn't match")
     val privateKey                   = XrpPrivateKey.fromBytesUnsafe(masterPrivateKey)
     val publicKey                    = XrpPublicKey.fromBytesUnsafe(masterPublicKeyB)
-    XrpKeyPair(publicKey, privateKey)
+    XrpKeyPair(publicKey, privateKey, KeyType.secp256k1)
   }
 
   /**
@@ -81,8 +81,8 @@ object SecpKeyGenerators extends MyLogging {
   }
 
   def deriveRootPrivateKeyFromSeed(seed: XrpSeed): ByteVector = {
-    val paddedSeed           = seed.asRawSeed /// .padLeft(8) // seed is always 16, not sure why padding here
-    val fullHash: ByteVector = generatorFromSeed(paddedSeed, 0L)
+    val paddedSeed: ByteVector = seed.asRawSeed
+    val fullHash: ByteVector   = generatorFromSeed(paddedSeed, 0L)
     log.debug(s"Full Hash/Seed: len ${fullHash.length} => ${fullHash.toHex}")
     fullHash.take(32)
   }

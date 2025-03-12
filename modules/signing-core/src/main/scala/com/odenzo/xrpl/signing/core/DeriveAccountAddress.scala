@@ -26,12 +26,14 @@ object DeriveAccountAddress extends XrpBinaryOps {
     * @return
     *   Ripple Account Address Base58 encoded with leading r and checksum.
     */
-  def accountPublicKey2address(publicKey: XrpPublicKey): IO[AccountAddress] = {
+  def xrpPublicKey2address(publicKey: XrpPublicKey): IO[AccountAddress] = {
     import XrpPublicKey.*
     val publicKeyBytes        = publicKey.asRawKey
+    println(s"Raw Public Key: ${publicKeyBytes.toHex}")
     val accountId: ByteVector = XrpBinaryOps.ripemd160(XrpBinaryOps.sha256(publicKeyBytes))
     val body: ByteVector      = TypePrefix.accountAddress.bv ++ accountId //
     val bytes: ByteVector     = body ++ XrpBinaryOps.xrpChecksum(body)
+    println(s"Check summed Calculated Address: ${bytes.toHex}")
     IO.fromEither(
       AccountAddress
         .fromRawBytes(bytes) // Need a fromBytesNoWrapper

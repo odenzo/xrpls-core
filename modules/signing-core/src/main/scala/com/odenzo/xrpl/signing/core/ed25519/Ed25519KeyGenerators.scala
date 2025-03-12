@@ -1,13 +1,23 @@
 package com.odenzo.xrpl.signing.core.ed25519
 
-import com.odenzo.xrpl.models.data.models.keys.{XrpKeyPair, XrpPrivateKey, XrpPublicKey, XrpSeed}
+import com.odenzo.xrpl.models.data.models.keys.KeyType.ed25519
+import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpKeyPair, XrpPrivateKey, XrpPublicKey, XrpSeed }
 import com.odenzo.xrpl.signing.common.binary.XrpBinaryOps
+import com.tersesystems.blindsight.LoggerFactory
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair
 import org.bouncycastle.crypto.generators.Ed25519KeyPairGenerator
-import org.bouncycastle.crypto.params.{AsymmetricKeyParameter, Ed25519KeyGenerationParameters, Ed25519PrivateKeyParameters, Ed25519PublicKeyParameters}
-import scodec.bits.{ByteVector, hex}
+import org.bouncycastle.crypto.params.{
+  AsymmetricKeyParameter,
+  Ed25519KeyGenerationParameters,
+  Ed25519PrivateKeyParameters,
+  Ed25519PublicKeyParameters,
+}
+import scodec.bits
+import scodec.bits.{ ByteVector, hex }
 
 import java.security.SecureRandom
+
+case class Ed25519KeyPairParams(publicKey: Ed25519PublicKeyParameters, privateKey: Ed25519PrivateKeyParameters)
 
 /**
   * Alot of redundancy here. What to we really need to do, derive a
@@ -15,6 +25,8 @@ import java.security.SecureRandom
   * random seed i guess for WalletPropose functionlity.
   */
 object Ed25519KeyGenerators {
+  private val log = LoggerFactory.getLogger
+
   val secureRandom: SecureRandom = new SecureRandom()
 
   /**
@@ -34,10 +46,11 @@ object Ed25519KeyGenerators {
   }
 
   def createXrpKeyPair(xrpSeed: XrpSeed): XrpKeyPair =
-    val (bcPublic, bcPrivate)       = createBcKeyPairFromXrpSeed(xrpSeed)
-    val publicModel: XrpPublicKey   = convertBcPublicKeyToModel(bcPublic)
-    val privateModel: XrpPrivateKey = convertBcPrivateKeyToModel(bcPrivate)
-    XrpKeyPair(publicModel, privateModel)
+    log.info(s"Create ED KeyPair from from ${xrpSeed.toHex} ")
+    val bcEdKeys: Ed25519KeyPairParams = createBcKeyPairFromXrpSeed(xrpSeed)
+    val publicModel: XrpPublicKey      = convertBcPublicKeyToModel(bcEdKeys.publicKey)
+    val privateModel: XrpPrivateKey    = convertBcPrivateKeyToModel(bcEdKeys.privateKey)
+    XrpKeyPair(publicModel, privateModel, keyType = KeyType.ed25519)
 
   /**
     * Then generates the public key directly from PrivateKey, no AccountFamily
@@ -49,18 +62,19 @@ object Ed25519KeyGenerators {
     * @return
     *   Bouncv Castle public and private key pair.
     */
-  def createBcKeyPairFromXrpSeed(seed: XrpSeed): (Ed25519PublicKeyParameters, Ed25519PrivateKeyParameters) = {
+  def createBcKeyPairFromXrpSeed(seed: XrpSeed): Ed25519KeyPairParams = {
     val rawSeed: ByteVector                       = XrpSeed.unwrap(seed)
     val hex                                       = rawSeed.toHex
-    println(s"SeedHex ${hex.size / 2} Bytes: $hex")
-    val privateKey                                = derivePrivateKeyFromSeed(seed)
+    println(s"SeedHex ${hex.size / 2} Bytes: $hex") // Correct
+    val privateKey                                = derivePrivateKeyFromSeed(rawSeed)
     val privateKeyBC: Ed25519PrivateKeyParameters = privateKeyToBC(privateKey)
     val publicKeyBC: Ed25519PublicKeyParameters   = privateKeyBC.generatePublicKey()
-    (publicKeyBC, privateKeyBC)
+    println(s"BC ED Public Key: ${ByteVector(publicKeyBC.getEncoded).toHex}")
+    Ed25519KeyPairParams(publicKeyBC, privateKeyBC)
   }
 
   /** Given a 16 byte seed transform to 32 byte private key as bytevector */
-  inline def derivePrivateKeyFromSeed(seed: XrpSeed): ByteVector = XrpBinaryOps.sha512Half(seed.asRawSeed)
+  inline def derivePrivateKeyFromSeed(rawSeed: ByteVector): ByteVector = XrpBinaryOps.sha512Half(rawSeed)
 
   inline def privateKeyToBC(privateKey: ByteVector): Ed25519PrivateKeyParameters =
     new Ed25519PrivateKeyParameters(privateKey.toArray, 0)
@@ -69,6 +83,8 @@ object Ed25519KeyGenerators {
     privateKeyBC.generatePublicKey()
 
     /**
+      * This takes the raw public key, encodes and encodes it with ED prefix but
+      * no checksum.
       * @return
       *   XrpPublicKey from the raw crpto (e.g. handles left padding 0xED
       */

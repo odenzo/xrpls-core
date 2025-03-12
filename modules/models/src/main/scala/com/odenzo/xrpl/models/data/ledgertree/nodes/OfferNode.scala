@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.data.ledgertree.nodes
 
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountTxnSequence, LedgerHash }
-import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, Quality }
-import io.circe.{ Decoder, Encoder }
+import com.odenzo.xrpl.models.data.models.atoms.{AccountAddress, AccountTxnNumber, Hash256, LedgerHash}
+import com.odenzo.xrpl.models.data.models.monetary.{CurrencyAmount, Quality}
+import io.circe.{Decoder, Encoder}
 
 /**
   * See also docs for account root node. I am guessing this has delta too?
@@ -14,14 +14,14 @@ import io.circe.{ Decoder, Encoder }
 case class OfferNode(
     flags: Option[Long],
     account: Option[AccountAddress],
-    sequence: Option[AccountTxnSequence],
+    sequence: Option[AccountTxnNumber],
     takerPays: Option[CurrencyAmount],
     takerGets: Option[CurrencyAmount],
     bookDirectory: Option[LedgerHash], // Hex, this a LeddgerHash
     bookNode: Option[String], // really an option
     //  expiration: Option[RippleTime],
     ownerNode: Option[String], // LedgerNodeIndex type? "0000000000000000" So, its a LedgerId?
-    previousTxnId: Option[AccountTxnSequence],
+    previousTxnId: Option[Hash256],
     previousTxnLgrSeq: Option[Long], // LedgerIndex as Long/Int, what is this, AccountLedgerSequence ?
     index: Option[String], // Trassaction Index? Index wrt the consensus list of validated transactions?
     // Addition fields of book_offers API.

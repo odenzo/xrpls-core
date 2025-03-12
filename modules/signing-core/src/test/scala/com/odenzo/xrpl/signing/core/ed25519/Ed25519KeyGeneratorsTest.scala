@@ -2,10 +2,11 @@ package com.odenzo.xrpl.signing.core.ed25519
 
 import cats.effect.IO
 import cats.syntax.all.given
-import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpKeyPair, XrpSeed }
+import com.odenzo.xrpl.models.data.models.keys.{WalletProposeResult, XrpKeyPair, XrpSeed}
 import com.odenzo.xrpl.signing.core.DeriveAccountAddress
 import com.odenzo.xrpl.signing.testkit.WalletTestIOSpec
 import com.tersesystems.blindsight.LoggerFactory
+import io.circe.syntax.EncoderOps
 import scodec.bits.Bases.Alphabets
 import scodec.bits.ByteVector
 
@@ -23,14 +24,17 @@ class Ed25519KeyGeneratorsTest extends WalletTestIOSpec {
   def check(walletRs: WalletProposeResult)(using loc: munit.Location): Unit = {
     test(s"${walletRs.account_id.asBits.toHex} - ${walletRs.key_type}") {
       import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.*
+      log.debug(s"WalletRs: ${walletRs.asJson}")
       val seed: XrpSeed         = XrpSeed.fromBase58Unsafe(walletRs.master_seed) // Need to drop the 21 prefix
       val keys: XrpKeyPair      = Ed25519KeyGenerators.createXrpKeyPair(seed)
-      println(keys.publicKey.bv.toHex)
+      println(s"XrpKeyPair Public Key ${keys.publicKey.bv.toHex}")
+
       val publicKey: ByteVector = keys.publicKey.bv
+      println(s"XrpKeyPair Public Key ${keys.publicKey.bv.toHex}")
       assertEquals(publicKey.toHex(Alphabets.HexUppercase), walletRs.public_key_hex, "Incorrect Public Key")
 
       for {
-        accountAddr <- DeriveAccountAddress.accountPublicKey2address(keys.publicKey)
+        accountAddr <- DeriveAccountAddress.xrpPublicKey2address(keys.publicKey)
         _            = assertEquals(accountAddr, walletRs.account_id, "AccountAddress Mismatch")
       } yield ()
     }

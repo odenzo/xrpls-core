@@ -30,7 +30,7 @@ class SecpKeyGeneratorsTest extends WalletTestIOSpec {
       val publicKey: ByteVector = keys.publicKey.bv
       assertEquals(publicKey.toHex(Alphabets.HexUppercase), walletRs.public_key_hex, "Incorrect Public Key")
       for {
-        accountAddr <- DeriveAccountAddress.accountPublicKey2address(keys.publicKey)
+        accountAddr <- DeriveAccountAddress.xrpPublicKey2address(keys.publicKey)
         _            = assertEquals(accountAddr, walletRs.account_id, "AccountAddress Mismatch")
       } yield ()
 

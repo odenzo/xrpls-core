@@ -1,13 +1,12 @@
 package com.odenzo.xrpl.models.api.commands.admin
 
-
 import com.odenzo.xrpl.models.api.commands.Command
-import com.odenzo.xrpl.models.api.commands.CommandMarkers.{XrpCommandRq, XrpCommandRs}
+import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.TxnHash
 import com.odenzo.xrpl.models.data.models.atoms.TxBlob
-import com.odenzo.xrpl.models.data.models.keys.{KeyType, XrpSeed}
+import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpSeed }
 import io.circe.JsonObject
-import io.circe.derivation.{Configuration, ConfiguredCodec}
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 object Sign {
   val command: Command = Command.SIGN
@@ -15,7 +14,7 @@ object Sign {
   /** This doesn't support secret, specify keytype and (seedHex OR passphrase) */
   case class Rq(
       keyType: KeyType,
-      seedHex: Option[XrpSeed],
+      seed: Option[XrpSeed],
       passphrase: Option[String],
       txJson: JsonObject,
       feeMultMax: Int  = 10,

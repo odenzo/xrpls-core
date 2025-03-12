@@ -28,11 +28,16 @@ object XrpPublicKey extends XrpBinaryOps:
 
   extension (ms: XrpPublicKey)
     def bv: ByteVector       = ms
-    def asRawKey: ByteVector = ms.drop(1).dropRight(4)
     def asHex: String        = ms.toHex
     def base58: String       = XrpBase58Fix.toXrpBase58(ms: ByteVector)
     def isEd25519: Boolean   = ms.head == 0xed
     def isSecp256k1: Boolean = !isEd25519
+
+    def asRawKey: ByteVector =
+      ms.size match
+        case 33 if ms.head == 0xed => ms.drop(1)
+        case 33                    => ms
+        case other                 => throw IllegalStateException(s"Malformed AccountPublicKey: $ms")
 
   /**
     * Hve to go look at validation constraints A trait for the object to
