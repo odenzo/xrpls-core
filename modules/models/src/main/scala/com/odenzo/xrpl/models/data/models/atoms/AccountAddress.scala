@@ -1,11 +1,11 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
-import com.odenzo.xrpl.common.binary.{FixedSizeBinary, XrpBase58Fix}
+import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, XrpBase58Fix }
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.constants.{TypePrefix, XrpConstants}
+import com.odenzo.xrpl.models.data.models.constants.{ TypePrefix, XrpConstants }
 import com.odenzo.xrpl.models.data.models.fields.Field
-import io.circe.{Codec, Json}
-import scodec.bits.{BitVector, ByteVector}
+import io.circe.{ Codec, Json }
+import scodec.bits.{ BitVector, ByteVector }
 
 /**
   * AccountAddress has both a type code and field length. The ByteVector
@@ -23,7 +23,7 @@ opaque type AccountAddress = BitVector
 
 object AccountAddress extends Field:
   private val totalLen                = 1 + 20 + 4 // Bytes
-  override val typePrefix: TypePrefix = TypePrefix.AccountAddress
+  override val typePrefix: TypePrefix = TypePrefix.accountAddress
 
   given FixedSizeBinary[AccountAddress](25 * 8) with {
     def fromBits(bits: BitVector): AccountAddress = bits

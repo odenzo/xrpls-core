@@ -1,22 +1,13 @@
 package com.odenzo.xrpl.communication.commands
 
-import com.tersesystems.blindsight.LoggerFactory
-import cats.*
-import cats.data.*
 import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.syntax.all.{*, given}
-import com.odenzo.xrpl.common.utils.MyLogging
-import com.odenzo.xrpl.communication.rpc.engine.RPCEngine
-import com.odenzo.xrpl.communication.{LocalCommsTest, TestScenarios, XrplEngine}
+import cats.syntax.all.*
+import com.odenzo.xrpl.communication.{ LocalCommsTest, TestScenarios, XrplEngine }
 import com.odenzo.xrpl.models.api.commands.admin.LedgerAccept
-import com.odenzo.xrpl.models.api.commands.admin.keygen.{ValidationCreate, WalletPropose}
-import com.odenzo.xrpl.models.data.models.keys.KeyType.secp256k1
-import com.odenzo.xrpl.models.data.models.keys.XrpSeed
-import com.odenzo.xrpl.models.internal.Wallet.decodeStringUnsafe
-import io.circe.*
+import com.odenzo.xrpl.models.api.commands.admin.keygen.{ ValidationCreate, WalletPropose }
+import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpSeed }
+import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.*
-import munit.{AnyFixture, CatsEffectFunFixtures, given}
 
 class AdminCommandsTest extends LocalCommsTest(TestScenarios.mode) {
 
@@ -24,7 +15,7 @@ class AdminCommandsTest extends LocalCommsTest(TestScenarios.mode) {
   test("GenesisWalletPropose") {
     given engine: XrplEngine           = engineFixture()
     val seed                           = "snoPBrXtMeMyMHUVTgbuqAfg1SUTb"
-    val rq: WalletPropose.Rq           = WalletPropose.Rq(seed = XrpSeed.fromBase58Unsafe(seed).some, None, secp256k1)
+    val rq: WalletPropose.Rq           = WalletPropose.Rq(seed = XrpSeed.fromBase58Unsafe(seed).some, None, KeyType.secp256k1)
     val response: IO[WalletPropose.Rs] = engine.send[WalletPropose.Rq, WalletPropose.Rs](rq).map(_.rs)
     response
 
@@ -32,7 +23,7 @@ class AdminCommandsTest extends LocalCommsTest(TestScenarios.mode) {
 
   test("WalletPropose") {
     given engine: XrplEngine = engineFixture()
-    val rq                   = WalletPropose.Rq(seed = None, passphrase = "testing".some, secp256k1)
+    val rq                   = WalletPropose.Rq(seed = None, passphrase = "testing".some, KeyType.secp256k1)
     log.info(rq.asJson.spaces4)
     val response             = engine.send[WalletPropose.Rq, WalletPropose.Rs](rq).map(_.rs)
     response

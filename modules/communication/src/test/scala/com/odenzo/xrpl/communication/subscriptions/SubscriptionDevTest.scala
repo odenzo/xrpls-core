@@ -1,26 +1,18 @@
 package com.odenzo.xrpl.communication.subscriptions
 
-import cats.*
-import cats.data.*
 import cats.effect.*
-import cats.effect.syntax.all.*
 import cats.syntax.all.*
-import com.odenzo.xrpl.common.utils.MyLogging
 import com.odenzo.xrpl.communication.*
-import com.odenzo.xrpl.communication.commands.AdminCommandsTest
 import com.odenzo.xrpl.communication.config.XrplEngineConfig
-import com.odenzo.xrpl.communication.rpc.engine.RPCEngine
-import com.odenzo.xrpl.communication.websocket.subscription.{SubscribeEngine, SubscribeRq}
+import com.odenzo.xrpl.communication.websocket.subscription.{ SubscribeEngine, SubscribeRq }
 import com.odenzo.xrpl.models.api.commands.admin.LedgerAccept
-import com.odenzo.xrpl.models.data.models.keys.KeyType.secp256k1
 import com.tersesystems.blindsight.LoggerFactory
 import fs2.Pipe
 import fs2.concurrent.Topic
 import io.circe.JsonObject
 import munit.Tag
-import org.http4s.implicits.uri
 
-import scala.concurrent.duration.{Duration, given}
+import scala.concurrent.duration.*
 
 /** Normally a Fixture would be used, but since testing it directly. */
 class SubscriptionDevTest extends LocalCommsTest("rpc") {

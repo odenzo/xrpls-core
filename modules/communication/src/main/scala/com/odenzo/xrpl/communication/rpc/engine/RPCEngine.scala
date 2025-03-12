@@ -7,6 +7,7 @@ import com.odenzo.xrp.bincodec.XrpBinCodecAPI
 import com.odenzo.xrpl.common.utils.MyLogging
 import com.odenzo.xrpl.communication.ResponseExtractors.{ extractErrors, extractStatus }
 import RPCEngine.{ createTxJsonBinary, extractResultField, given_Configuration, merge }
+import cats.implicits.catsSyntaxOptionId
 import com.odenzo.xrpl.communication.{
   ResponseExtractors,
   XrplEngine,
@@ -15,9 +16,9 @@ import com.odenzo.xrpl.communication.{
   XrplStatus,
 }
 import com.odenzo.xrpl.models.api.commands.transaction.Submit
-import com.odenzo.xrpl.models.api.transactions.support.{TxCommon, XrpTxn}
+import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.api.commands.admin.{LedgerAccept, Sign}
+import com.odenzo.xrpl.models.api.commands.admin.{ LedgerAccept, Sign }
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.derivation.Configuration
@@ -109,7 +110,7 @@ class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with MyLoggi
     * JsonObjects. Really need to push that farther down the stack
     */
   private[rpc] def signTxn(txJson: JsonObject, wallet: Wallet): IO[XrplEngineCommandResult[Sign.Rs]] = {
-    val rq: Sign.Rq = Sign.Rq(wallet.masterSeed, txJson)
+    val rq: Sign.Rq = Sign.Rq(wallet.keyType, wallet.masterSeed.some, None, txJson)
     val prog        = for {
       cmdResult <- send[Sign.Rq, Sign.Rs](rq)
     } yield cmdResult

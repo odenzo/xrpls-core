@@ -10,10 +10,10 @@ import scodec.bits.ByteVector
   * @param byte
   */
 enum TypePrefix(val prefix: Byte):
-  case AccountAddress extends TypePrefix(0x00)
-  case AccountPublicKey extends TypePrefix(0x23)
-  case SeedValue extends TypePrefix(0x21)
-  case ValidationPublicKey extends TypePrefix(0x1c)
+  case accountAddress extends TypePrefix(0x00)
+  case accountPublicKey extends TypePrefix(0x23)
+  case seedValue extends TypePrefix(0x21)
+  case validationPublicKey extends TypePrefix(0x1c)
 
   def bv: ByteVector = ByteVector(prefix)
 

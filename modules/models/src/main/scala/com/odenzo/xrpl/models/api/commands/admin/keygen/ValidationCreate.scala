@@ -1,10 +1,11 @@
 package com.odenzo.xrpl.models.api.commands.admin.keygen
 
+
 import com.odenzo.xrpl.models.api.commands.Command
-import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpAdminCommandRq, XrpCommand, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.keys.{ XrpPublicKey, XrpRFC1751Passphrase, XrpSeed }
+import com.odenzo.xrpl.models.api.commands.CommandMarkers.{XrpAdminCommandRq, XrpCommand, XrpCommandRs}
+import com.odenzo.xrpl.models.data.models.keys.{XrpPublicKey, XrpRFC1751Passphrase, XrpSeed}
 import io.circe.*
-import io.circe.derivation.{ Configuration, ConfiguredCodec }
+import io.circe.derivation.{Configuration, ConfiguredCodec}
 
 /**
   * This sucks but is Rq and Rs in XrpCommand are wrong then the program hangs.

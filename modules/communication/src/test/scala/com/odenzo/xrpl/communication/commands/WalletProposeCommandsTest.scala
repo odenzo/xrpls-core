@@ -1,24 +1,12 @@
 package com.odenzo.xrpl.communication.commands
 
-import cats.*
-import cats.data.*
 import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.syntax.all.{*, given}
-import com.odenzo.xrpl.common.utils.MyLogging
-import com.odenzo.xrpl.communication.rpc.engine.RPCEngine
-import com.odenzo.xrpl.communication.{LocalCommsTest, TestScenarios, XrplEngine}
-import com.odenzo.xrpl.models.api.commands.admin.LedgerAccept
+import cats.syntax.all.*
+import com.odenzo.xrpl.communication.{ LocalCommsTest, TestScenarios, XrplEngine }
 import com.odenzo.xrpl.models.api.commands.admin.keygen.WalletPropose
-import com.odenzo.xrpl.models.data.models.keys.KeyType.secp256k1
-import com.odenzo.xrpl.models.data.models.keys.{KeyType, XrpSeed}
-import com.odenzo.xrpl.models.internal.Wallet.decodeStringUnsafe
+import com.odenzo.xrpl.models.data.models.keys.KeyType
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.*
 import io.circe.syntax.*
-import munit.{AnyFixture, CatsEffectFunFixtures, Flaky, Slow, given}
-
-import scala.util.Random
 
 /**
   * Some addition WalletPropose tests, used to generate test data for
@@ -43,7 +31,7 @@ class WalletProposeCommandsTest extends LocalCommsTest(TestScenarios.mode) {
   )
 
   /** Generate random alphanumeric password betweet 10 and 20 characters */
-  def randomPassphrase: String = random.alphanumeric.take(random.between(10, 20)).mkString
+  def randomPassphrase: String  = random.alphanumeric.take(random.between(10, 20)).mkString
   val passphrases: List[String] = List.fill(15)(randomPassphrase)
 
   def checkPassphrase[T](
@@ -51,7 +39,7 @@ class WalletProposeCommandsTest extends LocalCommsTest(TestScenarios.mode) {
       keyType: KeyType,
   )(implicit loc: munit.Location): Unit = {
     test(s"RFC $phrase") {
-    //  println(s"IN:: Phrase: $phrase $keyType")
+      //  println(s"IN:: Phrase: $phrase $keyType")
       given engine: XrplEngine           = engineFixture()
       val rq                             = WalletPropose.Rq(seed = None, passphrase = phrase.some, keyType)
       // log.info(rq.asJson.spaces4)

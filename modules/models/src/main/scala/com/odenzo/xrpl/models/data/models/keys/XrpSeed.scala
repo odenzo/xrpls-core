@@ -5,8 +5,6 @@ import cats.implicits.catsSyntaxEq
 import cats.syntax.all.*
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.constants.TypePrefix
-import com.odenzo.xrpl.models.data.models.fields.Field
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Codec
 import scodec.bits.ByteVector
@@ -16,11 +14,11 @@ import scala.util.Random
 /** This is the TypePrefix plus the body, without the Checksum */
 opaque type XrpSeed <: ByteVector = ByteVector
 
-object XrpSeed extends Field:
+object XrpSeed:
   private val log = LoggerFactory.getLogger
 
-  override def typePrefix: TypePrefix = TypePrefix.SeedValue
-  val bodyLengthInBytes: Int          = 21 // Including Prefix Byte and 4 byte checksum
+  val typePrefix: Byte       = 0x21
+  val bodyLengthInBytes: Int = 21 // Including Prefix Byte and 4 byte checksum
 
   /**
     * This is problematic because its spitting out unicode which stalls the
@@ -32,15 +30,11 @@ object XrpSeed extends Field:
   /** Validate the wrapped bytevector, including any prefixes etc */
   def validated(bv: ByteVector): ValidatedNec[String, XrpSeed] =
     (
-      typePrefixIs(bv.head).toValidatedNec,
-      Validated.condNec(
-        bv.size === bodyLengthInBytes,
-        bv,
-        s"""| MasterSeed/XrpSeed should be ${bodyLengthInBytes}   but was ${bv.size}
-            | The ByteVector was ${bv}
-            | The typePrefix (not FieldId) was $typePrefix ${typePrefix.prefix}
-            |""".stripMargin,
-      ),
+      Validated.condNec(bv.head == typePrefix, bv, s"XrpSeed Byte Prefix ${bv.head} didnt Match $typePrefix"),
+      Validated.condNec(bv.size === bodyLengthInBytes,
+                        bv,
+                        s""" MasterSeed/XrpSeed should be ${bodyLengthInBytes}   but was ${bv.size}""".stripMargin,
+                       ),
     ).mapN((_, _) => bv: XrpSeed)
 
   /**
@@ -49,7 +43,7 @@ object XrpSeed extends Field:
     */
   def fromBytesUnsafe(b: ByteVector): XrpSeed =
     assert(b.size == 16)
-    typePrefix.bv ++ b
+    ByteVector(typePrefix) ++ b
 
   /** TODO: Add Validation THis will bve tge full typeCode + body + checksum */
   def fromBase58Unsafe(b58: String): XrpSeed =
@@ -81,6 +75,6 @@ object XrpSeed extends Field:
       * The raw 16 byte seed for crypto work. currently not storing the
       * checksum, only prefix
       */
-    def asRawSeed: ByteVector = ms.drop(1)
+    def asRawSeed: ByteVector = ms.drop(1).dropRight(4)
 
 end XrpSeed

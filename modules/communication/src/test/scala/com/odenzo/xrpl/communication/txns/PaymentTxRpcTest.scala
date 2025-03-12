@@ -8,7 +8,6 @@ import com.odenzo.xrpl.models.api.commands.admin.keygen.ValidationCreate
 import com.odenzo.xrpl.models.api.transactions.TrustSetTx
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
 import com.odenzo.xrpl.models.data.models.keys.KeyType
-import com.odenzo.xrpl.models.data.models.keys.KeyType.secp256k1
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.*
 import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, Script, XrplCurrency }
@@ -80,7 +79,7 @@ class PaymentTxRpcTest extends LocalCommsTest("rpc") {
   test("TestKit Create SecP Account") {
     given engine: XrplEngine = engineFixture()
     for {
-      result <- TestScenarios.createFundedAccount(CurrencyAmount.xrp(10L), Wallet.GENESIS, secp256k1)
+      result <- TestScenarios.createFundedAccount(CurrencyAmount.xrp(10L), Wallet.GENESIS, KeyType.secp256k1)
       _       = log.debug(s"Result: $result")
     } yield result
 

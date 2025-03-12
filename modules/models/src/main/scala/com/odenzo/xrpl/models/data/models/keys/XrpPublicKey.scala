@@ -3,10 +3,8 @@ package com.odenzo.xrpl.models.data.models.keys
 import cats.data.Validated
 import com.odenzo.xrpl.common.binary.{ XrpBase58Fix, XrpBinaryOps }
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import io.circe.{ Codec, Decoder, Encoder }
-import scodec.bits.ByteVector.*
+import io.circe.Codec
 import scodec.bits.{ ByteVector, hex }
-import scodec.given
 
 /**
   * Supports secp or ed25519 key types. secp is 33 bytes, and ed25519 is 32
@@ -30,6 +28,7 @@ object XrpPublicKey extends XrpBinaryOps:
 
   extension (ms: XrpPublicKey)
     def bv: ByteVector       = ms
+    def asRawKey: ByteVector = ms.drop(1).dropRight(4)
     def asHex: String        = ms.toHex
     def base58: String       = XrpBase58Fix.toXrpBase58(ms: ByteVector)
     def isEd25519: Boolean   = ms.head == 0xed

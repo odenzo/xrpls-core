@@ -1,36 +1,13 @@
 package com.odenzo.xrpl.communication.testinfratests
 
-import com.tersesystems.blindsight.LoggerFactory
-import cats.*
-import cats.data.*
-import cats.effect.*
-import cats.effect.IO.{IOCont, Uncancelable, some}
-import cats.effect.syntax.all.*
-import cats.syntax.all.*
-import com.odenzo.xrpl.common.binary.XrplBase58Alphabet
-import com.odenzo.xrpl.common.utils.MyLogging
 import com.odenzo.xrpl.communication.*
-import com.odenzo.xrpl.communication.rpc.engine.RPCEngine
-import com.odenzo.xrpl.models.api.commands.accountinfo.{AccountCurrencies, NoRippleCheck}
 import com.odenzo.xrpl.models.api.commands.admin.keygen.ValidationCreate
-import com.odenzo.xrpl.models.api.transactions.{PaymentTx, TrustSetTx}
-import com.odenzo.xrpl.models.api.transactions.support.TxCommon
-
-.*
-import com.odenzo.xrpl.models.data.models.keys.KeyType.{ed25519, secp256k1}
-import com.odenzo.xrpl.models.data.models.keys.{KeyType, XrpSeed}
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.{LedgerIndex, current, validated}
-import com.odenzo.xrpl.models.data.models.memos.{Memo, MemoBuilder}
+import com.odenzo.xrpl.models.data.models.keys.KeyType
+import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
+import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.*
-import com.odenzo.xrpl.models.data.models.monetary.FiatValue.*
-import com.odenzo.xrpl.models.data.models.monetary.{CurrencyAmount, FiatValue, Script, XrplCurrency}
 import com.odenzo.xrpl.models.internal.Wallet
-import io.circe.*
-import io.circe.syntax.*
-import io.scalaland.chimney.partial.Result
-import munit.catseffect.IOFixture
-import munit.{AnyFixture, CatsEffectFunFixtures, given}
-import scodec.bits.{ByteVector, hex}
+import com.tersesystems.blindsight.LoggerFactory
 
 class CreateFundedAccountTest extends LocalCommsTest("rpc") {
   private val log = LoggerFactory.getLogger
@@ -62,7 +39,7 @@ class CreateFundedAccountTest extends LocalCommsTest("rpc") {
     given engine: XrplEngine = engineFixture()
 
     for {
-      result <- TestScenarios.createFundedAccount(CurrencyAmount.xrp(10L), Wallet.GENESIS, secp256k1)
+      result <- TestScenarios.createFundedAccount(CurrencyAmount.xrp(10L), Wallet.GENESIS, KeyType.secp256k1)
       _       = log.debug(s"Result: $result")
     } yield result
 

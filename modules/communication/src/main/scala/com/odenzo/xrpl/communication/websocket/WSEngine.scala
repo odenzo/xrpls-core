@@ -28,9 +28,9 @@ import com.odenzo.xrpl.communication.{
 import com.odenzo.xrpl.communication.websocket.transport.WebSocketTransport
 import com.odenzo.xrpl.models.api.commands.transaction.Submit
 import com.odenzo.xrpl.models.api.commands.transaction.Submit as engine
-import com.odenzo.xrpl.models.api.transactions.support.{TxCommon, XrpTxn}
+import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.api.commands.admin.{LedgerAccept, Sign}
+import com.odenzo.xrpl.models.api.commands.admin.{ LedgerAccept, Sign }
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.pointer.literal.pointer
@@ -93,9 +93,10 @@ class WSEngine(transport: WebSocketTransport) extends XrplEngine {
   override def ledgerAccept: IO[XrplEngineCommandResult[LedgerAccept.Rs]] =
     send[LedgerAccept.Rq, LedgerAccept.Rs](LedgerAccept.Rq())
 
+  // TODO: Pull out Sign.Rq to a function (wallet, txJson) and use with both engines.
   private[websocket] def signTxn(txJson: JsonObject, wallet: Wallet): IO[XrplEngineCommandResult[Sign.Rs]] = {
     log.debug(s"--- Signing With Key for ${wallet.publicKey}:\n ${txJson.asJson.spaces4} \n---")
-    val rq: Sign.Rq = Sign.Rq(wallet.masterSeed, txJson)
+    val rq: Sign.Rq = Sign.Rq(wallet.keyType, wallet.masterSeed.some, None, txJson)
     send[Sign.Rq, Sign.Rs](rq)
   }
 

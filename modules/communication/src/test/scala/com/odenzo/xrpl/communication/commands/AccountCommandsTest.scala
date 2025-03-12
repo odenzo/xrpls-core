@@ -1,33 +1,17 @@
 package com.odenzo.xrpl.communication.commands
 
-import cats.*
-import cats.data.*
 import cats.effect.*
-import cats.effect.syntax.all.*
 import cats.syntax.all.*
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.common.utils.MyLogging
-import com.odenzo.xrpl.communication.rpc.engine.RPCEngine
-import com.odenzo.xrpl.communication.websocket.WSEngine
-import com.odenzo.xrpl.communication.{LocalCommsTest, TestScenarios, XrplEngine}
-import com.odenzo.xrpl.models.api.commands.Command
-import com.odenzo.xrpl.models.api.commands.CommandMarkers.{XrpCommand, XrpCommandRq, XrpCommandRs}
-import com.odenzo.xrpl.models.api.commands.accountinfo.{AccountChannels, AccountCurrencies, AccountInfo, AccountLines, AccountObjects, AccountOffers, AccountTx, GatewayBalances, NoRippleCheck}
-import com.odenzo.xrpl.models.api.commands.accountinfo.NoRippleCheck.Role.{gateway, user}
-
-import com.odenzo.xrpl.models.data.models.constants.XrpConstants
-import com.odenzo.xrpl.models.data.models.keys.KeyType.secp256k1
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.{current, validated}
+import com.odenzo.xrpl.communication.{ LocalCommsTest, TestScenarios, XrplEngine }
+import com.odenzo.xrpl.models.api.commands.accountinfo.NoRippleCheck.Role.{ gateway, user }
+import com.odenzo.xrpl.models.api.commands.accountinfo.*
+import com.odenzo.xrpl.models.data.models.atoms.*
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{Drops, xrp}
+import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
+import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.xrp
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.*
 import io.circe.syntax.*
-import munit.catseffect.IOFixture
-import munit.{AnyFixture, CatsEffectFunFixtures, given}
 
-import scala.concurrent.duration.given
-import com.odenzo.xrpl.models.data.models.atoms.{*, given}
 /**
   * Rough tests manually inspected. Need to warning and error cases for that
   * path, on just one command at least.

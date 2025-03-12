@@ -3,9 +3,9 @@ package com.odenzo.xrpl.models.api.commands.admin.keygen
 import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpAdminCommandRq, XrpCommand, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.atoms.*
-import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpPublicKey, XrpSeed }
 import io.circe.derivation.*
-import com.odenzo.xrpl.models.data.models.constants.TypePrefix.AccountAddress
+
+import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpPublicKey, XrpSeed }
 
 /**
   * https://xrpl.org/docs/references/http-websocket-apis/admin-api-methods/key-generation-methods/wallet_propose
@@ -13,7 +13,7 @@ import com.odenzo.xrpl.models.data.models.constants.TypePrefix.AccountAddress
   * null. So need to drop null values
   */
 object WalletPropose extends XrpCommand[WalletPropose.Rq, WalletPropose.Rs] {
-  import XrpPublicKey.Codecs.given
+  import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.Codecs.given
 
   /**
     * @param keyType
