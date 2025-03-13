@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.signing.core.secp256k1
 
+import com.odenzo.xrpl.common.binary.XrpBinaryOps
+import com.odenzo.xrpl.common.utils.MyLogging
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpKeyPair, XrpPrivateKey, XrpPublicKey, XrpSeed }
-import com.odenzo.xrpl.signing.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.signing.common.utils.MyLogging
 import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.Constants.params
 import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.isValidPrivateKey
 import com.tersesystems.blindsight.LoggerFactory
@@ -12,6 +12,8 @@ import scodec.bits.ByteVector
 
 import java.math.BigInteger
 import scala.annotation.tailrec
+
+case class SecpKeyPairParams()
 
 /**
   * For secp the basic idea if that a AccountFamilyGenerator has a public and
@@ -50,7 +52,7 @@ object SecpKeyGenerators extends MyLogging {
     val intPublicKey                 = deriveIntermediatePublicKey(intPrivateKey)
     val masterPrivateKey: ByteVector = deriveMasterPrivateKeyModuloStyle(rootPrivateKey, intPrivateKey)
     val masterPublicKeyB: ByteVector = deriveMasterPublicKeyFromMasterPrivateKey(masterPrivateKey)
-    log.info(s"MasterPublicKeyB: $masterPublicKeyB")
+    log.info(s"MasterPublicKeyB: ${masterPublicKeyB.bits.toHex}")
     // assert(masterPublicKeyA.equals(masterPublicKeyB), "SECP MasterPublicKeys Didn't match")
     val privateKey                   = XrpPrivateKey.fromBytesUnsafe(masterPrivateKey)
     val publicKey                    = XrpPublicKey.fromBytesUnsafe(masterPublicKeyB)
@@ -63,9 +65,9 @@ object SecpKeyGenerators extends MyLogging {
     *
     * @param seed
     * @param rootKeyIndex
-    *   4 byte unsigned counter, starts at zero and is incremented as a signed
-    *   int, but its always >= 0. Not that I am not sure how big, but I use a
-    *   long. I am never sure how far this actually iterates, can't image more
+    *   4 byte unsigned counters, starts at zero and is incremented as a signed
+    *   int, but it's always >= 0. Not that I am not sure how big, but I use a
+    *   Long. I am never sure how far this actually iterates, can't image more
     *   than MAX_INT (signed)
     */
 
@@ -81,7 +83,7 @@ object SecpKeyGenerators extends MyLogging {
   }
 
   def deriveRootPrivateKeyFromSeed(seed: XrpSeed): ByteVector = {
-    val paddedSeed: ByteVector = seed.asRawSeed
+    val paddedSeed: ByteVector = seed.bits.bytes
     val fullHash: ByteVector   = generatorFromSeed(paddedSeed, 0L)
     log.debug(s"Full Hash/Seed: len ${fullHash.length} => ${fullHash.toHex}")
     fullHash.take(32)
@@ -148,10 +150,10 @@ object SecpKeyGenerators extends MyLogging {
     val domain: ECDomainParameters = new ECDomainParameters(params.getCurve, params.getG, params.getN, params.getH)
 
     // This is a positive number, so 1, and then a bigendian binary array of the number
-    val bd: BigInteger         = BigInt(1, privateKey.toArray).bigInteger
-    val q: ECPoint             = domain.getG.multiply(bd)
-    val publicParams           = new ECPublicKeyParameters(q, domain)
-    val publicKey: Array[Byte] = publicParams.getQ.getEncoded(compress)
+    val bd: BigInteger                      = BigInt(1, privateKey.toArray).bigInteger
+    val q: ECPoint                          = domain.getG.multiply(bd)
+    val publicParams: ECPublicKeyParameters = new ECPublicKeyParameters(q, domain)
+    val publicKey: Array[Byte]              = publicParams.getQ.getEncoded(compress)
     ByteVector(publicKey)
   }
 

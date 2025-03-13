@@ -19,8 +19,8 @@ object AccountId:
   }
 
   /** To and from JSON its always going to be an AccountAddress I think. */
-  given Codec[AccountId] = CirceCodecUtils.hexBitsCodec
-
+  given Codec[AccountId]                                   = CirceCodecUtils.hexBitsCodec
+  def fromBytes(b: ByteVector): AccountId                  = b.bits
   def fromBits(b: BitVector): AccountId                    = b
   def fromMasterPublicKey(master: XrpPublicKey): AccountId = {
     val ripe: ByteVector = XrpBinaryOps.ripemd160(master.bv)

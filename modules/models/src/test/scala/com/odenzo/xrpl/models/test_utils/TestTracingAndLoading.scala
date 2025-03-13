@@ -1,3 +1,5 @@
+package com.odenzo.xrpl.models.test_utils
+
 //package com.odenzo.ripple.test_utils
 //import java.io.{File, FileInputStream, FileOutputStream, ObjectInput, ObjectInputStream, ObjectOutputStream}
 //import java.nio.charset.StandardCharsets

@@ -1,7 +1,9 @@
 package com.odenzo.xrpl.common.binary
 
-import java.security.MessageDigest
+import com.odenzo.xrpl.common.xrpconstants.TypePrefix
+import org.bouncycastle.jce.provider.BouncyCastleProvider
 
+import java.security.{ MessageDigest, Security }
 import scodec.bits.ByteVector
 
 /**
@@ -14,9 +16,22 @@ import scodec.bits.ByteVector
   * ByteVector that should be immutable
   */
 trait HashOps {
-  //  Security.addProvider(new BouncyCastleProvider)
-  def xrpChecksum(body: ByteVector): ByteVector =
+  Security.addProvider(new BouncyCastleProvider)
+
+  /**
+    * When check sum is applied to XRP stuff it generally includes any prefix to
+    * the value
+    */
+  inline def xrpChecksum(body: ByteVector): ByteVector =
     sha256(sha256(body)).take(4)
+
+  inline def wrap(prefix: Byte, body: ByteVector): ByteVector =
+    val payload: ByteVector = ByteVector(prefix) ++ body
+    payload ++ xrpChecksum(payload)
+
+  inline def wrap(prefix: TypePrefix, body: ByteVector): ByteVector = wrap(prefix.prefix, body)
+
+  inline def unwrap(bytes: ByteVector) = bytes.drop(1).dropRight(4)
 
   /**
     * This is equivalent to Ripple SHA512Half, it does SHA512 and returns first
@@ -32,7 +47,7 @@ trait HashOps {
     * @return
     *   64-byte SHA512 hash with no salt added.
     */
-  def sha256(bytes: ByteVector): ByteVector = {
+  inline def sha256(bytes: ByteVector): ByteVector = {
     val array: Array[Byte] = MessageDigest.getInstance("SHA-256").digest(bytes.toArray)
     ByteVector(array)
   }

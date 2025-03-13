@@ -12,6 +12,7 @@ import scodec.bits.ByteVector
   */
 opaque type XrpPrivateKey = ByteVector
 
+// Sight, this leaks out for IJ still
 object XrpPrivateKey:
 
   /**

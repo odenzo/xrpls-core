@@ -1,11 +1,5 @@
 package com.odenzo.xrpl.models.api.commands.serverinfo
 
-
-
-
-
-//package com.odenzo.xrpl.apis.commands.serverinfo
-//
 //import com.odenzo.xrpl.apis.commands.CommandMarkers.{ XrplCommand, XrplCommandRq, XrplCommandRs }
 //import io.circe.*
 //import io.circe.generic.semiauto.{ deriveDecoder, deriveEncoder }
@@ -20,7 +14,7 @@ package com.odenzo.xrpl.models.api.commands.serverinfo
 //    * @param id
 //    */
 //  case class FetchInfoRq() extends XrplCommandRq derives Codec.AsObject {
-//    
+//
 //  }
 //
 //  case class FetchInfoRs(info: Json) extends XrplCommandRs derives Codec.AsObject

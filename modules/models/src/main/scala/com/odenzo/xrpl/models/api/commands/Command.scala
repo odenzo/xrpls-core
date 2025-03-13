@@ -13,6 +13,7 @@ enum Command(val label: String):
   case BOOK_CHANGES extends Command("book_changes")
   case BOOK_OFFERS extends Command("book_offers")
   case CONNECT extends Command("connect")
+  case CAN_DELETE extends Command("can_delete")
   case DEPOSIT_AUTHORIZED extends Command("deposit_authorized")
   case FEE extends Command("fee")
   case FEATURE extends Command("feature")

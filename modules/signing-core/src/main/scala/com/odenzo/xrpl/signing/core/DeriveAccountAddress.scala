@@ -1,17 +1,14 @@
 package com.odenzo.xrpl.signing.core
 
-import com.odenzo.xrpl.signing.common.binary.XrpBinaryOps
-import scodec.bits.ByteVector
 import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.*
-import cats.data.*
 import cats.syntax.all.*
-import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-import com.odenzo.xrpl.models.data.models.constants.TypePrefix
+import com.odenzo.xrpl.common.binary.XrpBinaryOps
+import com.odenzo.xrpl.common.xrpconstants.TypePrefix
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountId }
 import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
-import com.odenzo.xrpl.signing.core.secp256k1.DER.accountPrefix
 import com.tersesystems.blindsight.LoggerFactory
+import scodec.bits.Bases.Alphabets.HexUppercase
+import scodec.bits.ByteVector
 
 object DeriveAccountAddress extends XrpBinaryOps {
 
@@ -24,21 +21,17 @@ object DeriveAccountAddress extends XrpBinaryOps {
     *   secp265k or ed25519 public keys, and operates on 33 bytes always, this
     *   includes the 0xED marker for Ed25519
     * @return
-    *   Ripple Account Address Base58 encoded with leading r and checksum.
+    *   Ripple AccountAddress
     */
   def xrpPublicKey2address(publicKey: XrpPublicKey): IO[AccountAddress] = {
     import XrpPublicKey.*
-    val publicKeyBytes        = publicKey.asRawKey
-    println(s"Raw Public Key: ${publicKeyBytes.toHex}")
-    val accountId: ByteVector = XrpBinaryOps.ripemd160(XrpBinaryOps.sha256(publicKeyBytes))
-    val body: ByteVector      = TypePrefix.accountAddress.bv ++ accountId //
-    val bytes: ByteVector     = body ++ XrpBinaryOps.xrpChecksum(body)
-    println(s"Check summed Calculated Address: ${bytes.toHex}")
-    IO.fromEither(
-      AccountAddress
-        .fromRawBytes(bytes) // Need a fromBytesNoWrapper
-        .leftMap((v: String) => IllegalArgumentException(s"Bad Bytes for AccountAddress"))
-    )
+    val publicKeyBytes             = publicKey.asRawKey
+    println(s"Raw Public Key: ${publicKeyBytes.toHex(HexUppercase)}")
+    val accountIdBytes: ByteVector = XrpBinaryOps.ripemd160(XrpBinaryOps.sha256(publicKeyBytes))
+    val accountId                  = AccountId.fromBytes(accountIdBytes)
+
+    IO(AccountAddress.fromAccountId(accountId))
+
   }
 
 }

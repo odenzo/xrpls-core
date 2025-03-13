@@ -2,9 +2,9 @@ package com.odenzo.xrp.bincodec.scodecs
 
 import cats.implicits.*
 import com.odenzo.xrpl.common.binary.XrplBase58Alphabet
+import com.odenzo.xrpl.common.xrpconstants.XrpConstants
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
-import com.odenzo.xrpl.models.data.models.constants.XrpConstants
 import com.odenzo.xrpl.models.scodecs.AccountScodecs
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Json
@@ -15,6 +15,7 @@ class AccountScodecsTest extends munit.FunSuite {
 
   private val log = LoggerFactory.getLogger
 
+  import AccountAddress.given
   val vlAcct1 = hex"81_14_0864D99FE19C6B19B0B7BA865B9A4A552173A896"
   val vlAcct2 = hex"83_14_D91693CB3D87723F716A16C46A398B9659864B0F"
   val acct1   = "rmPD5tJXdk3h4guoCsNADeDXRzmjvG3Ez"

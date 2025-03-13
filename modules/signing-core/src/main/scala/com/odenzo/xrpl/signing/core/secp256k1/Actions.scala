@@ -3,8 +3,8 @@ package com.odenzo.xrpl.signing.core.secp256k1
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import com.odenzo.xrpl.signing.common.utils.MyLogging
 import SecpOps.privateKey2D
+import com.odenzo.xrpl.common.utils.MyLogging
 import org.bouncycastle.asn1.sec.SECNamedCurves
 import org.bouncycastle.asn1.x9.X9ECParameters
 import org.bouncycastle.crypto.digests.SHA256Digest
@@ -58,8 +58,8 @@ object Actions extends MyLogging {
   }
 
   /**
-    * Given a hash (of txn normally) and Public/Private Keypair create a DER
-    * Signature using SHA256Digest with ECDSA Signer. Secp only?
+    * ** KEEP THIS** Given a hash (of txn normally) and Public/Private Keypair
+    * create a DER Signature using SHA256Digest with ECDSA Signer. Secp only?
     * @param hash
     *   The has of the txn to sign
     * @param secret

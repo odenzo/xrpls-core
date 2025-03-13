@@ -3,12 +3,12 @@ package com.odenzo.xrpl.signing.core.secp256k1
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import com.odenzo.xrpl.signing.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.signing.common.utils.MyLogging
+import com.odenzo.xrpl.common.binary.{ BouncyCastleOps, XrpBinaryOps }
+import com.odenzo.xrpl.common.utils.MyLogging
 import com.tersesystems.blindsight.LoggerFactory
-import org.bouncycastle.asn1.{ASN1Integer, DERSequenceGenerator}
+import org.bouncycastle.asn1.{ ASN1Integer, DERSequenceGenerator }
 import org.bouncycastle.util.BigIntegers
-import scodec.bits.{BitVector, ByteVector, hex}
+import scodec.bits.{ BitVector, ByteVector, hex }
 
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger
@@ -59,7 +59,7 @@ object DER extends MyLogging with XrpBinaryOps {
 
   case class Field(prefix: Byte, lenBin: BitVector, value: ByteVector) {
     lazy val toByteVector: ByteVector = ByteVector.fromByte(prefix) ++ lenBin.toByteVector ++ value
-    def asBigInteger: BigInteger      = convertByteVectorToBigInt(value).bigInteger
+    def asBigInteger: BigInteger      = BouncyCastleOps.convertByteVectorToBigInt(value).bigInteger
     def len: Short                    = lenBin.toShort(false)
 
   }
@@ -68,7 +68,7 @@ object DER extends MyLogging with XrpBinaryOps {
 
     /**
       * Construct a DER.Signature from r and s values assumed to be like (64
-      * unsigned int?)
+      * unsigned int?). This is part of the transaction signing process.
       *
       * How long/big are we expecting r and s?
       */
@@ -85,11 +85,11 @@ object DER extends MyLogging with XrpBinaryOps {
       // TODO: Pay attention to possible 2-complement encoding
       // TODO: Investigate 0x02 vs 0x03
       // TODO: Check on the dt at end, think bitcoin only
-      val rBytes = convertBigIntToUnsignedByteVector(r)
+      val rBytes = BouncyCastleOps.convertBigIntToUnsignedByteVector(r)
       val rLen   = ByteVector.fromLong(rBytes.size, 1) // Convert length to a unsigned byte (unsigned?)
       val rField = hex"02" ++ rLen ++ rBytes
 
-      val sBytes = convertBigIntToUnsignedByteVector(s)
+      val sBytes = BouncyCastleOps.convertBigIntToUnsignedByteVector(s)
       val sLen   = ByteVector.fromLong(sBytes.size, 1)
       val sField = hex"02" ++ sLen ++ sBytes
 

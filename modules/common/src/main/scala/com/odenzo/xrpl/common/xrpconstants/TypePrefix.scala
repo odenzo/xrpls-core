@@ -1,6 +1,5 @@
-package com.odenzo.xrpl.models.data.models.constants
+package com.odenzo.xrpl.common.xrpconstants
 
-import cats.Eq
 import scodec.bits.ByteVector
 
 /**
@@ -11,7 +10,7 @@ import scodec.bits.ByteVector
   */
 enum TypePrefix(val prefix: Byte):
   case accountAddress extends TypePrefix(0x00)
-  case accountPublicKey extends TypePrefix(0x23)
+  case xrpPublicKey extends TypePrefix(0x23)
   case seedValue extends TypePrefix(0x21)
   case validationPublicKey extends TypePrefix(0x1c)
 

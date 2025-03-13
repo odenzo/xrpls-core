@@ -1,10 +1,6 @@
-package com.odenzo.xrpl.models.data.models.constants
+package com.odenzo.xrpl.common.xrpconstants
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-
-import io.circe.Decoder
-import io.circe.generic.semiauto.deriveDecoder
-import scodec.bits.ByteVector
 
 /**
   * Bootstrapping a Ripple system always creates this Genesis Account sh-4.2#

@@ -20,22 +20,21 @@ trait XrpBinaryOps extends MyLogging with HashOps {
   private val log                         = LoggerFactory.getLogger
   private val sha256Digest: MessageDigest = MessageDigest.getInstance("SHA-256")
 
+  // TODO: Move to TypePRefix which is now in common
   val accountPrefix          = hex"00"
   val publicKeyPrefix        = hex"23"
   val seedValuePrefix        = hex"21"
   val validationPubKeyPrefix = hex"1C"
 
   export ByteVector.given
-  val secureRandom = SecureRandom.getInstanceStrong
+  val secureRandom: SecureRandom = SecureRandom.getInstanceStrong
 
   def randomBits(len: Int): BitVector =
     val bytes = new Array[Byte](len)
     secureRandom.nextBytes(bytes)
     BitVector(bytes)
 
-  /**
-    * Arbitrary but we will *always* use UTF-8 bytes to convert Strings to Bytes
-    */
+  /** Arbitrary but we will *always* use UTF-8 bytes to convert Strings to Bytes */
   def stringToByteVector_UTF8(s: String): ByteVector =
     ByteVector(s.getBytes(StandardCharsets.UTF_8))
 
@@ -43,7 +42,7 @@ trait XrpBinaryOps extends MyLogging with HashOps {
       * Limits on size to 64 bits, throws. ByteVector is considered as unsigned
       * bytes *
       */
-  def unsignedBytesToBigInt(bv: ByteVector): BigInt =
+  def unsignedBytesToBigInt(bv: ByteVector): BigInt  =
     val fromBytes: BigInt = BigInt.apply(bv.toArray)
     val signedBig         = BigInt(1, bv.toArray)
     signedBig
@@ -57,7 +56,8 @@ trait XrpBinaryOps extends MyLogging with HashOps {
   def fieldBitsCompare(bitsA: BitVector, bitsB: BitVector): Int = bitsA.compare(bitsB)
 
   /**
-    * Given as a Public Key adds prefix and XRP checksum.
+    * TODO: Should be in signing module Given as a Public Key adds prefix and
+    * XRP checksum.
     * @param publicKey
     *   secp265k or ed25519 keys key, if ed25519 padded with 0xED
     * @return

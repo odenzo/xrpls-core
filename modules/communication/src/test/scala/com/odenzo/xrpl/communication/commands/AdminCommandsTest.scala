@@ -15,7 +15,7 @@ class AdminCommandsTest extends LocalCommsTest(TestScenarios.mode) {
   test("GenesisWalletPropose") {
     given engine: XrplEngine           = engineFixture()
     val seed                           = "snoPBrXtMeMyMHUVTgbuqAfg1SUTb"
-    val rq: WalletPropose.Rq           = WalletPropose.Rq(seed = XrpSeed.fromBase58Unsafe(seed).some, None, KeyType.secp256k1)
+    val rq: WalletPropose.Rq           = WalletPropose.Rq(seed = XrpSeed.fromMasterSeedBase58(seed).some, None, KeyType.secp256k1)
     val response: IO[WalletPropose.Rs] = engine.send[WalletPropose.Rq, WalletPropose.Rs](rq).map(_.rs)
     response
 

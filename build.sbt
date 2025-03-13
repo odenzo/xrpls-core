@@ -3,7 +3,7 @@ import BuildSettings.MyCompileOptions.scala3Options
 ThisBuild / resolvers ++= Seq(Resolver.mavenLocal, "jitpack" at "https://jitpack.io")
 ThisBuild / organization := "com.odenzo"
 ThisBuild / name := "xrpls"
-ThisBuild / scalaVersion := "3.6.3"
+ThisBuild / scalaVersion := "3.6.4"
 ThisBuild / semanticdbEnabled := true
 
 Test / logBuffered := true

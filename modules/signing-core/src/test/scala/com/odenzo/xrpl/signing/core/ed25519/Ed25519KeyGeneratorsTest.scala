@@ -2,7 +2,7 @@ package com.odenzo.xrpl.signing.core.ed25519
 
 import cats.effect.IO
 import cats.syntax.all.given
-import com.odenzo.xrpl.models.data.models.keys.{WalletProposeResult, XrpKeyPair, XrpSeed}
+import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpKeyPair, XrpSeed }
 import com.odenzo.xrpl.signing.core.DeriveAccountAddress
 import com.odenzo.xrpl.signing.testkit.WalletTestIOSpec
 import com.tersesystems.blindsight.LoggerFactory
@@ -25,8 +25,8 @@ class Ed25519KeyGeneratorsTest extends WalletTestIOSpec {
     test(s"${walletRs.account_id.asBits.toHex} - ${walletRs.key_type}") {
       import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.*
       log.debug(s"WalletRs: ${walletRs.asJson}")
-      val seed: XrpSeed         = XrpSeed.fromBase58Unsafe(walletRs.master_seed) // Need to drop the 21 prefix
-      val keys: XrpKeyPair      = Ed25519KeyGenerators.createXrpKeyPair(seed)
+      val seed: XrpSeed    = XrpSeed.fromMasterSeedBase58(walletRs.master_seed) // Need to drop the 21 prefix
+      val keys: XrpKeyPair = Ed25519KeyGenerators.createXrpKeyPair(seed)
       println(s"XrpKeyPair Public Key ${keys.publicKey.bv.toHex}")
 
       val publicKey: ByteVector = keys.publicKey.bv

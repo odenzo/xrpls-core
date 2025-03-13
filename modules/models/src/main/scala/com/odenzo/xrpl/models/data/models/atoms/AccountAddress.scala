@@ -2,7 +2,7 @@ package com.odenzo.xrpl.models.data.models.atoms
 
 import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, XrpBase58Fix }
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.constants.{ TypePrefix, XrpConstants }
+import com.odenzo.xrpl.common.xrpconstants.{ TypePrefix, XrpConstants }
 import com.odenzo.xrpl.models.data.models.fields.Field
 import io.circe.{ Codec, Json }
 import scodec.bits.{ BitVector, ByteVector }

@@ -1,9 +1,6 @@
-package com.odenzo.xrpl.models.data.models.constants
+package com.odenzo.xrpl.common.xrpconstants
 
-import cats.Show
-import scodec.*
 import scodec.bits.*
-import scodec.codecs.*
 
 object XrpConstants {
 

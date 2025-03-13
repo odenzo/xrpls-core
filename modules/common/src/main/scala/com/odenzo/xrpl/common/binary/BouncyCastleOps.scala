@@ -43,3 +43,5 @@ trait BouncyCastleOps {
   }
 
 }
+
+object BouncyCastleOps extends BouncyCastleOps

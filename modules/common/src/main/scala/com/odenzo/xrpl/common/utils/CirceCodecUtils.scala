@@ -34,7 +34,7 @@ trait CirceCodecUtils extends MyLogging {
 
   /** Codecs for Base58 Strings */
   val xrpBase58Codec: Codec[ByteVector] = Codec.from[ByteVector](
-    decodeString.emap(s => fromXrpBase58(s)),
+    decodeString.emap((s: String) => fromXrpBase58(s)),
     Encoder.encodeString.contramap((a: ByteVector) => toXrpBase58(a)),
   )
 

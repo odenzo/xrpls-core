@@ -3,21 +3,21 @@ package com.odenzo.xrpl.signing.core.secp256k1
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import com.odenzo.xrpl.signing.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.MyLogging
 import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.privateKey2D
 import org.bouncycastle.asn1.sec.SECNamedCurves
 import org.bouncycastle.asn1.x9.X9ECParameters
 import org.bouncycastle.crypto.digests.SHA256Digest
-import org.bouncycastle.crypto.params.{ ECDomainParameters, ECPrivateKeyParameters, ECPublicKeyParameters }
-import org.bouncycastle.crypto.signers.{ ECDSASigner, HMacDSAKCalculator }
-import org.bouncycastle.jcajce.provider.asymmetric.ec.{ BCECPrivateKey, BCECPublicKey }
+import org.bouncycastle.crypto.params.{ECDomainParameters, ECPrivateKeyParameters, ECPublicKeyParameters}
+import org.bouncycastle.crypto.signers.{ECDSASigner, HMacDSAKCalculator}
+import org.bouncycastle.jcajce.provider.asymmetric.ec.{BCECPrivateKey, BCECPublicKey}
 import org.bouncycastle.jce.ECNamedCurveTable
 import org.bouncycastle.jce.interfaces.ECPublicKey
 import org.bouncycastle.jce.provider.BouncyCastleProvider
-import org.bouncycastle.jce.spec.{ ECNamedCurveParameterSpec, ECPrivateKeySpec, ECPublicKeySpec }
+import org.bouncycastle.jce.spec.{ECNamedCurveParameterSpec, ECPrivateKeySpec, ECPublicKeySpec}
 import org.bouncycastle.math.ec
 import org.bouncycastle.math.ec.ECPoint
-import scodec.bits.{ ByteVector, hex }
+import scodec.bits.{ByteVector, hex}
 
 import java.math.BigInteger
 import java.security.*

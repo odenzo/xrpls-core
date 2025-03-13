@@ -15,7 +15,7 @@ import munit.Tag
 import scala.concurrent.duration.*
 
 /** Normally a Fixture would be used, but since testing it directly. */
-class SubscriptionDevTest extends LocalCommsTest("rpc") {
+class SubscriptionDevTest extends LocalCommsTest("ws") {
 
   private val log = LoggerFactory.getLogger
 

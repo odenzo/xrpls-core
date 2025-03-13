@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.signing.core.ed25519
 
+import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.models.data.models.keys.KeyType.ed25519
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpKeyPair, XrpPrivateKey, XrpPublicKey, XrpSeed }
-import com.odenzo.xrpl.signing.common.binary.XrpBinaryOps
 import com.tersesystems.blindsight.LoggerFactory
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair
 import org.bouncycastle.crypto.generators.Ed25519KeyPairGenerator
@@ -25,8 +25,8 @@ case class Ed25519KeyPairParams(publicKey: Ed25519PublicKeyParameters, privateKe
   * random seed i guess for WalletPropose functionlity.
   */
 object Ed25519KeyGenerators {
-  private val log = LoggerFactory.getLogger
-
+  private val log                = LoggerFactory.getLogger
+  import XrpSeed.given
   val secureRandom: SecureRandom = new SecureRandom()
 
   /**
@@ -63,7 +63,7 @@ object Ed25519KeyGenerators {
     *   Bouncv Castle public and private key pair.
     */
   def createBcKeyPairFromXrpSeed(seed: XrpSeed): Ed25519KeyPairParams = {
-    val rawSeed: ByteVector                       = XrpSeed.unwrap(seed)
+    val rawSeed: ByteVector                       = seed.bv
     val hex                                       = rawSeed.toHex
     println(s"SeedHex ${hex.size / 2} Bytes: $hex") // Correct
     val privateKey                                = derivePrivateKeyFromSeed(rawSeed)
