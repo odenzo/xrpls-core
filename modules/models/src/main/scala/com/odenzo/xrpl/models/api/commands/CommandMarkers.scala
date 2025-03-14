@@ -26,8 +26,10 @@ object CommandMarkers {
     * bring in common utility functions. This can be used to add Circe Helpers
     * to perhaps.
     */
-  trait XrpCommand[RQ <: XrpCommandRq: Encoder: Decoder, RS <: XrpCommandRs: Encoder.AsObject: Decoder]
+  trait XrpCommand[RQ <: XrpCommandRq: Encoder.AsObject: Decoder, RS <: XrpCommandRs: Encoder.AsObject: Decoder]
       extends XrpBinaryOps { self =>
+    type REQ = RQ
+    type RES = RS
 
   }
 }

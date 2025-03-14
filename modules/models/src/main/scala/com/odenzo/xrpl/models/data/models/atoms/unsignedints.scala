@@ -10,7 +10,9 @@ import scodec.bits.{ BitVector, ByteVector }
 import spire.math.NumberTag.{ Integral, Resolution }
 import spire.math.{ NumberTag, UInt, ULong, UShort }
 
+import java.math.BigInteger
 import scala.deriving.Mirror.Singleton
+import scala.util.Try
 import scala.util.chaining.given
 
 /**
@@ -18,8 +20,8 @@ import scala.util.chaining.given
   * construction. Playing with "tags" and thiunjing go back to Singleton
   * literals. e.g. UInt[8] but then have trouble with UInt64, which I don't
   * think is actually used except for some ledger stuff? Why not use spure?
-  * Because it is unsafe on overflow, boo! 
-  *
+  * Because it is unsafe on overflow, boo! This is a total wack job as
+  * experiments failed. But we use it (sparingly) for now anyway.
   * @tparam A
   */
 trait UnsignedIntTag[A](val fixedSize: Int) {
@@ -59,6 +61,8 @@ trait UnsignedIntTag[A](val fixedSize: Int) {
   def validateLong(l: Long): Long = if unsignedFitsInLong || l <= maxUnsignedValue && l >= 0 then l
   else throw IllegalArgumentException(s"$l > $maxUnsignedValue or negative")
 
+  def validatedLong(l: Long): Try[Long] = Try(validateLong(l))
+
   def validateBigInt(bi: BigInt): BigInt = {
     log.debug(s"Validating Bit-Int BigInt against fixed size $fixedSize $maxUnsignedValue :: $bi")
     if bi <= maxUnsignedValue && bi.sign.toInt > -1 then bi
@@ -69,12 +73,16 @@ trait UnsignedIntTag[A](val fixedSize: Int) {
 opaque type UInt64 = ULong
 
 object UInt64 extends UnsignedIntTag[UInt64](64) {
-  override def fromBigInt(bi: BigInt): UInt64 = super.fromBigInt(bi): UInt64
+  override def fromBigInt(bi: BigInt): UInt64      = super.fromBigInt(bi): UInt64
+  def fromValidatedBigInt(bi: BigInt): Try[UInt64] = Try(super.fromBigInt(bi): UInt64)
 
   /** Accepts 2s complement (by converting to unsigned) or unsigned long */
   def fromLong(v: Long): UInt64 = ULong(v)
 
-  extension (u: UInt64) def unwrap: ULong = u: ULong
+  extension (u: UInt64)
+    def unwrap: ULong        = u: ULong
+    def asBigInt: BigInteger = u.bigInteger
+    def asLong: Option[Long] = Option.when(u.isValidLong)(u.toLong)
 
 }
 opaque type UInt32 = ULong
@@ -82,8 +90,12 @@ opaque type UInt32 = ULong
 object UInt32 extends UnsignedIntTag[UInt32](32) {
 
   /** Accepts positive Long value less than Int.MAX */
-  def fromLong(v: Long): UInt             = validateULong(v).pipe((v: Long) => UInt.apply(v))
-  extension (u: UInt32) def unwrap: ULong = u: ULong
+  def fromLong(v: Long): UInt                 = validateULong(v).pipe((v: Long) => UInt.apply(v))
+  def fromValidatedLong(v: Long): Try[UInt32] = validatedLong(v).map((v: Long) => ULong(v))
+
+  extension (u: UInt32)
+    def unwrap: ULong = u: ULong
+    def asLong: Long  = u.toLong
 }
 
 opaque type UInt16 = UShort
@@ -92,7 +104,10 @@ object UInt16 extends UnsignedIntTag[UInt16](16) {
   def fromLong(v: Long): UShort = validateULong(v).pipe((v: Long) => UShort.apply(v.toInt))
   def fromInt(vi: Int): UShort  = validateULong(vi.toLong).pipe((v: Long) => UShort.apply(v.toInt))
 
-  extension (u: UInt16) def unwrap: UShort = u: UShort
+  def fromValidatedLong(v: Long): Try[UInt16] = validatedLong(v).map((v: Long) => UShort(v.toShort))
+  extension (u: UInt16)
+    def unwrap: UShort = u: UShort
+    def asLong: Long   = u.toLong
 }
 
 opaque type UInt8 = UShort
@@ -101,7 +116,10 @@ object UInt8 extends UnsignedIntTag[UInt8](8) {
 
   def fromInt(vi: Int): UShort = validateULong(vi.toLong).pipe((v: Long) => UShort.apply(v.toInt))
 
-  extension (u: UInt8) def unwrap: UShort = u: UShort
+  def fromValidatedLong(v: Long): Try[UInt8] = validatedLong(v).map((v: Long) => UShort(v.toShort))
+  extension (u: UInt8)
+    def unwrap: UShort = u: UShort
+    def asLong: Long   = u.toLong
 }
 
 opaque type UInt4 = UShort
@@ -110,16 +128,34 @@ object UInt4 extends UnsignedIntTag[UInt4](4) {
 
   def fromInt(vi: Int): UShort = validateULong(vi.toLong).pipe((v: Long) => UShort.apply(v.toInt))
 
-  extension (u: UInt4) def unwrap: UShort = u: UShort
+  def fromValidatedLong(v: Long): Try[UInt4] = validatedLong(v).map((v: Long) => UShort(v.toShort))
 
+  extension (u: UInt4)
+    def unwrap: UShort = u: UShort
+    def asLong: Long   = u.toLong
 }
 
-given Encoder[UInt64] = Encoder.encodeBigInt.contramap[UInt64](_.toBigInt)
-given Encoder[UInt32] = Encoder.encodeLong.contramap[UInt32](_.toLong)
-given Encoder[UInt16] = Encoder.encodeLong.contramap[UInt16](_.toLong)
-given Encoder[UInt8]  = Encoder.encodeLong.contramap[UInt8](_.toLong)
-given Encoder[UInt4]  = Encoder.encodeInt.contramap[UInt4](_.toInt)
+object UnsignedCodecs {
+  given Encoder[UInt64] = Encoder.encodeBigInt.contramap[UInt64](_.asBigInt)
 
+  given Encoder[UInt32] = Encoder.encodeLong.contramap[UInt32](_.asLong)
+
+  given Encoder[UInt16] = Encoder.encodeLong.contramap[UInt16](_.asLong)
+
+  given Encoder[UInt8] = Encoder.encodeLong.contramap[UInt8](_.asLong)
+
+  given Encoder[UInt4] = Encoder.encodeLong.contramap[UInt4](_.asLong)
+
+  given Decoder[UInt64] = Decoder.decodeBigInt.emapTry[UInt64](UInt64.fromValidatedBigInt)
+
+  given Decoder[UInt32] = Decoder.decodeLong.emapTry[UInt32](UInt32.fromValidatedLong)
+
+  given Decoder[UInt16] = Decoder.decodeLong.emapTry[UInt16](UInt16.fromValidatedLong)
+
+  given Decoder[UInt8] = Decoder.decodeLong.emapTry[UInt8](UInt8.fromValidatedLong)
+
+  given Decoder[UInt4] = Decoder.decodeLong.emapTry[UInt4](UInt4.fromValidatedLong)
+}
 //
 //object UInt64 {}
 //

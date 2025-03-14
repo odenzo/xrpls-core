@@ -1,3 +1,11 @@
+import laika.config.{ MessageFilters, SyntaxHighlighting, Version, Versions }
+import laika.format.Markdown
+import laika.helium.Helium
+import laika.sbt.LaikaConfig
+
+import scala.Seq
+import scala.io.Codec
+
 object BuildSettings {
 
   object MyCompileOptions {
@@ -22,4 +30,29 @@ object BuildSettings {
     )
   }
 
+  object LaikaConfigs {
+    import laika.config.LaikaKeys
+
+    val versions = Versions
+      .forCurrentVersion(Version("0.0.x", "0.0.2").setCanonical)
+      .withOlderVersions(
+        //        Version("0.0.1", "0.41"),
+        //      Version("0.40.x", "0.40").withFallbackLink("toc.html"),
+      )
+      .withNewerVersions(
+        Version("0.0.3", "0.43").withLabel("dev")
+      )
+
+    val helium: Helium = Helium.defaults.site.versions(versions)
+
+    val laikaExtensions = Seq(Markdown.GitHubFlavor, SyntaxHighlighting)
+
+    val laikaConfig = LaikaConfig
+      .defaults
+      .withEncoding(Codec.UTF8)
+      .withConfigValue(LaikaKeys.siteBaseURL, "https://my-docs/site")
+      .withConfigValue("targetFormat", List("html", "pdf"))
+      .withMessageFilters(MessageFilters.forVisualDebugging)
+
+  }
 }

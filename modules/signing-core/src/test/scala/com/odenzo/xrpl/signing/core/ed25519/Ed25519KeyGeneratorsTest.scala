@@ -2,9 +2,11 @@ package com.odenzo.xrpl.signing.core.ed25519
 
 import cats.effect.IO
 import cats.syntax.all.given
+import com.odenzo.xrpl.models.api.commands.admin.keygen.WalletPropose
+import com.odenzo.xrpl.models.data.models.keys.KeyType.ed25519
 import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpKeyPair, XrpSeed }
 import com.odenzo.xrpl.signing.core.DeriveAccountAddress
-import com.odenzo.xrpl.signing.testkit.WalletTestIOSpec
+import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.EncoderOps
 import scodec.bits.Bases.Alphabets
@@ -15,34 +17,34 @@ import scodec.bits.ByteVector
   *   - MasterSeed and MasterSeedHex isomorphism tested elsewhere.
   *   - Passphrase to MasterSeedHex tested elsewhere.
   */
-class Ed25519KeyGeneratorsTest extends WalletTestIOSpec {
+class Ed25519KeyGeneratorsTest
+    extends CommandRqRsTestDataIOSpec[WalletPropose.Rq, WalletPropose.Rs]("WalletProposeRqRs.json") {
 
   private val log = LoggerFactory.getLogger
 
   import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
   import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
-  def check(walletRs: WalletProposeResult)(using loc: munit.Location): Unit = {
-    test(s"${walletRs.account_id.asBits.toHex} - ${walletRs.key_type}") {
+  def check(rs: WalletPropose.Rs)(using loc: munit.Location): Unit = {
+    test(s"${rs.accountId.asBits.toHex} - ${rs.keyType}") {
       import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.*
-      log.debug(s"WalletRs: ${walletRs.asJson}")
-      val seed: XrpSeed    = XrpSeed.fromMasterSeedBase58(walletRs.master_seed) // Need to drop the 21 prefix
-      val keys: XrpKeyPair = Ed25519KeyGenerators.createXrpKeyPair(seed)
+      log.debug(s"WalletRs: ${rs.asJson}")
+      val keys: XrpKeyPair = Ed25519KeyGenerators.createXrpKeyPair(rs.masterSeed)
       println(s"XrpKeyPair Public Key ${keys.publicKey.bv.toHex}")
 
       val publicKey: ByteVector = keys.publicKey.bv
       println(s"XrpKeyPair Public Key ${keys.publicKey.bv.toHex}")
-      assertEquals(publicKey.toHex(Alphabets.HexUppercase), walletRs.public_key_hex, "Incorrect Public Key")
+      assertEquals(publicKey.toHex(Alphabets.HexUppercase), rs.publicKeyHex, "Incorrect Public Key")
 
       for {
         accountAddr <- DeriveAccountAddress.xrpPublicKey2address(keys.publicKey)
-        _            = assertEquals(accountAddr, walletRs.account_id, "AccountAddress Mismatch")
+        _            = assertEquals(accountAddr, rs.accountId, "AccountAddress Mismatch")
       } yield ()
     }
   }
   // I guess this can be a fixture accessed by check.
-  walletDataResource
-    .use { (wallets: List[WalletProposeResult]) =>
-      wallets.filter(_.isED25519).foreach((rs: WalletProposeResult) => check(rs))
+  testDataResource
+    .use { (wallets: List[(WalletPropose.Rq, WalletPropose.Rs)]) =>
+      wallets.filter(_._2.keyType.isEd25519).foreach(record => check(record._2)) // Named Tuples?
       IO.unit
     }.unsafeRunSync()
 }

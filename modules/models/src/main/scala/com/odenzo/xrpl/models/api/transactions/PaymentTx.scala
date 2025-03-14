@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.api.transactions
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.api.transactions.support.XrpTxn
+import com.odenzo.xrpl.models.api.transactions.support.{ XrpTxn, XrpTxnType }
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
 import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.InvoiceHash
 import com.odenzo.xrpl.models.data.models.flags.Flags
@@ -30,9 +30,5 @@ case class PaymentTx(
 }
 
 object PaymentTx {
-  given Configuration = CirceCodecUtils.customConfiguration(CirceCodecUtils.capitalize)
-
-  val txnType: XrpTxnType = XrpTxnType.Payment
-  val txnTypeJson         = "TransactionType" -> txnType.asJson
-
+  given Configuration = CirceCodecUtils.capitalizeConfig
 }

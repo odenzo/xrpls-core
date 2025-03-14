@@ -35,7 +35,10 @@ object XrpPublicKey extends XrpBinaryOps {
       case otherLen => throw IllegalArgumentException(s"Invalid Size: $otherLen not 32 or 33")
   }
 
-  def fromPublicKeyHex(hex: String): XrpPublicKey = fromBytesUnsafe(ByteVector.fromValidHex(hex))
+  def fromPublicKeyHex(hex: String): XrpPublicKey = fromPublicKeyBytes(ByteVector.fromValidHex(hex))
+
+  /** Without the packaging */
+  def fromPublicKeyBytes(bv: ByteVector): XrpPublicKey = fromBytesUnsafe(bv)
 
   def fromPublicKeyBase58(b58: String): XrpPublicKey = fromBytesUnsafe(
     XrpBinaryOps.fromXrpBase58Unsafe(b58).drop(1).dropRight(4)
@@ -68,7 +71,10 @@ object XrpPublicKey extends XrpBinaryOps {
   }
 
   object Codecs:
-    /** This should be applied to public_key field which is in Base58 */
+    /**
+      * This should be applied to public_key field which is in Base58, when used
+      * as Signing Key its Hex though
+      */
     given base58Codec: Codec[XrpPublicKey] =
       CirceCodecUtils.xrpBase58Codec.iemap[XrpPublicKey](fromBase58Bytes)(wrapped)
 

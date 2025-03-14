@@ -1,16 +1,15 @@
 package com.odenzo.xrpl.communication
 
 import cats.effect.IO
-import com.odenzo.xrpl.communication.rpc.engine.RPCEngine
+import com.odenzo.xrpl.communication.rpc.RPCEngine
 import com.odenzo.xrpl.models.api.commands.admin.LedgerAccept
 import com.odenzo.xrpl.models.api.commands.transaction.Submit
-import com.odenzo.xrpl.models.api.transactions.support.{TxCommon, XrpTxn}
+import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.internal.Wallet
 import io.circe.{ Decoder, Encoder }
 
 trait XrplEngine { engineImple =>
-
 
   /**
     * This sends a command that is immmediately executed and returns the result.

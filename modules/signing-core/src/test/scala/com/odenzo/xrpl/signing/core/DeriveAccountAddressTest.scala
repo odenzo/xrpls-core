@@ -1,34 +1,39 @@
 package com.odenzo.xrpl.signing.core
 
 import cats.effect.IO
+import com.odenzo.xrpl.models.api.commands.admin.keygen.WalletPropose
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
 import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpPublicKey }
-import com.odenzo.xrpl.signing.testkit.WalletTestIOSpec
+import com.odenzo.xrpl.models.internal.Wallet
+import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.EncoderOps
 // 026E1EF2D320E25D810A608272E0F76F25F1BD318FAFECA8C8F70AC996B3A4F596
 /** Tests using the pubic key to derive the Account Address */
-class DeriveAccountAddressTest extends WalletTestIOSpec {
+class DeriveAccountAddressTest
+    extends CommandRqRsTestDataIOSpec[WalletPropose.Rq, WalletPropose.Rs]("WalletProposeRqRs.json") {
+
   import AccountAddress.given
   import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.given
-  private val log                                                           = LoggerFactory.getLogger // Extension method
-  def check(walletRs: WalletProposeResult)(using loc: munit.Location): Unit = {
-    test(s"${walletRs.account_id.asBits.toHex} - ${walletRs.key_type}") {
-      log.info(s"Inbound WalletPropseResult: ${walletRs.asJson.spaces4}")
-      val publicKey: XrpPublicKey             = walletRs.public_key
+  private val log = LoggerFactory.getLogger // Extension method
+
+  def check(rs: WalletPropose.Rs)(using loc: munit.Location): Unit = {
+    test(s"${rs.accountId.asBits.toHex} - ${rs.keyType}") {
+      log.info(s"Inbound WalletPropseResult: ${rs.asJson.spaces4}")
+      val publicKey: XrpPublicKey             = rs.publicKey
       println(s"Public Key: ${pprint.apply(publicKey)}")
       val publicKeyBytes                      = publicKey.asRawKey
       println(s"Raw Public Key: ${publicKeyBytes.toHex}")
-      log.info(s"Expecting AccountAddress: ${walletRs.account_id.asJson.spaces4}")
+      log.info(s"Expecting AccountAddress: ${rs.accountId.asJson.spaces4}")
       val computedAddress: IO[AccountAddress] = DeriveAccountAddress.xrpPublicKey2address(publicKey)
-      assertIO(computedAddress, walletRs.account_id) // This is really AccountAddress (prefix and checksummed)
+      assertIO(computedAddress, rs.accountId) // This is really AccountAddress (prefix and checksummed)
 
     }
   }
 
-  walletDataResource
-    .use { (wallets: List[WalletProposeResult]) =>
-      wallets.foreach { (rs: WalletProposeResult) => check(rs) }
+  testDataResource
+    .use { rqrsl =>
+      rqrsl.foreach { v => check(v._2) }
       IO.unit
     }.unsafeRunSync()
 }

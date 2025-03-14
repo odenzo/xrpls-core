@@ -1,47 +1,28 @@
 package com.odenzo.xrpl.models.api.transactions
 
+import com.odenzo.xrpl.common.utils.CirceCodecUtils
+import com.odenzo.xrpl.models.api.transactions.support.{ XrpTxn, XrpTxnType }
+import com.odenzo.xrpl.models.api.transactions.support.XrpTxnType.PaymentChannelFund
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, RippleTime }
+import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.PaymentChannelHash
+import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
+import io.circe.syntax.*
+import io.circe.*
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+/**
+  * Funding an existing payment channel.
+  * [[https://ripple.com/build/transactions/#paymentchannelfund]]
+  */
+case class PaymentChannelFundTx(
+    account: AccountAddress,
+    channel: PaymentChannelHash,
+    amount: Drops = Drops(0),
+    expiration: RippleTime,
+) extends XrpTxn derives ConfiguredCodec {
+  val txnType: XrpTxnType = PaymentChannelFund
+}
 
-
-
-//package com.odenzo.xrpl.apis.transactions
-//
-//import com.odenzo.ripple.models.atoms.RippleTxnType.PaymentChannelFund
-//import io.circe.syntax.*
-//import io.circe.{ Decoder, ObjectEncoder }
-//
-///**
-//  * Funding an existing payment channel.
-//  * [[https://ripple.com/build/transactions/#paymentchannelfund]]
-//  */
-//case class PaymentChannelFundTx(
-//    account: AccountAddr,
-//    channel: PaymentChannelHash,
-//    amount: Drops = Drops.zero,
-//    expiration: RippleTime,
-//    base: CommonTx,
-//) extends XRPLTx
-//
-//object PaymentChannelFundTx {
-//
-//  val txnType: RippleTxnType = PaymentChannelFund
-//
-//  implicit val encoder: ObjectEncoder[PaymentChannelFundTx] = ObjectEncoder.instance[PaymentChannelFundTx] { v =>
-//    v.base.asJsonObject
-//      .add("TransactionType", txnType.asJson)
-//      .add("Channel", v.channel.asJson)
-//      .add("Amount", v.amount.asJson)
-//      .add("Expiration", v.expiration.asJson)
-//
-//  }
-//
-//  implicit val decoder: Decoder[PaymentChannelFundTx] = Decoder.instance[PaymentChannelFundTx] { cursor =>
-//    for {
-//      acct     <- cursor.get[AccountAddress]("Account")
-//      channels <- cursor.get[PaymentChannelHash]("Channel")
-//      amount   <- cursor.get[Drops]("Amount")
-//      expires  <- cursor.get[RippleTime]("Expiration")
-//      base     <- cursor.as[CommonTx]
-//    } yield PaymentChannelFundTx(acct, channels, amount, expires, base)
-//  }
-//}
+object PaymentChannelFundTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}

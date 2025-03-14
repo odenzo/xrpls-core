@@ -1,12 +1,12 @@
 package com.odenzo.xrpl.communication
 
-import cats.effect.{IO, Resource}
+import cats.effect.{ IO, Resource }
 import com.odenzo.xrpl.common.utils.MyLogging
 import com.odenzo.xrpl.communication.EngineFunctions.SendCmdFn
 import com.odenzo.xrpl.communication.websocket.WSEngine
 import com.odenzo.xrpl.communication.*
 import com.odenzo.xrpl.communication.config.XrplEngineConfig
-import com.odenzo.xrpl.communication.rpc.engine.RPCEngine
+import com.odenzo.xrpl.communication.rpc.RPCEngine
 import com.odenzo.xrpl.models.api.commands.CommandMarkers
 import com.tersesystems.blindsight.LoggerFactory
 import munit.*

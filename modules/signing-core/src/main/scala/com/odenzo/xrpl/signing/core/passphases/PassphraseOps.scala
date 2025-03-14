@@ -20,7 +20,8 @@ object PassphraseOps:
     *
     *   - First one that is valie wins and is converted to XrpSeed
     */
-  def seedFromString(sniffed: String): XrpSeed = ???
+  def seedFromString(sniffed: String): XrpSeed =
+    if isRFC17521(sniffed) then seedFromRFC1751(sniffed) else seedFromPassphrase(sniffed)
 
   def seedFromPassphrase(s: String): XrpSeed =
     val bv: ByteVector = XrpBinaryOps.stringToByteVector_UTF8(s)
@@ -33,3 +34,5 @@ object PassphraseOps:
   def seedFromBytes(hex: String): XrpSeed =
     val bx = ByteVector.fromValidHex(hex)
     XrpSeed.fromBytesUnsafe(XrpBinaryOps.sha512(bx).take(16))
+
+  def isRFC17521(key: String): Boolean = RFC1751Keys.looksLikeRFC1751(key)

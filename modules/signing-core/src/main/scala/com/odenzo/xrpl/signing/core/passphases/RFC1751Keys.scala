@@ -11,8 +11,11 @@ import scala.collection.mutable.ArrayBuffer
 object RFC1751Keys {
 
   private val log = LoggerFactory.getLogger
-  
 
+  def looksLikeRFC1751(str: String): Boolean =
+    val words: Array[String] = str.trim.split(' ')
+    words.forall(word => WORDLIST.contains(word))
+    
   // format: off
   private val WORDLIST = Array("A", "ABE", "ACE", "ACT", "AD", "ADA", "ADD",
                                "AGO", "AID", "AIM", "AIR", "ALL", "ALP", "AM", "AMY", "AN", "ANA",

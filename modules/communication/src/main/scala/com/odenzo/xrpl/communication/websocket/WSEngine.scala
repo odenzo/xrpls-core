@@ -5,7 +5,6 @@ import cats.effect.syntax.all.*
 import cats.*
 import cats.data.*
 import cats.syntax.all.*
-import com.odenzo.xrp.bincodec.XrpBinCodecAPI
 import com.odenzo.xrpl.communication
 import com.odenzo.xrpl.communication.ResponseExtractors.{
   extractAndThrowErrors,
@@ -32,6 +31,7 @@ import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.api.commands.admin.{ LedgerAccept, Sign }
 import com.odenzo.xrpl.models.internal.Wallet
+import com.odenzo.xrpl.bincodec.XrpBinCodecAPI
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.pointer.literal.pointer
 import io.circe.{ ACursor, Decoder, Encoder, Json, JsonObject }

@@ -3,8 +3,9 @@ package com.odenzo.xrpl.signing.core.secp256k1
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import com.odenzo.xrpl.common.binary.{ BouncyCastleOps, XrpBinaryOps }
+import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.signing.core.BouncyCastleOps
 import com.tersesystems.blindsight.LoggerFactory
 import org.bouncycastle.asn1.{ ASN1Integer, DERSequenceGenerator }
 import org.bouncycastle.util.BigIntegers

@@ -16,7 +16,10 @@ import com.tersesystems.blindsight.LoggerFactory
 
 class PaymentTxRpcTest extends LocalCommsTest("rpc") {
   private val log = LoggerFactory.getLogger
-
+ /*
+ spzHrF14skju986dkFn3BqwS77Hq1
+  prqc4g4GpS1STuHPBJ4tkEq5NqjemxQ78XHU
+  */
   test("Open TrustLines") {
     given engine: XrplEngine = engineFixture()
     for {

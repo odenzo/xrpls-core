@@ -7,6 +7,8 @@ import io.circe.{ Decoder, Encoder }
   * the txn) Give the account and TxnSequence can find. Name in JSON is usually
   * (?!) Sequence -- If this is set then it waits for that number to be
   * available? Allows propert sequencing of transactions on a per account level.
+  *
+  * This may be mis used for other things (OfferSequence?)
   */
 case class AccountTxnNumber(v: Long) {
 

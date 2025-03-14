@@ -26,10 +26,10 @@ opaque type XrpSeed <: ByteVector = ByteVector
 object XrpSeed:
   private val log = LoggerFactory.getLogger
 
-  val typePrefix: Byte         = 0x21
-  val typePrefixBV: ByteVector = hex"21"
-  val bodyLengthInBytes: Int   = 21 // Including Prefix Byte and 4 byte checksum
-  val coreLengthInBytes: Int   = 16
+  val typePrefix: Byte            = 0x21
+  val typePrefixBV: ByteVector    = hex"21"
+  val bodyLengthInBytes: Int      = 21 // Including Prefix Byte and 4 byte checksum
+  val unwrappedLengthInBytes: Int = 16
 
   /**
     * This is problematic because its spitting out unicode which stalls the
@@ -39,20 +39,19 @@ object XrpSeed:
   def randomPassphrase: String = Random.nextLong().toString
 
   /**
-    * Validate the wrapped bytevector, including any prefixes etc. This expects
-    * the full 21 bytes instead of 16, inconsistent, fix it up still by pruning
-    * down to ED only padding. No checksum
+    * Validate the un-wrapped bytevector, exluding prefix and checksum. Does
+    * deal with 0xED left padding
     */
   def validated(bv: ByteVector): ValidatedNec[String, XrpSeed] =
     (
-      Validated.condNec(bv.head == typePrefix, bv, s"XrpSeed Byte Prefix ${bv.head} didnt Match $typePrefix"),
-      Validated.condNec(bv.size === bodyLengthInBytes,
+      Validated.condNec(bv.size === unwrappedLengthInBytes,
                         bv,
-                        s""" MasterSeed/XrpSeed should be ${bodyLengthInBytes - 4}   but was ${bv.size}""".stripMargin,
+                        s""" MasterSeed/XrpSeed should be ${unwrappedLengthInBytes}   but was ${bv.size}""".stripMargin,
                        ),
+      Validated.condNec(true, bv, s"Placeholder"),
     ).mapN((_, _) => bv: XrpSeed)
 
-  def wrap(seed: XrpSeed): ByteVector = XrpBinaryOps.xrpChecksum(ByteVector(typePrefix) ++ seed)
+  def wrap(seed: XrpSeed): ByteVector = XrpBinaryOps.wrap(typePrefix, seed.bv)
 
   /**
     * Bytes given `b` get typePrefix pre-pended, but the checksum is not
@@ -65,17 +64,21 @@ object XrpSeed:
   /** TODO: Add Validation THis will bve tge full typeCode + body + checksum */
   def fromMasterSeedBase58(b58: String): XrpSeed =
     val full: ByteVector = XrpBinaryOps.fromXrpBase58Unsafe(b58).drop(1).dropRight(4) // Will have field and and checkum
-    log.trace(s"Decoded [$b58] to $full")
+    log.trace(s"Decoded MasterSeed [$b58] to $full")
     full: XrpSeed
 
   def fromMasterSeedHex(s: String): XrpSeed =
     val bytes = ByteVector.fromValidHex(s)
     fromBytesUnsafe(bytes)
 
-  // leftMap Function worthy of a utility
+  /**
+    * Attempts to load a ByteVector representing a wrapped value, e.g. from full
+    * Seed in Json loaded as bytes
+    */
   def attemptFrom(bv: ByteVector): Either[String, XrpSeed] =
-    log.trace(s"Attempting to decode XrpSeed attemptFrom Validation Phase: $bv")
-    validated(bv).toEither.leftMap(errs => errs.foldSmash("Errors -> ", ";", "<-"))
+    log.warn(s"Attempting to decode XrpSeed attemptFrom Validation Phase: $bv")
+    val unwrapped = XrpBinaryOps.unwrap(bv)
+    validated(unwrapped).toEither.leftMap(errs => errs.foldSmash("Errors -> ", ";", "<-"))
 
   given base58: Codec[XrpSeed] =
     CirceCodecUtils.xrpBase58Codec.iemap((in: ByteVector) => attemptFrom(in))((seed: XrpSeed) => wrap(seed))

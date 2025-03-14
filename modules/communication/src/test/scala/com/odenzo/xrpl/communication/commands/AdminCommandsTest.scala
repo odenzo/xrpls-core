@@ -22,11 +22,11 @@ class AdminCommandsTest extends LocalCommsTest(TestScenarios.mode) {
   }
 
   test("WalletPropose") {
-    given engine: XrplEngine = engineFixture()
-    val rq                   = WalletPropose.Rq(seed = None, passphrase = "testing".some, KeyType.secp256k1)
+    given engine: XrplEngine           = engineFixture()
+    val rq                             = WalletPropose.Rq(seed = None, passphrase = "testing".some, KeyType.secp256k1)
     log.info(rq.asJson.spaces4)
-    val response             = engine.send[WalletPropose.Rq, WalletPropose.Rs](rq).map(_.rs)
-    response
+    val response: IO[WalletPropose.Rs] = engine.send[WalletPropose.Rq, WalletPropose.Rs](rq).map(_.rs)
+    response.flatTap(rs => IO(log.info(s"WalletProposeRs: ${rs.asJson.spaces4}")))
 
   }
 

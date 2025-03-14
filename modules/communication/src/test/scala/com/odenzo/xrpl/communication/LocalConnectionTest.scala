@@ -14,7 +14,7 @@ import com.odenzo.xrpl.communication.config.XrplEngineConfig
 import cats.*
 import cats.data.*
 import cats.syntax.all.*
-import com.odenzo.xrpl.communication.rpc.engine.RPCEngine
+import com.odenzo.xrpl.communication.rpc.RPCEngine
 import com.odenzo.xrpl.models.api.commands.accountinfo.AccountInfo
 import com.odenzo.xrpl.models.api.commands.serverinfo.ServerState
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress

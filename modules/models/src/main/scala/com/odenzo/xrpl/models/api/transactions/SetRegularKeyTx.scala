@@ -1,43 +1,25 @@
 package com.odenzo.xrpl.models.api.transactions
 
+import com.odenzo.xrpl.common.utils.CirceCodecUtils
+import com.odenzo.xrpl.models.api.transactions.support.{ XrpTxn, XrpTxnType }
+import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
+import io.circe.generic.semiauto.deriveEncoder
+import io.circe.syntax.*
+import io.circe.{ Decoder, Json }
 
+/**
+  * @param account
+  *   Master account
+  * @param regularKey
+  *   Null to remove, otherwise the regular key address to bind to master
+  *   account/keys
+  */
+case class SetRegularKeyTx(account: AccountAddress, regularKey: Option[AccountAddress]) extends XrpTxn
+    derives ConfiguredCodec {
+  def txnType: XrpTxnType = XrpTxnType.SetRegularKey
+}
 
-
-
-//package com.odenzo.xrpl.apis.transactions
-//
-//import io.circe.generic.semiauto.deriveEncoder
-//import io.circe.syntax.*
-//import io.circe.{ Decoder, Json, ObjectEncoder }
-//
-///**
-//  * @param account
-//  *   Master account
-//  * @param regularKey
-//  *   Null to remove, otherwise the regular key address to bind to master
-//  *   account/keys
-//  */
-//case class SetRegularKeyTx(account: AccountAddr, regularKey: Option[AccountAddress], base: CommonTx) extends XRPLTx
-//
-//object SetRegularKeyTx {
-//
-//  private val txType: RippleTxnType = RippleTxnType.SetRegularKey
-//  private val tx: (String, Json)    = "TransactionType" -> txType.asJson
-//
-//  // Better to use mapJsonObject and derive encoder?
-//  implicit val encoder: ObjectEncoder[SetRegularKeyTx] = {
-//    deriveEncoder[SetRegularKeyTx]
-//      .mapJsonObject(o => tx +: o)
-//      .mapJsonObject(CommonTx.liftJsonObject(_, "base"))
-//      .mapJsonObject(o => CommonTx.upcaseFields(o))
-//  }
-//  implicit val decoder: Decoder[SetRegularKeyTx]       = Decoder.instance[SetRegularKeyTx] { cursor =>
-//    for {
-//      acct       <- cursor.get[AccountAddress]("Account")
-//      regularKey <- cursor.get[Option[AccountAddress]]("RegularKey")
-//      base       <- cursor.as[CommonTx]
-//    } yield SetRegularKeyTx(acct, regularKey, base)
-//
-//  }
-//
-//}
+object SetRegularKeyTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}

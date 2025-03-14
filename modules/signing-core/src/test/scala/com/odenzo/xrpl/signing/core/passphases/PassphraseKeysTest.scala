@@ -1,8 +1,9 @@
 package com.odenzo.xrpl.signing.core.passphases
 
 import cats.effect.IO
+import com.odenzo.xrpl.models.api.commands.admin.keygen.WalletPropose
 import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpSeed }
-import com.odenzo.xrpl.signing.testkit.WalletTestIOSpec
+import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.bits.Bases.Alphabets
 import scodec.bits.ByteVector
@@ -13,16 +14,16 @@ import scodec.bits.ByteVector
   * These are really SeedOps tests, not detailed unit tests into RFC1751 yet
   * Test data contains a mix of RFC and regular passphrases
   */
-class PassphraseKeysTest extends WalletTestIOSpec {
+class PassphraseKeysTest extends CommandRqRsTestDataIOSpec[WalletPropose.Rq, WalletPropose.Rs]("WalletProposeRqRs.json") {
 
-  private val log                                                              = LoggerFactory.getLogger
+  private val log                                                     = LoggerFactory.getLogger
   import com.odenzo.xrpl.models.data.models.keys.XrpSeed.given
   import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
-  def checkRFC(walletRs: WalletProposeResult)(using loc: munit.Location): Unit = {
-    test(s"${walletRs.account_id.asBits.toHex} - ${walletRs.key_type}") {
-      val rfcPassphrase: String = walletRs.master_key
+  def checkRFC(rs: WalletPropose.Rs)(using loc: munit.Location): Unit = {
+    test(s"${rs.accountId.asBits.toHex} - ${rs.keyType}") {
+      val rfcPassphrase: String = rs.masterKey
       log.debug(s"MasterKey: [$rfcPassphrase]")
-      val masterSeedHex: String = walletRs.master_seed_hex
+      val masterSeedHex: String = rs.masterSeedHex
       val seed: XrpSeed         = RFC1751Keys.twelveWordsAsBytes(rfcPassphrase)
       val hex: String           = seed.asMasterSeedHex
       assertEquals(hex, masterSeedHex)
@@ -30,9 +31,9 @@ class PassphraseKeysTest extends WalletTestIOSpec {
     }
   }
 
-  walletDataResource
-    .use { (wallets: List[WalletProposeResult]) =>
-      wallets.foreach { (rs: WalletProposeResult) => checkRFC(rs) }
+  testDataResource
+    .use { rqrs =>
+      rqrs.foreach { rs => checkRFC(rs._2) }
       IO.unit
     }.unsafeRunSync()
 }

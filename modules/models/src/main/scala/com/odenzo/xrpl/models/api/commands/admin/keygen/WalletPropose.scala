@@ -52,9 +52,9 @@ object WalletPropose extends XrpCommand[WalletPropose.Rq, WalletPropose.Rs] {
       accountId: AccountAddress,
       keyType: KeyType,
       masterKey: String,
-      masterSeed: Option[XrpSeed],
+      masterSeed: XrpSeed,
       masterSeedHex: String,
-      publicKey: Option[XrpPublicKey],
+      publicKey: XrpPublicKey,
       publicKeyHex: String, // Would normally omit the hex, since standard decoder is Base58
       warning: Option[String],
   ) extends XrpCommandRs derives ConfiguredCodec

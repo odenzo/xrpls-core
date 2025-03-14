@@ -8,7 +8,7 @@ import cats.syntax.all.*
 
 import com.odenzo.xrpl.communication.EngineFunctions.SendCmdFn
 import com.odenzo.xrpl.communication.XrplEngine
-import com.odenzo.xrpl.communication.rpc.engine.RPCEngine
+import com.odenzo.xrpl.communication.rpc.RPCEngine
 import com.odenzo.xrpl.models.api.commands.accountinfo.NoRippleCheck
 import com.odenzo.xrpl.models.api.transactions.TrustSetTx
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon

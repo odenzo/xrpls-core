@@ -13,8 +13,8 @@ object Sign {
 
   /** This doesn't support secret, specify keytype and (seedHex OR passphrase) */
   case class Rq(
-      keyType: KeyType,
-      seed: Option[XrpSeed],
+      keyType: KeyType = KeyType.secp256k1,
+      seed: Option[XrpSeed], // Damn, our examples are master_seed_hex not master_seed
       passphrase: Option[String],
       txJson: JsonObject,
       feeMultMax: Int  = 10,
