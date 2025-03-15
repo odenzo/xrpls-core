@@ -53,56 +53,69 @@ The majority of functions/Transactions, except NFT tokens, are implemented. Some
 ## Commands
 
 
-| Command           | Implemented | Tested  |   | Comment                         | 
-|-------------------|-------------|---------|---|---------------------------------|
-| AMMInfo           | No          |         |   | No AMM MoneyMarket Implemented  |
-| AccountChannels   | Yes         |         |   |                                 |        
-| AccountCurrencies | Yes         |         |   |                                 |
-| AccountInfo       | Yes         |         |   |                                 |
-| AccountLines      | Yes         |         |   |                                 |
-| AccountNFTS       | No          |         |   | NFTs Not Supported              |
-| AccountObjects    | Yes         | Yes     |   | Limited Response Decoding       |
-| AccountOffers     | Yes         | Yes     |   | Limited Response Decoding       |
-| AccountTx         | Yes         | Yes     |   | Txns not decoded                |
-| BookChanges       | Yes         | Partial |   | Response Needs Work             |
-| BookOffers        | Yes         | Partial |   | Response Needs Work             |
-| ChannelAuthorize  | Pending     | Pending |   |                                 |
-| ChannelVerify     | Pending     | Pending |   |                                 |
-| DepositAuthorize  | Pending     |         |   |                                 |
-| Feature           | Yes         | Yes     |   |                                 |
-| Fee               | Yes         | Yes     |   |                                 |
-| GatewayBalances   | Yes         | Partial |   | Limited Testing                 |
-| GetAggregatePrice | Pending     |         |   |                                 |
-| Ledger            | Pending     |         |   |                                 |
-| LedgerAccept      | Yes         | Yes     |   |                                 |
-| LedgerClosed      | Yes         | Yes     |   |                                 |
-| LedgerCurrent     | Yes         | Yes     |   |                                 |
-| LedgerData        | Yes         | Partial |   | Response Need Work - esp Binary |
-| LedgerEntry       | Pending     |         |   |                                 |
-| Manifest          | Pending     | Pending |   |                                 |
-| NFTBuyOffers      | No          |         |   | No AMM MoneyMarket Implemented  |
-| NFTSellOffers     | No          |         |   | No AMM MoneyMarket Implemented  |
-| NoRippleCheck     | Yes         | Partial |   | Response Needs work on Txns     |
-| PathFind          | Pending     | Pending |   | Credentials in Request          |
-| Ping              | Yes         | Pending |   | 
-| RipplePathFind    | Yes         | Pending |   | Needs more tests                |
-| ServerDefinitions | Yes         | Yes     |   | Developer API Really            |
-| ServerInfo        | Yes         | Yes     |   | Json Object Response, no models |
-| ServerState       | Yes         | Pending |   |                                 |
-| Subscribe         | Yes         | Yes     |   | Includes Helper Framework       |
-| Unsubscribe       | Yes         | Yes     |   | Includes Helper Framework       |
-| ValidationCreate  |             |         |   |                                 |
-| Version           | Yes         | Yes     |   |                                 |
-| WalletPropose     | Yes         | Yes     |   | Via Server and Standalone       |
+| Command            | Implemented | Tested  |   | Comment                                  | 
+|--------------------|-------------|---------|---|------------------------------------------|
+| AMMInfo            | No          |         |   | No AMM MoneyMarket Implemented           |
+| AccountChannels    | Yes         |         |   |                                          |        
+| AccountCurrencies  | Yes         |         |   |                                          |
+| AccountInfo        | Yes         |         |   |                                          |
+| AccountLines       | Yes         |         |   |                                          |
+| AccountNFTS        | No          |         |   | NFTs Not Supported                       |
+| AccountObjects     | Yes         | Yes     |   | Limited Response Decoding                |
+| AccountOffers      | Yes         | Yes     |   | Limited Response Decoding                |
+| AccountTx          | Yes         | Yes     |   | Txns not decoded                         |
+| BookChanges        | Yes         | Partial |   | Response Needs Work                      |
+| BookOffers         | Yes         | Partial |   | Response Needs Work                      |
+| ChannelAuthorize   | Pending     | Pending |   |                                          |
+| ChannelVerify      | Pending     | Pending |   |                                          |
+| DepositAuthorize   | Pending     |         |   |                                          |
+| Feature            | Yes         | Yes     |   |                                          |
+| Fee                | Yes         | Yes     |   |                                          |
+| GatewayBalances    | Yes         | Partial |   | Limited Testing                          |
+| GetAggregatePrice  | Pending     |         |   |                                          |
+| Ledger             | Pending     |         |   |                                          |
+| LedgerAccept       | Yes         | Yes     |   |                                          |
+| LedgerClosed       | Yes         | Yes     |   |                                          |
+| LedgerCurrent      | Yes         | Yes     |   |                                          |
+| LedgerData         | Yes         | Partial |   | Response Need Work - esp Binary          |
+| LedgerEntry        | Pending     |         |   |                                          |
+| Manifest           | Pending     | Pending |   |                                          |
+| NFTBuyOffers       | No          |         |   | No AMM MoneyMarket Implemented           |
+| NFTSellOffers      | No          |         |   | No AMM MoneyMarket Implemented           |
+| NoRippleCheck      | Yes         | Partial |   | Response Needs work on Txns              |
+| PathFind           | Pending     | Pending |   | Credentials in Request                   |
+| Ping               | Yes         | Pending |   | 
+| RipplePathFind     | Yes         | Pending |   | Needs more tests                         |
+| ServerDefinitions  | Yes         | Yes     |   | Developer API Really                     |
+| ServerInfo         | Yes         | Yes     |   | Json Object Response, no models          |
+| ServerState        | Yes         | Pending |   |                                          |
+| Sign               | Yes         | Yes     |   | Included in Communication Framework      |
+| SignFor            | Pending     |         |   | TOBE:Included in Communication Framework |
+| Submit             | Yes         | Yes     |   | Included in Communication Framework      |
+| Submit_MultiSigned | Pending     |         |   |                                          |
+| Subscribe          | Yes         | Yes     |   | Includes Helper Framework                |
+| Unsubscribe        | Yes         | Yes     |   | Includes Helper Framework                |
+| ValidationCreate   |             |         |   |                                          |
+| Version            | Yes         | Yes     |   |                                          |
+| WalletPropose      | Yes         | Yes     |   | Via Server and Standalone                |
 
 
-## Functions Well Tested
-- Memos and InvoiceId on all payments—Needs Testing
-- 
+## Submission of Commands and Transactions via WebSocket and RPC
+- Allows submission of Commands and Transactions
+- Provides `common fields` for requests, partial "auto-fill" fields population
+- Extracts `common fields` and errors from Responses
+- Enables monadic style WebSocket requests using correlation id matching and Fibers
+- Memos and InvoiceId on all payments (TODO: Needs Testing)
+
+## Higher-Level Abstractions
+
+- Subscription facilities that expose a FS2 Pipe hook for events/messages
+- Subscription facilities that expose a FS2 Topic for events/messages
+
 
 
 
 
 ## WebSocket Specific Functionality
-- Subscriptions: Implement in communications model, using FS2 Streams and Topic
+- Subscriptions: Implemented in a communications model, using FS2 Streams and Topic
 - 
