@@ -15,7 +15,7 @@ import java.io.File
 import scala.io.Source
 import scala.util.Try
 
-trait CirceUtils extends MyLogging {
+trait CirceUtils extends BlindsightLogging {
   private val log = LoggerFactory.getLogger(getClass)
 
   def loadResourceAsString(resourcePath: String): Either[RuntimeException, String] = {

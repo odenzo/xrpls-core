@@ -1,10 +1,10 @@
 package com.odenzo.xrpl.models.definitions
 
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.models.internal.definitions.XrpConstantsSetup
 import com.tersesystems.blindsight.LoggerFactory
 
-class XrpConstantsSetupTest extends munit.FunSuite with MyLogging {
+class XrpConstantsSetupTest extends munit.FunSuite with BlindsightLogging {
 
   private val log = LoggerFactory.getLogger
 

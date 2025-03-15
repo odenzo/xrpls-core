@@ -16,7 +16,7 @@ import scala.quoted.ToExpr.ArrayOfByteToExpr
 import scala.util.Try
 
 /** XrpSpecific (mostly) binary utilities */
-trait XrpBinaryOps extends MyLogging with HashOps {
+trait XrpBinaryOps extends BlindsightLogging with HashOps {
   private val log                         = LoggerFactory.getLogger
   private val sha256Digest: MessageDigest = MessageDigest.getInstance("SHA-256")
 

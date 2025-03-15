@@ -8,7 +8,7 @@ import cats.data.*
 import cats.syntax.all.*
 
 import cats.effect.{ IO, Resource }
-import com.odenzo.xrpl.communication.rpc.engine.RpcPayloadOps
+import com.odenzo.xrpl.communication.rpc.RpcPayloadOps
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.XrpCommand
 import com.odenzo.xrpl.models.data.models.keys.WalletProposeResult
 import io.circe.pointer.literal.pointer

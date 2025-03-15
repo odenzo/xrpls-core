@@ -8,7 +8,7 @@ import cats.effect.syntax.all.*
 import cats.implicits.*
 import cats.syntax.all.{ *, given }
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.*

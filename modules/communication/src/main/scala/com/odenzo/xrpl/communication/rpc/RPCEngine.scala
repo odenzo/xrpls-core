@@ -4,21 +4,21 @@ import _root_.scodec.bits.*
 import cats.*
 import cats.effect.*
 import cats.implicits.catsSyntaxOptionId
-import com.odenzo.xrpl.bincodec.XrpBinCodecAPI
-import com.odenzo.xrpl.common.utils.MyLogging
-import com.odenzo.xrpl.communication.ResponseExtractors.{ extractErrors, extractStatus }
-import com.odenzo.xrpl.communication.rpc.RPCEngine.{
-  createTxJsonBinary,
-  extractResultField,
-  given_Configuration,
-  merge,
-}
+import com.odenzo.xrpl.common.utils.BlindsightLogging
+import com.odenzo.xrpl.communication.rpc.RPCEngine.{ createTxJsonBinary, given_Configuration, merge }
 import com.odenzo.xrpl.communication.*
+import com.odenzo.xrpl.communication.models.{
+  ResponseExtractors,
+  RpcRequest,
+  XrplEngineCommandResult,
+  XrplEngineTxnResult,
+}
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.api.commands.admin.{ LedgerAccept, Sign }
 import com.odenzo.xrpl.models.api.commands.transaction.Submit
 import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.internal.Wallet
+import com.odenzo.xrpl.models.scodecs.XrpBinCodecAPI
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.derivation.Configuration
 import io.circe.optics.JsonPath.root
@@ -37,13 +37,12 @@ import org.typelevel.ci.CIStringSyntax
 import scala.concurrent.duration.*
 import scala.util.Try
 
-class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with MyLogging {
-  private val log                     = LoggerFactory.getLogger
+class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with BlindsightLogging {
+  private val log = LoggerFactory.getLogger
+
   log.info(s"Constructing RPCEngine pointing to port URI: $server")
   private val rpcRequest: Request[IO] =
     Request[IO](Method.POST).withContentType(`Content-Type`(MediaType.application.json)).withUri(server)
-    // .withHeaders(headers.`Keep-Alive`.toRaw)
-  log.info(s"Creat4ed the rpcRequest")
 
   /**
     * Calls the RPC endpoint. Either getting Network/HTTP error, or a bad JSON,
@@ -53,15 +52,16 @@ class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with MyLoggi
   def send[RQ <: XrpCommandRq: Encoder.AsObject: Decoder, RS <: XrpCommandRs: Encoder.AsObject: Decoder](
       rq: RQ
   ): IO[XrplEngineCommandResult[RS]] = {
-    log.info(s"Sending ${rq.command.label}")
+    val command           = rq.command.label
+    log.info(s"Executing Command [$command]")
     val json              = rq.asJson.deepDropNullValues
     val rpcRq: RpcRequest = RpcRequest(rq.command.label, List(json))
+    wireLog.info(s"$command::RQ:\n ${rpcRq.asJson.spaces4}")
     client.run(rpcRequest.withEntity(rpcRq)).use { response =>
       for {
-        rs      <- response.as[Json] // HTTP4S as to get the response as JSON
-        payload <- extractResultField(rs)
-        _        = log.info(s"JSON Response: ${rs.spaces4}")
-        result  <- ResponseExtractors.extractCommandResult[RS](payload)
+        rs     <- response.as[Json] // HTTP4S as to get the response as JSON
+        _       = wireLog.info(s"$command::RS\n ${rs.spaces4}")
+        result <- ResponseExtractors.extractCommandResult[RS](rs)
       } yield result
     }
   }
@@ -82,8 +82,6 @@ class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with MyLoggi
       _         <- IO(log.info(s"Sending Transaction ${txn.asJson.spaces4} RPCEngine"))
       // TODO: Have something to fill out the autofill fields (lastLedger / fee etc iff empty).
       fullTxn    = merge(txn, commonTx)
-      // txjson     = createTxJsonBinary(fullTxn) // This is if we want to self-sign, since creating this is involved
-      _          = log.debug("About to Sign And Submit The Txn")
       signed    <- signTxn(txJson = fullTxn, wallet)
       submitted <- submitSignedTxn(signed.rs) // We have the SubmitRs, lets seperate out its error handling as needed
       _         <- IO(log.info(s"Raw Submit Response ${submitted.asJson.spaces4}"))
@@ -149,10 +147,6 @@ object RPCEngine {
   // Do we want to inject the TxJson into the object and return it?
   private[rpc] def createTxJsonBinary(jsonObject: JsonObject): BitVector =
     XrpBinCodecAPI.encode(jsonObject.toJson, true)
-
-  private[rpc] def extractResultField(root: Json): IO[Json] = {
-    IO.fromEither(pointer"/result".get(root))
-  }
 
   /**
     * This is a pending part to catch transport level errors (or any other

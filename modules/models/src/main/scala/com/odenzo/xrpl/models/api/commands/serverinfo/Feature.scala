@@ -1,13 +1,15 @@
 package com.odenzo.xrpl.models.api.commands.serverinfo
 
 import com.odenzo.xrpl.models.api.commands.Command
-import com.odenzo.xrpl.models.api.commands.CommandMarkers.{XrpCommand, XrpCommandRq, XrpCommandRs}
+import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.Amendment
+import com.odenzo.xrpl.models.data.models.atoms.Hash256
 import io.circe.*
 import io.circe.Decoder.Result
-import io.circe.derivation.{Configuration, ConfiguredCodec}
-import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
+import io.circe.generic.semiauto.{ deriveDecoder, deriveEncoder }
 import io.circe.syntax.*
+import scodec.bits.Bases.Alphabets.HexUppercase
 import scodec.bits.ByteVector
 
 object Feature extends XrpCommand[Feature.Rq, Feature.Rs] {
@@ -23,13 +25,14 @@ object Feature extends XrpCommand[Feature.Rq, Feature.Rs] {
     *
     * @param features
     */
-  case class Rs(features: List[Amendment]) extends XrpCommandRs derives ConfiguredCodec
+  case class Rs(features: Map[Hash256, Amendment]) extends XrpCommandRs derives ConfiguredCodec
 
   object Rq {
     given Configuration = Configuration.default.withSnakeCaseMemberNames
   }
 
   object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
+   
+    given Configuration       = Configuration.default.withSnakeCaseMemberNames
 
 }

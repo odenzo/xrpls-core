@@ -4,7 +4,7 @@ import cats.*
 import cats.data.*
 import cats.implicits.*
 import SecpOps.privateKey2D
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import org.bouncycastle.asn1.sec.SECNamedCurves
 import org.bouncycastle.asn1.x9.X9ECParameters
 import org.bouncycastle.crypto.digests.SHA256Digest
@@ -26,7 +26,7 @@ import java.security.*
   * This is focussed just on getting Secp256k1 txnscenarios and Verification
   * Working. TODO: Trim this down to used functions
   */
-object Actions extends MyLogging {
+object Actions extends BlindsightLogging {
   import SecpOps.Constants
 
   /**

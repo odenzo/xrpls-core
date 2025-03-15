@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.common.binary
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Encoder
 import munit.*
@@ -13,7 +13,7 @@ import scodec.bits.{ BitVector, hex }
   * XrpSeed is broken, and AccountAddress isn't happy either. Lets work with
   * some known data (Genesis account) to verify whats happening.
   */
-class XrplBase58FixTest extends munit.FunSuite with MyLogging {
+class XrplBase58FixTest extends munit.FunSuite with BlindsightLogging {
   private val log = LoggerFactory.getLogger
 
   def roundTrip(base58Str: String) = {

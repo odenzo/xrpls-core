@@ -21,7 +21,7 @@ import scala.io.Source
 import scala.util.Try
 
 /** Some of this is duplicated all over the place. Centralize here. */
-trait CirceCodecUtils extends MyLogging {
+trait CirceCodecUtils extends BlindsightLogging {
   private val log                                          = LoggerFactory.getLogger
   import XrpBase58Fix.*
   val alphabet: XrplBase58Alphabet.type                    = XrplBase58Alphabet

@@ -2,7 +2,7 @@ package com.odenzo.xrpl.models.api.transactions.support
 
 import cats.syntax.all.*
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.atoms.AccountTxnNumber
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountTxnNumber }
 import com.odenzo.xrpl.models.data.models.flags.Flags
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.odenzo.xrpl.models.data.models.memos.{ Memo, Memos }
@@ -32,14 +32,14 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * @param sequence
   */
 case class TxCommon(
-                     fee: Option[CurrencyAmount.Drops]       = None, // Required but auto-fillable
-                     memos: Option[Memos]                    = None,
-                     sequence: Option[AccountTxnNumber]    = None,
-                     lastLedgerSequence: Option[LedgerIndex] = None,
-                     //    signingPubKey: Option[SigningPublicKey] = None,
-                     //    signers: Option[Signers]                = None, // Multi-sig signers
-                     flags: Option[Flags]                    = None,
-                     sourceTag: Option[Int]                  = None, // Really a UINT32
+    fee: Option[CurrencyAmount.Drops]       = None, // Required but auto-fillable
+    memos: Option[Memos]                    = None,
+    sequence: Option[AccountTxnNumber]      = None,
+    lastLedgerSequence: Option[LedgerIndex] = None,
+    //    signingPubKey: Option[SigningPublicKey] = None,
+    //    signers: Option[Signers]                = None, // Multi-sig signers
+    flags: Option[Flags]                    = None,
+    sourceTag: Option[Int]                  = None, // Really a UINT32
 ) derives ConfiguredCodec {
   def addMemo(m: Memo): TxCommon                            = {
     val memos = this.memos match {
@@ -57,4 +57,9 @@ object TxCommon extends CirceCodecUtils {
 
   /** Need some nice factory builders */
   val default = TxCommon(fee = CurrencyAmount.Drops(555).some)
+
+  def psuedoTxnDefault = TxCommon(
+    fee      = CurrencyAmount.Drops(0).some,
+    sequence = AccountTxnNumber(0).some,
+  )
 }

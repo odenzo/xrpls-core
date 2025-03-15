@@ -1,8 +1,5 @@
 package com.odenzo.xrpl.common.binary
 
-import com.odenzo.xrpl.common.xrpconstants.TypePrefix
-import org.bouncycastle.jce.provider.BouncyCastleProvider
-
 import java.security.{ MessageDigest, Security }
 import scodec.bits.ByteVector
 
@@ -16,7 +13,6 @@ import scodec.bits.ByteVector
   * ByteVector that should be immutable
   */
 trait HashOps {
-  Security.addProvider(new BouncyCastleProvider)
 
   /**
     * When check sum is applied to XRP stuff it generally includes any prefix to
@@ -28,8 +24,6 @@ trait HashOps {
   inline def wrap(prefix: Byte, body: ByteVector): ByteVector =
     val payload: ByteVector = ByteVector(prefix) ++ body
     payload ++ xrpChecksum(payload)
-
-  inline def wrap(prefix: TypePrefix, body: ByteVector): ByteVector = wrap(prefix.prefix, body)
 
   inline def unwrap(bytes: ByteVector) = bytes.drop(1).dropRight(4)
 

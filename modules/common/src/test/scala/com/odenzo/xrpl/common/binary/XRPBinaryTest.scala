@@ -1,13 +1,13 @@
 package com.odenzo.xrpl.common.binary
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Encoder
 import munit.*
 import scodec.bits.{ BitVector, hex }
 
-class XRPBinaryTest extends munit.FunSuite with MyLogging {
+class XRPBinaryTest extends munit.FunSuite with BlindsightLogging {
   private val log    = LoggerFactory.getLogger
   // These all have checksum attached, Base64Checksum style
   val ACCOUNT_ZERO   = "rrrrrrrrrrrrrrrrrrrrrhoLvTp"

@@ -4,7 +4,7 @@ import cats.data.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.common.binary.{ XrpBase58Fix, XrpBinaryOps }
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.common.xrpconstants.TypePrefix
+import com.odenzo.xrpl.models.xrpconstants.TypePrefix
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Codec
 import scodec.bits.Bases.Alphabets.HexUppercase
@@ -56,7 +56,7 @@ object XrpPublicKey extends XrpBinaryOps {
     def base58: String       = XrpBase58Fix.toXrpBase58(ms: ByteVector)
     def isEd25519: Boolean   = ms.head == 0xed
     def isSecp256k1: Boolean = !isEd25519
-    def wrapped: ByteVector  = XrpBinaryOps.wrap(TypePrefix.xrpPublicKey, ms)
+    def wrapped: ByteVector  = XrpBinaryOps.wrap(TypePrefix.xrpPublicKey.prefix, ms)
     def asRawKey: ByteVector =
       ms.size match
         case 33 if ms.head == 0xed => ms.drop(1)

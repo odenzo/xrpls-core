@@ -86,5 +86,5 @@ object XrpBase58Fix {
       go(value = BigInt(signum = 1, magnitude = bv.toArray), chars = List.empty)
     }
 
-  // Add the toXrpBase58 as extension to Bit and ByteVector, maybe but in XrpBinOps instead of here
+  // Add the toXrpBase58 as extension to Bit and ByteVector, maybe but in ScodecExtensions instead of here
 }

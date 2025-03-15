@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.wireprotocol
 
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.{ Logger, LoggerFactory }
 import io.circe.{ Decoder, Encoder, Json }
 import io.circe.Decoder.Result
@@ -12,7 +12,7 @@ import munit.Assertions.fail
   * calling Ripple. Not sure this is really worth the effort but the AnyVal
   * classes fight with import optimization
   */
-trait ModelTest extends MyLogging {
+trait ModelTest extends BlindsightLogging {
 
   protected val log: Logger = LoggerFactory.getLogger
 

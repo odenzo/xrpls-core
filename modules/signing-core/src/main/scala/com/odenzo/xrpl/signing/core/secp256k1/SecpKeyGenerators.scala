@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.signing.core.secp256k1
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpKeyPair, XrpPrivateKey, XrpPublicKey, XrpSeed }
 import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.Constants.params
 import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.isValidPrivateKey
@@ -22,7 +22,7 @@ case class SecpKeyPairParams()
   *
   * This is only applicable to secp256k1 key types.
   */
-object SecpKeyGenerators extends MyLogging {
+object SecpKeyGenerators extends BlindsightLogging {
   private val log = LoggerFactory.getLogger
   import SecpOps.Constants
 

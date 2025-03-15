@@ -4,7 +4,7 @@ import cats.*
 import cats.data.*
 import cats.implicits.*
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.signing.core.BouncyCastleOps
 import com.tersesystems.blindsight.LoggerFactory
 import org.bouncycastle.asn1.{ ASN1Integer, DERSequenceGenerator }
@@ -21,7 +21,7 @@ import scala.util.Try
   *   - r and s from Signature are used as Java BigInteger for downstream Bouncy
   *     Castle crypto calls.
   */
-object DER extends MyLogging with XrpBinaryOps {
+object DER extends BlindsightLogging with XrpBinaryOps {
   private val log = LoggerFactory.getLogger
 
   val header = hex"30"
@@ -65,7 +65,7 @@ object DER extends MyLogging with XrpBinaryOps {
 
   }
 
-  object Signature extends MyLogging {
+  object Signature extends BlindsightLogging {
 
     /**
       * Construct a DER.Signature from r and s values assumed to be like (64

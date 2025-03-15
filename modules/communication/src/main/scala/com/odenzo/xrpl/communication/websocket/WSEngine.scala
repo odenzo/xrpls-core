@@ -6,32 +6,17 @@ import cats.*
 import cats.data.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.communication
-import com.odenzo.xrpl.communication.ResponseExtractors.{
-  extractAndThrowErrors,
-  extractErrors,
-  extractStatus,
-  extractSuccessResult,
-  findResultRecord,
-}
+import com.odenzo.xrpl.communication.XrplEngine
+import com.odenzo.xrpl.communication.models.*
+import com.odenzo.xrpl.communication.models.ResponseExtractors.{ extractStatus, findResultRecord }
 import com.odenzo.xrpl.communication.websocket.WSEngine.enrichOutboundMessageEnvelope
-import com.odenzo.xrpl.communication.{
-  ResponseExtractors,
-  XrplEngine,
-  XrplEngineCommandError,
-  XrplEngineCommandResult,
-  XrplEngineTxnError,
-  XrplEngineTxnResult,
-  XrplError,
-  XrplStatus,
-}
-import com.odenzo.xrpl.communication.websocket.transport.WebSocketTransport
+
 import com.odenzo.xrpl.models.api.commands.transaction.Submit
 import com.odenzo.xrpl.models.api.commands.transaction.Submit as engine
 import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.api.commands.admin.{ LedgerAccept, Sign }
 import com.odenzo.xrpl.models.internal.Wallet
-import com.odenzo.xrpl.bincodec.XrpBinCodecAPI
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.pointer.literal.pointer
 import io.circe.{ ACursor, Decoder, Encoder, Json, JsonObject }
@@ -64,9 +49,10 @@ class WSEngine(transport: WebSocketTransport) extends XrplEngine {
     log.info(s"Outbound WebSocket Message: ${outbound.toJson.spaces4}")
     for {
       payload <- transport.send(outbound).map(_.toJson)
-      status  <- extractStatus(payload)
+      status  <- ResponseExtractors.extractStatus(payload)
       result  <- status match
-                   case XrplStatus.success => findResultRecord(payload).flatMap(extractSuccessResult[RS])
+                   case XrplStatus.success =>
+                     ResponseExtractors.findResultRecord(payload).flatMap(ResponseExtractors.extractSuccessResult[RS])
                    case _                  => IO.raiseError(NotImplementedError("Error Cases Not Handled for WSEngine Commands"))
       // extractAndThrowErrors[RS](payload)
     } yield result

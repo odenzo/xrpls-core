@@ -2,8 +2,8 @@ package com.odenzo.xrpl.models.data.models.atoms
 
 import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, XrpBase58Fix }
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.common.xrpconstants.{ TypePrefix, XrpConstants }
 import com.odenzo.xrpl.models.data.models.fields.Field
+import com.odenzo.xrpl.models.xrpconstants.{ TypePrefix, XrpConstants }
 import io.circe.{ Codec, Json }
 import scodec.bits.{ BitVector, ByteVector }
 
@@ -31,7 +31,8 @@ object AccountAddress extends Field:
   }
 
   /** The address as type prefix and the checksum */
-  val GENESIS: AccountAddress = Json.fromString(XrpConstants.GENESIS_ADDRESS).as[AccountAddress].toOption.get
+  val GENESIS: AccountAddress      = Json.fromString(XrpConstants.GENESIS_ADDRESS).as[AccountAddress].toOption.get
+  val ACCOUNT_ZERO: AccountAddress = fromAccountAddressB58Unsafe("rrrrrrrrrrrrrrrrrrrrrhoLvTp")
 
   /**
     * This expects the full bytes. Basically, setUnderlying with no validation

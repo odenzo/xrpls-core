@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
 import cats.implicits.*
-import com.odenzo.xrpl.common.binary.XrpBinOps.*
-import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, XrpBinOps, XrpBinaryOps }
+import com.odenzo.xrpl.common.binary.ScodecExtensions.*
+import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, ScodecExtensions, XrpBinaryOps }
 import io.circe.{ Codec, Decoder, Encoder }
 import scodec.bits.{ BitVector, ByteVector }
 

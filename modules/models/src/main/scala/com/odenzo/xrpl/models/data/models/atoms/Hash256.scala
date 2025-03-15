@@ -1,9 +1,10 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
 import cats.implicits.*
-import com.odenzo.xrpl.common.binary.XrpBinOps.*
-import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, XrpBinOps, XrpBinaryOps }
-import io.circe.{ Codec, Decoder, Encoder }
+import com.odenzo.xrpl.common.binary.ScodecExtensions.*
+import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, ScodecExtensions, XrpBinaryOps }
+import io.circe.{ Codec, Decoder, Encoder, KeyDecoder, KeyEncoder }
+import scodec.bits.Bases.Alphabets.HexUppercase
 import scodec.bits.{ BitVector, ByteVector }
 
 import scala.util.Try
@@ -17,6 +18,7 @@ opaque type Hash256 = BitVector
 
 object Hash256:
   def validatedBits(bits: BitVector)(using fsb: FixedSizeBinary[Hash256]): Hash256 = fsb.validated(bits): Hash256
+  def fromHex(str: String): Option[Hash256]                                        = BitVector.fromHex(str, HexUppercase)
 
   /**
     * I want to learn how to semi-automatic derive this, since we can't use
@@ -34,5 +36,7 @@ object Hash256:
     * the check too
     */
 
-  given Decoder[Hash256] = fsb.decoderHex
-  given Encoder[Hash256] = fsb.encoderHex
+  given decoder: Decoder[Hash256] = fsb.decoderHex
+  given encoder: Encoder[Hash256] = fsb.encoderHex
+  given KeyEncoder[Hash256]       = KeyEncoder.instance[Hash256](hash => fsb.convertToHex(hash))
+  given KeyDecoder[Hash256]       = KeyDecoder.instance[Hash256](str => Hash256.fromHex(str))

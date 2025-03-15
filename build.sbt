@@ -27,7 +27,7 @@ addCommandAlias("docker-stage", "app/docker:stage;")
 addCommandAlias("build-docs", "root/unidoc;docos/mdoc;docos/laikaSite")
 
 lazy val xrplv2 = (project in file("."))
-  .aggregate(common, models, bincodec, communications, `signing-bridge`, `signing-core`, unidocs)
+  .aggregate(common, models, communications, `signing-bridge`, `signing-core`, unidocs)
   .settings(publish / skip := true, name := "XRPLS")
 
 //lazy val macros = (project in file("modules/xrpl-macros")).settings(
@@ -39,31 +39,22 @@ lazy val xrplv2 = (project in file("."))
 lazy val common = (project in file("modules/common")).settings(
   name := "xrpls-common",
   scalacOptions := scala3Options,
-  libraryDependencies ++= Libs.stdlibs ++ Libs.bouncycastle ++ Libs.spire,
+  libraryDependencies ++= Libs.stdlibs ++ Libs.spire,
 )
 
 lazy val models = (project in file("modules/models"))
   .dependsOn(common)
   .settings(name := "xrpls-models", scalacOptions := scala3Options, libraryDependencies ++= Libs.stdlibs)
 
-lazy val bincodec = (project in file("modules/binary-codecs"))
-  .dependsOn(common, models)
-  .settings(
-    name := "binary-codec",
-    description := "Binary Decoders with SCODEC, plus txjson Encoders",
-    scalacOptions := scala3Options,
-    libraryDependencies ++= Libs.stdlibs,
-  )
-
 lazy val communications = (project in file("modules/communication"))
-  .dependsOn(common, models, bincodec)
+  .dependsOn(common, models)
   .settings(name := "xrpls-communication-engine",
             scalacOptions := scala3Options,
             libraryDependencies ++= Libs.http4s ++ Libs.fs2 ++ Libs.munit,
            )
 
 lazy val `signing-core` = (project in file("modules/signing-core"))
-  .dependsOn(common, models, bincodec, communications)
+  .dependsOn(common, models, communications)
   .settings(name := "xrpls-signing-core",
             scalacOptions := scala3Options,
             libraryDependencies ++= Libs.stdlibs ++ Libs.bouncycastle,
@@ -84,7 +75,7 @@ lazy val application = (project in file("modules/application"))
            )
 
 lazy val documentations = (project in file("modules/documentation"))
-  .dependsOn(common, models, bincodec, communications, `signing-core`, `signing-bridge`)
+  .dependsOn(common, models, communications, `signing-core`, `signing-bridge`)
   .enablePlugins(TypelevelSitePlugin)
   .settings(name := "documentation")
   .settings(
@@ -101,5 +92,5 @@ lazy val unidocs = project
   .enablePlugins(TypelevelUnidocPlugin) // also enables the ScalaUnidocPlugin
   .settings(
     name := "xrpls-docs",
-    ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(common, models, communications, bincodec),
+    ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(common, models, communications),
   )

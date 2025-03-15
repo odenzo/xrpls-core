@@ -4,7 +4,8 @@ import cats.effect.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.communication.*
 import com.odenzo.xrpl.communication.config.XrplEngineConfig
-import com.odenzo.xrpl.communication.websocket.subscription.{ SubscribeEngine, SubscribeRq }
+import com.odenzo.xrpl.communication.models.XrplEngineCommandResult
+import com.odenzo.xrpl.communication.subscription.{SubscribeEngine, SubscribeRq}
 import com.odenzo.xrpl.models.api.commands.admin.LedgerAccept
 import com.tersesystems.blindsight.LoggerFactory
 import fs2.Pipe

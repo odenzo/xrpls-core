@@ -2,7 +2,6 @@ package com.odenzo.xrpl.models.data.models.keys
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import io.circe.{ Codec, Encoder }
-import org.bouncycastle.crypto.AsymmetricCipherKeyPair
 import scodec.bits.ByteVector
 
 import java.security.KeyPair

@@ -26,7 +26,7 @@ import cats.*
 import cats.data.*
 import cats.syntax.all.*
 import cats.implicits.*
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.LoggerFactory
 
 /**
@@ -55,7 +55,7 @@ enum LedgerHandle:
 //  val MAX: LedgerIndex             = LedgerHandle.LedgerIndex(4294967295L)
 //  val MIN: LedgerIndex             = LedgerHandle.LedgerIndex(-1L)
 
-object LedgerHandle extends MyLogging {
+object LedgerHandle extends BlindsightLogging {
 
   import ByteVector.given
   private val log = LoggerFactory.getLogger

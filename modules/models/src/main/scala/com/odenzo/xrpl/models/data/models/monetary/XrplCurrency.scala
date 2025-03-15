@@ -1,15 +1,14 @@
 package com.odenzo.xrpl.models.data.models.monetary
 
-import cats.*
-import cats.implicits.*
 import _root_.scodec.bits.{ BitVector, ByteVector, hex }
+import cats.*
 import cats.data.{ Validated, ValidatedNec }
+import cats.implicits.*
 import com.odenzo.xrpl.common.binary.FixedSizeBinary
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Decoder.{ Result, decodeValidated }
-import io.circe.{ Codec, Decoder, DecodingFailure, Encoder, HCursor, Json }
 import io.circe.generic.semiauto.*
-import org.bouncycastle.util.Encodable
+import io.circe.*
 
 import java.nio.charset.{ CharacterCodingException, Charset, StandardCharsets }
 import scala.collection.immutable

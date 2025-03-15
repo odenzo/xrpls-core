@@ -1,10 +1,10 @@
 package com.odenzo.xrpl.models.fields
 
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.models.data.models.fields.ids.FieldId
 import com.tersesystems.blindsight.LoggerFactory
 
-class FieldIdTest extends munit.FunSuite with MyLogging {
+class FieldIdTest extends munit.FunSuite with BlindsightLogging {
 
   private val log = LoggerFactory.getLogger
 

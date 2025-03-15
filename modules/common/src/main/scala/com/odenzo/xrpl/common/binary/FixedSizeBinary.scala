@@ -2,6 +2,7 @@ package com.odenzo.xrpl.common.binary
 
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.{ Codec, Decoder, Encoder }
+import scodec.bits.Bases.Alphabets.HexUppercase
 import scodec.bits.BitVector
 /* case class Residue[M <: Int](n: Int) extends AnyVal { def +(rhs: Residue[M])(implicit m: ValueOf[M]):
  * Residue[M] = Residue((this.n + rhs. n) % valueOf[M]) } val fiveModTen = Residue[10](5) val nineModTen =
@@ -41,7 +42,7 @@ trait FixedSizeBinary[A](fixedSizeInBits: Long) {
 
   def convertToBigInt(a: A): BigInt = BigInt(toBits(a).toByteArray)
 
-  def convertToHex(a: A): String    = toBits(a).toHex
+  def convertToHex(a: A): String    = toBits(a).toHex(HexUppercase)
   def convertToBase58(a: A): String = toBits(a).toBase58(XrplBase58Alphabet)
 
   def convertFromHex(s: String): Either[String, BitVector]    = BitVector.fromHexDescriptive(s)

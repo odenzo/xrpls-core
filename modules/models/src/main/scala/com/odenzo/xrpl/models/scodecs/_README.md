@@ -3,28 +3,21 @@
 https://xrpl.org/serialization.html
 
 
-- Basic function is encoding to XRPL Binary former from JSON
-- JSON Encoders and Decoders are defined in the main models
+- Basic function is encoding to JSON of object models to XRPL Binary 
 - It is assumed all JSON values used for encoding are pre-validated.
-- Decoding validates, often using validators from main Models (which are needed for JSON Decoders anyway)
-- The main models often implement something similar to "asBinary", esp when data is stored internally as Binary or the
-    JSON codecs need to read or write hex/base58 binary field contents
+- Decoding validates,  using validators from main models 
+- The encoding is Model -> ToJson -> ToXRPLBinary 
+- The decoding is XrplBinary ->ToModel  using the binary constructors in the model mostly
 
-# Objects and PathSets
-- Objects require filtering and sorting of fields
-= PathSets require sorting the encoding of the atoms in a PathStep
+This used to support trawling through the raw ledger information and decoding it, but didn't update that as CLIO
+will probably be enough.
 
-# Mappings
+## Objects and PathSets
+Because JSON doesn't preserve ordering, the fields are sorted based on XRPL Reference data for each Field and FieldType
+In addition, when converting to XRPLBinary to sign a transaction, only "signing fields" are encoded, the rest are filtered.
 
-The full bi-directional path is left <-> right but sometimes I will skip the model
+- **PathSets require sorting the encoding of the atoms in a PathStep **(TODO: Still not done?)**
 
-
-JSON || MODEL || ENCODER || DECODER | MODEL | JSON
-
-
-VL Encoding location still in question. At the field level we know, and when we implement at the nested level we know.
-The question is aside from Account Address are there any times these do not match ?
-(Account Address always VL encoded at top level)
 
 
 # Unusual Things

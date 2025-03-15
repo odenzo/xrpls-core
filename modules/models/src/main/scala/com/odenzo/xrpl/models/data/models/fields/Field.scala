@@ -3,9 +3,9 @@ package com.odenzo.xrpl.models.data.models.fields
 import cats.data.Validated
 import cats.syntax.all.given
 import com.odenzo.xrpl.common.binary.{ HashOps, XrpBinaryOps }
-import com.odenzo.xrpl.common.xrpconstants.TypePrefix
 
 import com.odenzo.xrpl.models.data.models.fields.ids.FieldLen
+import com.odenzo.xrpl.models.xrpconstants.TypePrefix
 import scodec.bits.{ BitVector, ByteVector }
 // See: https://xrpl.org/docs/references/protocol/binary-format
 

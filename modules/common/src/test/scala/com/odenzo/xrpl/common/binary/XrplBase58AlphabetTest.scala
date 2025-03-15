@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.common.binary
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Encoder
 import munit.*
@@ -14,7 +14,7 @@ import scodec.bits.{ BitVector, hex }
   * ByteVector and BitVector fromBase58Descriptive hard codes the `1` instead of
   * using alphabet.char(0)
   */
-class XrplBase58AlphabetTest extends munit.FunSuite with MyLogging {
+class XrplBase58AlphabetTest extends munit.FunSuite with BlindsightLogging {
   private val log = LoggerFactory.getLogger
 
   test("ZERO") {

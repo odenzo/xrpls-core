@@ -3,7 +3,7 @@ package com.odenzo.xrpl.signing.core.secp256k1
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.privateKey2D
 import org.bouncycastle.asn1.sec.SECNamedCurves
 import org.bouncycastle.asn1.x9.X9ECParameters
@@ -26,7 +26,7 @@ import java.security.*
   * This is focussed just on getting Secp256k1 txnscenarios and Verification
   * Working. TODO: Trim this down to used functions
   */
-object SecpSigning extends MyLogging {
+object SecpSigning extends BlindsightLogging {
   import SecpOps.Constants
 
 

@@ -1,13 +1,12 @@
 package com.odenzo.xrpl.models.api.commands.ledgerinfo
 
 import com.odenzo.xrpl.models.api.commands.Command
-import com.odenzo.xrpl.models.api.commands.CommandMarkers.{XrpCommand, XrpCommandRq, XrpCommandRs}
+import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.odenzo.xrpl.models.data.ledgertree.LedgerHeader
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import io.circe.{Codec, JsonObject}
-import io.circe.derivation.{Configuration, ConfiguredCodec}
-import org.bouncycastle.pqc.crypto.crystals.dilithium.DilithiumSigner
+import io.circe.{ Codec, JsonObject }
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 //package com.odenzo.xrpl.apis.commands.ledgerinfo
 //

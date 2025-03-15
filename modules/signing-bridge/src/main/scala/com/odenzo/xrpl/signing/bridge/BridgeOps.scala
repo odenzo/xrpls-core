@@ -3,10 +3,10 @@ package com.odenzo.xrpl.signing.bridge
 import com.odenzo.xrpl.models.api.commands.admin.Sign
 import com.odenzo.xrpl.models.data.models.atoms.TxnSignature
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpKeyPair, XrpSeed }
+import com.odenzo.xrpl.models.scodecs.XrpBinCodecAPI
 import com.odenzo.xrpl.signing.core.ed25519.{ Ed25519KeyGenerators, Ed25519Signing }
 import com.odenzo.xrpl.signing.core.passphases.{ PassphraseOps, RFC1751Keys }
 import com.odenzo.xrpl.signing.core.secp256k1.{ SecpKeyGenerators, SecpSigning }
-import com.odenzo.xrpl.bincodec.XrpBinCodecAPI
 import scodec.bits.BitVector
 
 /**
@@ -17,8 +17,8 @@ object BridgeOps {
 
   /**
     * @param rq
-    *   Full SignRq (SingingPubKey doesn't need to be filled)
-    *
+    *   Full SignRq (SingingPubKey doesn't need to be filled) All the auto-fill
+    *   fields should be filled though.
     * @return
     *   Signing Rs so it can be submmitted
     */

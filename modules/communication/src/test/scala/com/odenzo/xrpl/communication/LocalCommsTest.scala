@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.communication
 
 import cats.effect.{ IO, Resource }
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.communication.EngineFunctions.SendCmdFn
 import com.odenzo.xrpl.communication.websocket.WSEngine
 import com.odenzo.xrpl.communication.*
@@ -17,7 +17,7 @@ import scala.concurrent.duration.Duration
 import scala.util.Random
 
 /** Test Framework with RPC Engine pointed to LocalHost Docker Admin port */
-trait LocalCommsTest(mode: String = "rpc") extends munit.CatsEffectSuite with CatsEffectFunFixtures with MyLogging {
+trait LocalCommsTest(mode: String = "rpc") extends munit.CatsEffectSuite with CatsEffectFunFixtures with BlindsightLogging {
 
   private val log                       = LoggerFactory.getLogger
   val random                            = new Random()

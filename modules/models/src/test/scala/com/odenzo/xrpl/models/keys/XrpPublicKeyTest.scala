@@ -1,12 +1,12 @@
 package com.odenzo.xrpl.models.keys
 
-import com.odenzo.xrpl.common.utils.MyLogging
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
 import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.fromPublicKeyHex
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Json
 import io.circe.syntax.EncoderOps
-class XrpPublicKeyTest extends munit.FunSuite with MyLogging {
+class XrpPublicKeyTest extends munit.FunSuite with BlindsightLogging {
 
   private val log = LoggerFactory.getLogger
 
