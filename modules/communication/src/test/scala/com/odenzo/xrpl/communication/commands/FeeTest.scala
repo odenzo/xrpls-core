@@ -11,8 +11,8 @@ class FeeTest extends LocalCommsTest(TestScenarios.mode) {
   test("Fee") {
     given engine: XrplEngine = engineFixture()
     val T                    = Fee
-    val rq                   = Fee.Rq()
-    val response             = engine.send[T.Rq, T.Rs](rq).map(io => io)
+    val rq                   = T.Rq()
+    val response             = engine.send[T.Rq, T.Rs](rq)
     response
 
   }

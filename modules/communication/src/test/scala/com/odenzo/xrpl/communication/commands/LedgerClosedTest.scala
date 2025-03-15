@@ -13,7 +13,7 @@ class LedgerClosedTest extends LocalCommsTest(TestScenarios.mode) {
     given engine: XrplEngine = engineFixture()
     val T                    = LedgerClosed
     val rq                   = LedgerClosed.Rq()
-    val response             = engine.send[T.Rq, T.Rs](rq).map(io => io)
+    val response             = engine.send[T.Rq, T.Rs](rq)
     response
   }
 

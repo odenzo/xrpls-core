@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.data.ledgertree.nodes
 
-import com.odenzo.xrpl.models.data.models.atoms.{AccountAddress, AccountTxnNumber, Hash256, LedgerHash}
-import com.odenzo.xrpl.models.data.models.monetary.{CurrencyAmount, Quality}
-import io.circe.{Decoder, Encoder}
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountTxnNumber, Hash256, LedgerHash }
+import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, Quality }
+import io.circe.{ Decoder, Encoder }
 
 /**
   * See also docs for account root node. I am guessing this has delta too?
@@ -23,7 +23,7 @@ case class OfferNode(
     ownerNode: Option[String], // LedgerNodeIndex type? "0000000000000000" So, its a LedgerId?
     previousTxnId: Option[Hash256],
     previousTxnLgrSeq: Option[Long], // LedgerIndex as Long/Int, what is this, AccountLedgerSequence ?
-    index: Option[String], // Trassaction Index? Index wrt the consensus list of validated transactions?
+    index: Option[String], // Transaction Index? Index wrt the consensus list of validated transactions?
     // Addition fields of book_offers API.
     // These are all snake case with no capitalization
     ownerFunds: Option[String], // XRP amount in Drops or a BigDecimal FiatValue

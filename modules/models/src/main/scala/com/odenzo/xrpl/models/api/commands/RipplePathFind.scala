@@ -20,13 +20,13 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
 object RipplePathFind extends XrpCommand[RipplePathFind.Rq, RipplePathFind.Rs] {
 
   case class Rq(
-      ledgerIndex: Option[LedgerHandle] = LedgerHandle.validated.some,
-      ledgerHash: Option[LedgerHash],
+      ledgerIndex: Option[LedgerHandle]                    = LedgerHandle.validated.some,
+      ledgerHash: Option[LedgerHash]                       = None,
       sourceAccount: AccountAddress,
-      sourceCurrencies: Option[NonEmptyList[XrplCurrency]], // Each currency encoded as Object
+      sourceCurrencies: Option[NonEmptyList[XrplCurrency]] = None, // Each currency encoded as Object
       destinationAccount: AccountAddress,
       destinationAmount: CurrencyAmount, // TODO: Test -1 for XRP or FiatCurrency Amount
-      sendMax: Option[CurrencyAmount],
+      sendMax: Option[CurrencyAmount]                      = None,
   ) extends XrpCommandRq derives ConfiguredCodec {
     val command: Command = Command.RIPPLE_PATH_FIND
   }

@@ -9,16 +9,25 @@ class LedgerDataTest extends LocalCommsTest(TestScenarios.mode) {
 
   private val log = LoggerFactory.getLogger
 
-  test("ledger_data") {
+  test("ledger_data text") {
     val T = LedgerData
 
     given engine: XrplEngine = engineFixture()
 
     val rq       = T.Rq(LedgerHandle.validated, binary = false)
     val response = engine.send[T.Rq, T.Rs](rq)
-
     response
+  }
 
+
+  test("ledger_data binary") {
+    val T = LedgerData
+
+    given engine: XrplEngine = engineFixture()
+
+    val rq       = T.Rq(LedgerHandle.validated, binary = true)
+    val response = engine.send[T.Rq, T.Rs](rq)
+    response
   }
 
 }

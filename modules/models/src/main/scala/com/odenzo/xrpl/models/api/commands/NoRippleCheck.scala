@@ -1,5 +1,6 @@
 package com.odenzo.xrpl.models.api.commands
 
+import cats.data.NonEmptyList
 import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, LedgerHash }
@@ -53,16 +54,21 @@ object NoRippleCheck extends XrpCommand[NoRippleCheck.Rq, NoRippleCheck.Rs] {
     * ledger, we ignore the ledger_current_index. This is probably a pattern
     * everywhere in Ripple... "problem" in quotes, because current is not
     * stable? * @param ledger_index
-    *
+    *   - TODO: Decode Transactions by mapping TransactionType to enums and then
+    *     what? Decode from xxxTxn?
     * @param resultLedger
     *   The ledger the results apply to.
     * @param problems
+    *   Possible empty list.
     * @param transactions
     */
   case class Rs(
       problems: List[String],
-      transactions: List[Json],
-  ) extends XrpCommandRs derives ConfiguredCodec
+      transactions: Option[List[Json]],
+  ) extends XrpCommandRs derives ConfiguredCodec {
+    def problemsNEL: Option[NonEmptyList[String]]  = NonEmptyList.fromList(problems)
+    def transactionNEL: Option[NonEmptyList[Json]] = transactions.flatMap(NonEmptyList.fromList)
+  }
 
   object Rs:
     given Configuration = Configuration.default.withSnakeCaseMemberNames

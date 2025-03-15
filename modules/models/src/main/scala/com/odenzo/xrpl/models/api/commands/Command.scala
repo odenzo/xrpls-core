@@ -37,5 +37,6 @@ enum Command(val label: String):
   case TX extends Command("tx")
   case MANIFEST extends Command("manifest")
   case VALIDATION_CREATE extends Command("validation_create")
+  case VERSION extends Command("version")
   case WALLET_PROPOSE extends Command("wallet_propose")
 end Command

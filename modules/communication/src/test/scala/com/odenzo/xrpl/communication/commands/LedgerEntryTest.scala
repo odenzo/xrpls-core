@@ -9,7 +9,7 @@ class LedgerEntryTest extends LocalCommsTest(TestScenarios.mode) {
 
   private val log = LoggerFactory.getLogger
 
-  test("ledger_entry".fail) {
+  test("ledger_entry") {
     val T                    = LedgerEntry
     given engine: XrplEngine = engineFixture()
     val rq                   = T.Rq(binary = false)

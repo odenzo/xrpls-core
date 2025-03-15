@@ -20,29 +20,31 @@ class NoRippleCheckTest extends LocalCommsTest(TestScenarios.mode) {
 
   private val log = LoggerFactory.getLogger
 
-  test("NoRipple Check") {
+  test("NoRippleCheck with Transactions") {
     given engine: XrplEngine = engineFixture()
-    println(s"The Engine $engine")
-    val rq                   = NoRippleCheck.Rq(AccountAddress.GENESIS, user, true)
-    println(s"Created the Request: $rq")
-    for {
-      response <- engine.send[NoRippleCheck.Rq, NoRippleCheck.Rs](rq)
-      _        <- IO(log.info(s"Response $response"))
-    } yield response
 
+    val T        = NoRippleCheck
+    val rq       = T.Rq(AccountAddress.GENESIS, user, true)
+    val response = engine.send[T.Rq, T.Rs](rq)
+    response
   }
 
-  test("New Account NoRipple Check".ignore) {
+  test("New Gateway Account NoRipple Check No Transactions") {
     given engine: XrplEngine = engineFixture()
-    println(s"The Engine $engine")
     for {
-      walletRs <-
-        TestScenarios.createFundedAccount(xrp(1000)) // This fails after propose wallet with no error. Broken Txn?
-      rq        = NoRippleCheck.Rq(walletRs.accountAddress, gateway, true)
-      _         = println(s"Request: ${rq.asJson.spaces4}")
+      walletRs <- TestScenarios.createFundedAccount(xrp(1000))
+      rq        = NoRippleCheck.Rq(walletRs.accountAddress, gateway, false)
       result   <- engine.send[NoRippleCheck.Rq, NoRippleCheck.Rs](rq)
     } yield result
+  }
+  test("New Gateway Account NoRipple Check With Transactions") {
+    given engine: XrplEngine = engineFixture()
 
+    for {
+      walletRs <- TestScenarios.createFundedAccount(xrp(1000))
+      rq        = NoRippleCheck.Rq(walletRs.accountAddress, gateway, true)
+      result   <- engine.send[NoRippleCheck.Rq, NoRippleCheck.Rs](rq)
+    } yield result
   }
 
 }

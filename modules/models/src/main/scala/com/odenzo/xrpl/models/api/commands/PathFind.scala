@@ -17,7 +17,6 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   */
 object PathFind extends XrpCommand[PathFind.Rq, PathFind.Rs] {
 
-  import BookCurrency.given
   case class Rq(
       sourceAccount: AccountAddress,
       destinationAccount: AccountAddress,

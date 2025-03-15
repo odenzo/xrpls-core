@@ -12,6 +12,7 @@ import io.circe.syntax.*
   */
 object ServerInfo extends XrpCommand[ServerInfo.Rq, ServerInfo.Rs] {
   val command: Command = Command.SERVER_INFO
+  
   case class Rq(counters: Boolean) extends XrpCommandRq derives Codec.AsObject {
     def command: Command = Command.SERVER_INFO
   }
