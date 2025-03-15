@@ -1,6 +1,5 @@
 package com.odenzo.xrpl.models.internal
 
-import com.odenzo.xrpl.models.api.commands.admin.keygen.WalletPropose
 import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountId }
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.*
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpPublicKey, XrpSeed }
@@ -10,6 +9,7 @@ import io.scalaland.chimney.PartialTransformer
 import io.scalaland.chimney.partial.Result
 import scodec.bits.hex
 import XrpPublicKey.Codecs.given
+import com.odenzo.xrpl.models.api.commands.WalletPropose
 
 /**
   * A Wallet holds credentials and addresses for an account. It can be used to

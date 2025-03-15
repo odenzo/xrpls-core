@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.communication.models
 
 import cats.data.NonEmptyList
-import com.odenzo.xrpl.models.api.commands.transaction.Submit
+import com.odenzo.xrpl.models.api.commands.*
 import io.circe.Json
 import io.circe.derivation.Configuration
 

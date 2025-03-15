@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.signing.core.secp256k1
 
 import cats.effect.IO
-import com.odenzo.xrpl.models.api.commands.admin.keygen.WalletPropose
+import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, WalletProposeResult, XrpKeyPair, XrpSeed }
 import com.odenzo.xrpl.signing.core.ed25519.Ed25519KeyGenerators
 import com.odenzo.xrpl.signing.core.DeriveAccountAddress
@@ -16,7 +16,8 @@ import scodec.bits.ByteVector
   *   - MasterSeed and MasterSeedHex isomorphism tested elsewhere.
   *   - Passphrase to MasterSeedHex tested elsewhere.
   */
-class SecpKeyGeneratorsTest extends CommandRqRsTestDataIOSpec[WalletPropose.Rq, WalletPropose.Rs]("WalletProposeRqRs.json") {
+class SecpKeyGeneratorsTest
+    extends CommandRqRsTestDataIOSpec[WalletPropose.Rq, WalletPropose.Rs]("WalletProposeRqRs.json") {
   import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
   private val log                                                        = LoggerFactory.getLogger // Extension method
   import XrpSeed.given

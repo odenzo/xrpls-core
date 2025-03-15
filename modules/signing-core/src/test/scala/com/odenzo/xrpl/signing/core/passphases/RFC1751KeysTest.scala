@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.signing.core.passphases
 
 import cats.effect.IO
-import com.odenzo.xrpl.models.api.commands.admin.keygen.WalletPropose
+import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpSeed }
 import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory

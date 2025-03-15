@@ -53,14 +53,50 @@ The majority of functions/Transactions, except NFT tokens, are implemented. Some
 ## Commands
 
 
-| Command         | Implemented | Tested |   |   | Comment                                |
-|-----------------|-------------|--------|---|---|----------------------------------------|
-| EnableAmendment | N           |        |   |   |                                        |
-| SetFee          | N           |        |   |   |
-| UNLModify       | N           |        |   |   |
+| Command           | Implemented | Tested  |   | Comment                        | 
+|-------------------|-------------|---------|---|--------------------------------|
+| AccountChannels   |             |         |   |                                |        
+| AccountCurrencies |             |         |   |                                |
+| AccountInfo       |             |         |   |                                |
+| AccountLines      |             |         |   |                                |
+| AccountObject     |             |         |   |                                |
+| AccountNFTS       | No          |         |   | NFTs Not Supported             |
+| AccountTx         |             |         |   |                                |
+| Feature           |             |         |   |                                |
+| Fee               | Yes         |         |   |                                |
+| GatewayBalances   |             |         |   |                                |
+| Ledger            |             |         |   |                                |
+| LedgerAccept      |             |         |   |                                |
+| LedgerClosed      |             |         |   |                                |
+| LedgerCurrent     |             |         |   |                                |
+| LedgerData        |             |         |   |                                |
+| LedgerEntry       |             |         |   |                                |
+| NoRippleCheck     |             |         |   |                                |
+| ServerDefinitions | Yes         |         |   |                                |
+| ValidationCreate  |             |         |   |                                |
+| WalletPropose     |             |         |   | Via Server and Standalone      |
+| BookChanges       | Pending     |         |   |                                |
+| BookOffers        | Pending     |         |   |                                |
+| DepositAuthorize  | Pending     |         |   |                                |
+| GetAggregatePrice | Pending     |         |   |                                |
+| PathFind          | Yes         | Pending |   |                                |
+| RipplePathFind    | Yes         | Pending |   |                                |
+| ChannelAuthorize  | Pending     | Pending |   |                                |
+| ChannelVerify     | Pending     | Pending |   |                                |
+| Manifest          | Pending     | Pending |   |                                |
+| ServerInfo        | Yes         | Pending |   |                                |
+| ServerState       | Yes         | Pending |   |                                |
+| Version           | Yes         | Pending |   |                                |
+| Subscribe         | Yes         | Yes     |   | Includes Helper Framework      |
+| Uns ubscribe      | Yes         | Yes     |   | Includes Helper Framework      |
+| AMMInfo           | No          |         |   | No AMM MoneyMarket Implemented |
+| NFTBuyOffers      | No          |         |   | No AMM MoneyMarket Implemented |
+| NFTSellOffers     | No          |         |   | No AMM MoneyMarket Implemented |
+
 
 ## Functions Well Tested
-- Memos and InvoiceId on all payments
+- Memos and InvoiceId on all payments—Needs Testing
+- 
 
 
 

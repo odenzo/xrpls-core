@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.signing.bridge
 
-import com.odenzo.xrpl.models.api.commands.admin.Sign
+import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.data.models.atoms.TxnSignature
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpKeyPair, XrpSeed }
 import com.odenzo.xrpl.models.scodecs.XrpBinCodecAPI

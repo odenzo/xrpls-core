@@ -9,13 +9,13 @@ import cats.syntax.all.*
 import com.odenzo.xrpl.communication.EngineFunctions.SendCmdFn
 import com.odenzo.xrpl.communication.XrplEngine
 import com.odenzo.xrpl.communication.rpc.RPCEngine
-import com.odenzo.xrpl.models.api.commands.accountinfo.NoRippleCheck
+import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.TrustSetTx
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
-import com.odenzo.xrpl.models.api.commands.accountinfo.NoRippleCheck.Role
+import com.odenzo.xrpl.models.api.commands.NoRippleCheck.Role
 import com.odenzo.xrpl.models.data.models.keys.KeyType
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{Drops, FiatAmount}
+import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{ Drops, FiatAmount }
 import com.odenzo.xrpl.models.data.models.monetary.*
 import com.odenzo.xrpl.models.internal.Wallet
 import com.odenzo.xrpl.models.internal.Wallet.given

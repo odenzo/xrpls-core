@@ -1,11 +1,11 @@
 package com.odenzo.xrpl.models.primitives
 
-import com.odenzo.xrpl.models.api.commands.transaction.Submit
+import com.odenzo.xrpl.models.api.commands.Submit
 import com.odenzo.xrpl.models.data.models.atoms.TxBlob
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.JsonObject
 import io.circe.syntax.given
-import spire.math.{ULong, UShort}
+import spire.math.{ ULong, UShort }
 
 class TxBlobTest extends munit.FunSuite {
   private val log = LoggerFactory.getLogger

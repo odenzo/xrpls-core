@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.communication.testinfratests
 
 import com.odenzo.xrpl.communication.*
-import com.odenzo.xrpl.models.api.commands.admin.keygen.ValidationCreate
+import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.data.models.keys.KeyType
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount

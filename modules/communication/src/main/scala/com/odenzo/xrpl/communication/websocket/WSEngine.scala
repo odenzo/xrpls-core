@@ -11,11 +11,11 @@ import com.odenzo.xrpl.communication.models.*
 import com.odenzo.xrpl.communication.models.ResponseExtractors.{ extractStatus, findResultRecord }
 import com.odenzo.xrpl.communication.websocket.WSEngine.enrichOutboundMessageEnvelope
 
-import com.odenzo.xrpl.models.api.commands.transaction.Submit
-import com.odenzo.xrpl.models.api.commands.transaction.Submit as engine
+import com.odenzo.xrpl.models.api.commands.Submit
+import com.odenzo.xrpl.models.api.commands.Submit as engine
 import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.api.commands.admin.{ LedgerAccept, Sign }
+import com.odenzo.xrpl.models.api.commands.{ LedgerAccept, Sign }
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.pointer.literal.pointer

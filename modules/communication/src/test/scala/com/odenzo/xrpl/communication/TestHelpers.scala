@@ -3,19 +3,16 @@ package com.odenzo.xrpl.communication
 import cats.data.*
 import cats.effect.*
 import cats.syntax.all.*
-import com.odenzo.xrpl.communication.models.{XrplEngineCommandResult, XrplEngineTxnResult}
-import com.odenzo.xrpl.models.api.commands.accountinfo.{AccountCurrencies, AccountInfo, AccountLines}
-import com.odenzo.xrpl.models.api.commands.admin.keygen.WalletPropose
-import com.odenzo.xrpl.models.api.commands.serverinfo.Fee
-import com.odenzo.xrpl.models.api.commands.transaction.Submit
+import com.odenzo.xrpl.communication.models.{ XrplEngineCommandResult, XrplEngineTxnResult }
+import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.PaymentTx
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
 import com.odenzo.xrpl.models.data.models.atoms.*
-import com.odenzo.xrpl.models.data.models.keys.{KeyType, XrpSeed}
+import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpSeed }
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{Drops, FiatAmount}
-import com.odenzo.xrpl.models.data.models.monetary.{CurrencyAmount, TrustLine}
+import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{ Drops, FiatAmount }
+import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, TrustLine }
 import com.odenzo.xrpl.models.data.models.paths.PaymentPath
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.LoggerFactory
@@ -117,8 +114,8 @@ object TestHelpers {
     * simple(r) data object.
     */
   def checkBalances(account: AccountAddress)(using engine: XrplEngine): IO[NonEmptyList[CurrencyAmount]] = {
-    import io.scalaland.chimney.dsl.*
     import com.odenzo.xrpl.models.support.utils.convertors.Conversions.given
+    import io.scalaland.chimney.dsl.*
     for {
       xrp        <- checkXrpAccountBalance(account)
       tlines     <- checkFiatAccountBalances(account)

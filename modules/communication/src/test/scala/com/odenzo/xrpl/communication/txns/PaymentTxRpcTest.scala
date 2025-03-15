@@ -2,24 +2,20 @@ package com.odenzo.xrpl.communication.txns
 
 import cats.effect.*
 import com.odenzo.xrpl.communication.*
-import com.odenzo.xrpl.models.api.commands.accountinfo.NoRippleCheck
-import com.odenzo.xrpl.models.api.commands.accountinfo.NoRippleCheck.Role
-import com.odenzo.xrpl.models.api.commands.admin.keygen.ValidationCreate
+import com.odenzo.xrpl.models.api.commands.*
+import com.odenzo.xrpl.models.api.commands.NoRippleCheck.Role
 import com.odenzo.xrpl.models.api.transactions.TrustSetTx
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
 import com.odenzo.xrpl.models.data.models.keys.KeyType
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.*
-import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, Script, XrplCurrency }
+import com.odenzo.xrpl.models.data.models.monetary.{CurrencyAmount, Script, XrplCurrency}
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.LoggerFactory
 
 class PaymentTxRpcTest extends LocalCommsTest("rpc") {
   private val log = LoggerFactory.getLogger
- /*
- spzHrF14skju986dkFn3BqwS77Hq1
-  prqc4g4GpS1STuHPBJ4tkEq5NqjemxQ78XHU
-  */
+  // spzHrF14skju986dkFn3BqwS77Hq1 prqc4g4GpS1STuHPBJ4tkEq5NqjemxQ78XHU
   test("Open TrustLines") {
     given engine: XrplEngine = engineFixture()
     for {
