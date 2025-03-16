@@ -5,41 +5,43 @@ The majority of functions/Transactions, except NFT tokens, are implemented. Some
 ## Transactional Overview
 
 
-| Txn                    | Implemented | Tested |   |   | Comment                                |
-|------------------------|-------------|--------|---|---|----------------------------------------|
-| AccountDelete          | N           |        |   |   |                                        |
-| AccountSet             |             |        |   |   |                                        |
-| AMM*                   | N           |        |   |   |                                        |
-| CredentialAccept       |             |        |   |   |                                        |
-| CredentialCreate       |             |        |   |   |                                        |
-| CredentialDelete       |             |        |   |   |                                        |
-| CheckAccept            | N           |        |   |   |                                        |
-| CheckCreate            | N           |        |   |   |                                        |
-| CheckDelete            | N           |        |   |   |                                        |
-| Clawback               | N           |        |   |   |                                        |
-| DIDDelete              | N           |        |   |   |                                        |
-| DIDSet                 | N           |        |   |   |                                        |
-| EscrowCancel           |             |        |   |   |                                        |
-| EscrowCreate           |             |        |   |   |                                        |
-| EscrowFinish           |             |        |   |   |                                        |
-| MPTokenAuthorize       |             |        |   |   |                                        |
-| MPTokenIssuanceCreate  |             |        |   |   |                                        |
-| MPTokenIssuanceDestroy |             |        |   |   |                                        |
-| MPTokenIssuanceSet     |             |        |   |   |                                        |
-| NFT*                   | N           |        |   |   | Will Not Implement                     |
-| OfferCreate            | Y           |        |   |   |                                        |
-| OfferCancel            | Y           |        |   |   |                                        |
-| OracleDelete           | N           |        |   |   |                                        |
-| OracleSet              | N           |        |   |   |                                        |
-| PaymentChannelCreate   | N           |        |   |   | Low Priority                           |
-| PaymentChannelFund     | N           |        |   |   | Low Priority                           |
-| PaymentChannelClaim    | N           |        |   |   | Low Priority                           |
-| PaymentTx              | Y           | Y      |   |   |                                        |
-| SetRegularKey          | Y           | Y      |   |   |                                        |
-| SingerListSet          | Y           | Y      |   |   |                                        |
-| TicketCreate           | N           | N      |   |   | High Priority                          |
-| TrustSet               | Y           | Y      |   |   |                                        |
-| XChain*                | Y           | Y      |   |   | Medium for cross XRPL (private/public) |
+| Txn                         | Implemented | Tested |   |   | Comment                                |
+|-----------------------------|-------------|--------|---|---|----------------------------------------|
+| AccountDelete               | N           |        |   |   |                                        |
+| AccountSet                  |             |        |   |   |                                        |
+| AMM*                        | N           |        |   |   |                                        |
+| CredentialAccept            | Y           | N      |   |   |                                        |
+| CredentialCreate            | Y           | N      |   |   |                                        |
+| CredentialDelete            | Y           | N      |   |   |                                        |
+| CheckCash                   | Y           | N      |   |   |                                        |
+| CheckCreate                 | Y           | N      |   |   |                                        |
+| CheckCancel                 | Y           | N      |   |   |                                        |
+| Clawback                    | Y           | N      |   |   |                                        |
+| DIDDelete                   | Y           | N      |   |   |                                        |
+| DIDSet                      | Y           | N      |   |   |                                        |
+| EscrowCancel                | Y           | N      |   |   |                                        |
+| EscrowCreate                | Y           | N      |   |   |                                        |
+| EscrowFinish                | Y           | N      |   |   |                                        |
+| MPTokenAuthorize            | Pending     |        |   |   |                                        |
+| MPTokenIssuanceCreate       | Pending     |        |   |   |                                        |
+| MPTokenIssuanceDestroy      | Pending     |        |   |   |                                        |
+| MPTokenIssuanceSet          | Pending     |        |   |   |                                        |
+| NFT*                        | N           |        |   |   | Will Not Implement                     |
+| OfferCreate                 | Y           |        |   |   |                                        |
+| OfferCancel                 | Y           |        |   |   |                                        |
+| OracleDelete                | N           |        |   |   | Low Priority                           |
+| OracleSet                   | N           |        |   |   | Low Priority                           |
+| PaymentChannelCreate        | N           |        |   |   | Low Priority                           |
+| PaymentChannelFund          | N           |        |   |   | Low Priority                           |
+| PaymentChannelClaim         | N           |        |   |   | Low Priority                           |
+| PaymentTx                   | Y           | Y      |   |   |                                        |
+| PermissionedDomainSetTx     | N           |        |   |   |                                        |
+| PermissionedDomainDeleteTx  | N           |        |   |   |                                        |
+| SetRegularKey               | Y           | Y      |   |   |                                        |
+| SingerListSet               | N           |        |   |   |                                        |
+| TicketCreate                | N           | N      |   |   | High Priority                          |
+| TrustSet                    | Y           | Y      |   |   |                                        |
+| XChain*                     | Y           | Y      |   |   | Medium for cross XRPL (private/public) |
 
 ## Psuedo Transactions
 

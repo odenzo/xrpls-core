@@ -5,6 +5,10 @@ import io.circe.derivation.{ Configuration, ConfiguredEnumCodec }
 /** Out of Date for SUre! */
 enum XrpTxnType derives ConfiguredEnumCodec:
   case Payment
+  case CheckCreate
+  case CheckCash
+  case Clawback
+  case DepositPreauth
   case OfferCreate
   case OfferCancel
   case TrustSet

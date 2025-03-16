@@ -3,7 +3,6 @@ package com.odenzo.xrpl.common.utils
 import cats.*
 import cats.data.*
 import cats.syntax.all.*
-
 import com.odenzo.xrpl.common.binary.{ XrpBase58Fix, XrplBase58Alphabet }
 import com.odenzo.xrpl.common.binary.XrpBinaryOps.toXrpBase58
 import com.tersesystems.blindsight.LoggerFactory
@@ -14,6 +13,7 @@ import io.circe.jawn.JawnParser
 import io.circe.syntax.*
 import io.circe.*
 import io.circe.derivation.Configuration
+import scodec.bits.Bases.Alphabets.HexUppercase
 import scodec.bits.{ BitVector, ByteVector }
 
 import java.io.File
@@ -45,12 +45,12 @@ trait CirceCodecUtils extends BlindsightLogging {
 
   val hexCodec: Codec[ByteVector] = Codec.from(
     decodeString.emap(s => ByteVector.fromHexDescriptive(s)),
-    io.circe.Encoder.encodeString.contramap(a => a.toHex),
+    io.circe.Encoder.encodeString.contramap(a => a.toHex(HexUppercase)),
   )
 
   val hexBitsCodec: Codec[BitVector] = Codec.from(
     decodeString.emap(s => BitVector.fromHexDescriptive(s)),
-    Encoder.encodeString.contramap(bv => bv.toHex),
+    Encoder.encodeString.contramap(bv => bv.toHex(HexUppercase)),
   )
 
   /** this is kinda worthless */
