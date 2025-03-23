@@ -184,5 +184,7 @@ trait CirceCodecUtils extends BlindsightLogging {
     in.withFocus(json => json.mapObject(jobj => fn(jobj)))
   }
 
+  inline def customFailure(message: String, c: ACursor): Left[DecodingFailure, Nothing] =
+    Left(DecodingFailure(message, c.history))
 }
 object CirceCodecUtils extends CirceCodecUtils

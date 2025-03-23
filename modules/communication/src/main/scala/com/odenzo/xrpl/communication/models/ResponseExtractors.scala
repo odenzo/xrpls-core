@@ -10,6 +10,7 @@ import com.odenzo.xrpl.models.api.commands.CommandMarkers.XrpCommandRs
 import com.odenzo.xrpl.models.data.models.atoms.LedgerHash
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.{ LedgerIndex, WILDCARD_LEDGER }
+import com.tersesystems.blindsight.LoggerFactory
 import io.circe.optics.JsonPath.root
 import io.circe.pointer.PointerFailure
 import io.circe.pointer.literal.pointer
@@ -28,6 +29,9 @@ import java.util.UUID
   * subfield for RPC and the top-level response for WS
   */
 object ResponseExtractors {
+  import com.odenzo.xrpl.models.data.models.atoms.Hash256.given
+
+  private val log = LoggerFactory.getLogger
 
   /** Gets the /result field as Json or raises and error */
   def findResultRecord(payload: Json): IO[Json] = IO.fromEither(pointer"/result".get(payload))
@@ -38,6 +42,7 @@ object ResponseExtractors {
     */
   def extractStatus(rs: Json): IO[XrplStatus] = {
     IO.fromOption(root.result.status.as[XrplStatus].getOption(rs))(IllegalStateException(s"No Status Found"))
+      .flatTap(st => IO(log.info(s"Got Status: $st")))
   }
 
   def extractLedgerHash(rs: Json): Option[LedgerHash] = root.ledger_hash.as[LedgerHash].getOption(rs)
@@ -76,7 +81,9 @@ object ResponseExtractors {
   def extractResult[RS: Decoder](rs: Json): IO[RS] = {
     for {
       result <- IO.fromOption(root.result.json.getOption(rs))(IllegalStateException(s"No Result Found in Response"))
+      _       = log.info(s"Got Result now Decoding to RS Model: ${result.spaces4}")
       rs     <- IO.fromEither(result.as[RS])
+      _       = log.info("Done: $rs")
     } yield rs
   }
 
@@ -117,14 +124,20 @@ object ResponseExtractors {
       IO.raiseError[XrplEngineCommandResult[RS]](XrplEngineCommandError(None, None, Some(error), context))
     raised
 
+  /**
+    * The command result had a success status so we go and try and extract the
+    * RS from the payload
+    */
   def extractSuccessResult[RS <: XrpCommandRs: Decoder: Encoder](payload: Json): IO[XrplEngineCommandResult[RS]] = {
     for {
+      _           <- IO(log.info(s"extracting success result from ${payload.spaces4}"))
       rs          <- extractResult[RS](payload)
-      warnings    <- extractWarnings(payload)
+      _ = log.info(s"The result element from the payload: ${pprint.apply(rs)}")
+      warnings    <- extractWarnings(payload) // Optional
       // Should make these one Option[ResponseLedgerInfo]
-      ledgerHash   = extractLedgerHash(payload) // WalletPropose and some other commands muck the pattern
-      ledgerIndex <- extractLedgerIndex(payload)
-      isValidated  = extractValidated(payload)
+      ledgerHash   = extractLedgerHash(payload) // Optional - WalletPropose and some other commands muck the pattern
+      ledgerIndex <- extractLedgerIndex(payload) // Optional - and either ledger_current_index OR ledger_index
+      isValidated  = extractValidated(payload) // Optional - not there on many commands, but there for txns
       isCurrent    = ledgerIndex.exists(_.isRight).some
       index        = ledgerIndex.map(_.merge)
       ledgerInfo   = (ledgerHash, index, isCurrent, isValidated).mapN(ResponseLedgerInfo.apply)
@@ -133,10 +146,13 @@ object ResponseExtractors {
 
   // Routine used for parsing a normal (not Signing or Submit) command sent and received
   def extractCommandResult[RS <: XrpCommandRs: Decoder: Encoder](rs: Json): IO[XrplEngineCommandResult[RS]] = {
+    println(s"Extracting Command Result from ${rs.noSpaces}")
     for {
       status <- extractStatus(rs)
       result <- status match
-                  case XrplStatus.success                    => extractSuccessResult[RS](rs)
+                  case XrplStatus.success                    =>
+                    log.debug("Status was success  = Going to Extract Result")
+                    extractSuccessResult[RS](rs)
                   case XrplStatus.failure | XrplStatus.error => extractAndThrowErrors[RS](rs)
     } yield result
   }

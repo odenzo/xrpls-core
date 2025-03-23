@@ -23,7 +23,7 @@ case class OracleSetTx(
     oracleDocumentID: Long,
     provider: Blob,
     URI: Blob,
-    lastUpdateTime: UnixTimeSec,
+    lastUpdateTime: RippleTime,
     assetClass: Blob, // ASCII BLOB as Hex, max 16
     priceDataSeries: List[PriceData],
 ) extends XrpTxn derives ConfiguredCodec {
@@ -31,7 +31,7 @@ case class OracleSetTx(
   def txnType: XrpTxnType = XrpTxnType.OfferCreate
 }
 
-object OfferCreateTx {
+object OracleSetTx {
   given Configuration = CirceCodecUtils.capitalizeConfig
 }
 
@@ -40,4 +40,7 @@ object OfferCreateTx {
   * doesn't confirm to ISO Currency format. So not sure how to put in
   * XrplCurrency. So aborting this one for now.
   */
-case class PriceData(baseAsset: String, quoteAsset: String, assetPrice: BigInt)
+case class PriceData(baseAsset: String, quoteAsset: String, assetPrice: BigInt) derives ConfiguredCodec
+
+object PriceData:
+  given Configuration = Configuration.default

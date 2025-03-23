@@ -7,6 +7,7 @@ import com.odenzo.xrpl.communication.models.{ XrplEngineCommandResult, XrplEngin
 import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.PaymentTx
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
+import com.odenzo.xrpl.models.data.models.Amendment
 import com.odenzo.xrpl.models.data.models.atoms.*
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpSeed }
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
@@ -179,7 +180,9 @@ object TestHelpers {
     * probably maxLedgerIndex at some forward time unless using a Standalone
     * server.
     */
-  def currentLedgerIndex(using engine: XrplEngine): Unit = {}
+  def currentLedgerIndex(using engine: XrplEngine): IO[LedgerCurrent.Rs] = {
+    engine.send[LedgerCurrent.Rq, LedgerCurrent.Rs](LedgerCurrent.Rq()).map(_.rs)
+  }
 
   def listAccountCurrencies(
       address: AccountAddress
@@ -187,4 +190,37 @@ object TestHelpers {
     engine.send[AccountCurrencies.Rq, AccountCurrencies.Rs](AccountCurrencies.Rq(address, validated)).map(_.rs)
   }
 
+  /**
+    *   - We skip vetoed=obsolete or true.
+    *     - ignore the enabled=true just for logging
+    *     - ignore the supported=false - just for logging
+    *
+    * Note: The XrplLabs Docker image is version 1.0.0 as first/last/good bummer
+    */
+  def enableAllAmendments(using engine: XrplEngine) = {
+    for {
+      xrplVersionInfo         <- engine.send[Version.Rq, Version.Rs](Version.Rq()).map(_.rs)
+      _                        = log.info(s"XRPL VersionInfo: ${xrplVersionInfo.asJson.noSpaces}")
+      features                <- engine.send[Feature.Rq, Feature.Rs](Feature.Rq(None, None)).map(_.rs.features)
+      (notVetoed, vetoed)      = features.partition(v => v._2.vetoed.isEmpty) // None == Not Vetoed or Obsolete
+      // _                        = log.debug(s"Vetoed: ${pprint.apply(vetoed)}")
+      // _                        = log.debug(s"NOT Vetoed: ${pprint.apply(notVetoed)}")
+      (supported, unsupported) = vetoed.partition(v => v._2.supported)
+      (enabled, disabled)      = supported.partition(v => v._2.enabled)
+      //  _                        = log.info(s"Enabled: ${pprint.apply(enabled)}")
+      //  _                        = log.info(s"Disabled and Supported and Vetoed: ${pprint.apply(disabled)}")
+      toUnVeto                 = disabled.keys
+      _                        = log.info(s"Found ${toUnVeto.size} amendments to enable")
+      _                       <- toUnVeto.toList.traverse { featureId =>
+                                   log.info(s"Enabling ${featureId.asJson.noSpaces}")
+                                   for {
+                                     result <- engine.send[Feature.Rq, Feature.Rs](Feature.Rq(featureId.some, false.some))
+                                     _      <- engine.ledgerAccept
+                                     feature = result.rs.features.filter { case (id, amendment) => id == featureId }
+                                     _       = log.info(s"UnVetoed FeatureId: ${featureId.asJson.noSpaces}: ${pprint.apply(feature)}")
+                                   } yield feature
+                                 }
+    } yield ()
+
+  }
 }

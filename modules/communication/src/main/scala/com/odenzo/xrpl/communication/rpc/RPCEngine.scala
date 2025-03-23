@@ -56,8 +56,10 @@ class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with Blindsi
     val json              = rq.asJson.deepDropNullValues
     val rpcRq: RpcRequest = RpcRequest(rq.command.label, List(json))
     wireLog.info(s"$command::RQ:\n ${rpcRq.asJson.spaces4}")
-    client.run(rpcRequest.withEntity(rpcRq)).use { response =>
+    client.run(rpcRequest.withEntity(rpcRq)).use { (response: Response[IO]) =>
+      println("Hello")
       for {
+        _      <- IO(log.info("Got the response"))
         rs     <- response.as[Json] // HTTP4S as to get the response as JSON
         _       = wireLog.info(s"$command::RS\n ${rs.spaces4}")
         result <- ResponseExtractors.extractCommandResult[RS](rs)
