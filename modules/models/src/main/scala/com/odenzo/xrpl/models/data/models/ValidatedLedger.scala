@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.data.models
 
-import com.odenzo.xrpl.models.data.models.atoms.Hash256
+import com.odenzo.xrpl.models.data.models.atoms.hash256.*
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 
 /**

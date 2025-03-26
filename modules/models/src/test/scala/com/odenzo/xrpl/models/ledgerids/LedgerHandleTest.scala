@@ -1,7 +1,8 @@
 package com.odenzo.xrpl.models.ledgerids
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.atoms.{ Hash256, LedgerHash }
+import com.odenzo.xrpl.models.data.models.atoms.{ LedgerHash }
+import com.odenzo.xrpl.models.data.models.atoms.hash256.*
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.tersesystems.blindsight.LoggerFactory

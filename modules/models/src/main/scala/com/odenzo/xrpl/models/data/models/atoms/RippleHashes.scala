@@ -7,6 +7,7 @@ import io.circe.{ Codec, Decoder, Encoder }
 import scodec.bits.{ BitVector, ByteVector }
 
 import scala.util.Try
+import hash256.*
 
 /**
   * This object has wrapper classes around Hash256 and Hash160 opaque types.

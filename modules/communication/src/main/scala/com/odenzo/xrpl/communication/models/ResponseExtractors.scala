@@ -29,7 +29,7 @@ import java.util.UUID
   * subfield for RPC and the top-level response for WS
   */
 object ResponseExtractors {
-  import com.odenzo.xrpl.models.data.models.atoms.Hash256.given
+  import com.odenzo.xrpl.models.data.models.atoms.hash256.*
 
   private val log = LoggerFactory.getLogger
 
@@ -132,7 +132,7 @@ object ResponseExtractors {
     for {
       _           <- IO(log.info(s"extracting success result from ${payload.spaces4}"))
       rs          <- extractResult[RS](payload)
-      _ = log.info(s"The result element from the payload: ${pprint.apply(rs)}")
+      _            = log.info(s"The result element from the payload: ${pprint.apply(rs)}")
       warnings    <- extractWarnings(payload) // Optional
       // Should make these one Option[ResponseLedgerInfo]
       ledgerHash   = extractLedgerHash(payload) // Optional - WalletPropose and some other commands muck the pattern

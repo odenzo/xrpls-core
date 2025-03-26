@@ -1,7 +1,7 @@
 # Things to Improve
 
 
-# Currency Handling
+## Currency Handling
 
 XRPLCurrency, XRPLStdCurrency are ok, but the JSON produced is always hex based
 instead of using ISO style when available.

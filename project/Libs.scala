@@ -3,7 +3,7 @@ import sbt.*
 //noinspection TypeAnnotation
 object Libs {
   object V {
-    val circe       = "0.14.10"
+    val circe       = "0.14.12"
     val circeOptics = "0.15.0"
     val cats        = "2.13.0"
     val catsEffect  = "3.5.7"
@@ -20,7 +20,7 @@ object Libs {
     val bouncyCastle    = "1.80"
     val blindsight      = "2.0.0"
     val terseLogback    = "1.2.0"
-    val logback         = "1.5.16"
+    val logback         = "1.5.18"
     val http4s          = "0.23.30"
     val chimney         = "1.7.3"
     val fs2             = "3.11.0"

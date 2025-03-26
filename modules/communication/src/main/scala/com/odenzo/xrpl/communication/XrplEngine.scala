@@ -8,9 +8,10 @@ import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCom
 import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.internal.Wallet
+import com.tersesystems.blindsight.Condition
 import io.circe.{ Decoder, Encoder }
 
-trait XrplEngine { engineImple =>
+trait XrplEngine { engine =>
 
   /**
     * This sends a command that is immmediately executed and returns the result.
@@ -18,7 +19,7 @@ trait XrplEngine { engineImple =>
     */
   def send[RQ <: XrpCommandRq: Encoder.AsObject: Decoder, RS <: XrpCommandRs: Encoder.AsObject: Decoder](
       rq: RQ
-  ): IO[XrplEngineCommandResult[RS]]
+  )(using debug: Condition = Condition.never): IO[XrplEngineCommandResult[RS]]
 
   /**
     * This signs and submits a Transactions to the engine, returning
@@ -30,9 +31,9 @@ trait XrplEngine { engineImple =>
       commonTx: TxCommon,
       txn: T,
       wallet: Wallet,
-  ): IO[XrplEngineTxnResult]
+  )(using debug: Condition = Condition.never): IO[XrplEngineTxnResult]
 
   def ledgerAccept: IO[XrplEngineCommandResult[LedgerAccept.Rs]]
 
-  def engineName: String = if engineImple.isInstanceOf[RPCEngine] then "RPCEngine" else "WSEngine Engine"
+  def engineName: String = if engine.isInstanceOf[RPCEngine] then "RPCEngine" else "WSEngine Engine"
 }

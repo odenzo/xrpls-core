@@ -1,6 +1,7 @@
 package com.odenzo.xrpl.models.data.ledgertree.nodes
 
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountTxnNumber, Hash256, LedgerHash }
+import com.odenzo.xrpl.models.data.models.atoms.hash256.*
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountTxnNumber, LedgerHash }
 import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, Quality }
 import io.circe.{ Decoder, Encoder }
 

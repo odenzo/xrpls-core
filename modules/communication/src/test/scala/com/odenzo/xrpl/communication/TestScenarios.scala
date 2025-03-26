@@ -32,16 +32,10 @@ object TestScenarios {
   ): IO[Wallet] = {
     println(s"Engine: $engine")
     for {
-      _        <- IO(log.info(s"Creating Funded Account w/ $amount"))
       wallet   <- TestHelpers.proposeWallet(keyType)
-      _        <- IO(log.info(s"Proposed Wallet: ${wallet.asJson.spaces2}"))
       _        <- TestHelpers.fundAccount(wallet, amount, fundedBy)
-      _        <- IO(log.info(s"About to advance ledger"))
       _        <- engine.ledgerAccept
       xrpDrops <- TestHelpers.checkXrpAccountBalance(wallet.accountAddress, validated)
-      _         = log.info(s"XRP Balance of new Account is ${xrpDrops.asXrp} (${wallet.accountAddress} Sent: ${amount.asXrp}")
-      // _ <- IO.raiseWhen(xrpDrops != amount)(IllegalStateException(s"${wallet.accountAddress} incorrect XRP
-      // $xrpDrops"))
     } yield wallet
   }
 

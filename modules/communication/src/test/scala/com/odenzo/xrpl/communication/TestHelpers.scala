@@ -3,12 +3,13 @@ package com.odenzo.xrpl.communication
 import cats.data.*
 import cats.effect.*
 import cats.syntax.all.*
-import com.odenzo.xrpl.communication.models.{ XrplEngineCommandResult, XrplEngineTxnResult }
+import com.odenzo.xrpl.communication.models.{ ResponseLedgerInfo, XrplEngineCommandResult, XrplEngineTxnResult }
 import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.PaymentTx
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
-import com.odenzo.xrpl.models.data.models.Amendment
+import com.odenzo.xrpl.models.data.models.{ Amendment, Vetoed }
 import com.odenzo.xrpl.models.data.models.atoms.*
+import com.odenzo.xrpl.models.data.models.atoms.hash256.{ Hash256, given_Order_Hash256 }
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpSeed }
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
@@ -83,8 +84,9 @@ object TestHelpers {
       deliverMin  = None,
     )
 
-    rpc.sendTxn(txCommon, paymentRq, from).map(_.submitted)
-
+    val response: IO[XrplEngineTxnResult] = rpc.sendTxn(txCommon, paymentRq, from)
+    val submitted: IO[Submit.Rs]          = response.map(_.submitted)
+    submitted
   }
 
   def transferFiat(
@@ -187,7 +189,13 @@ object TestHelpers {
   def listAccountCurrencies(
       address: AccountAddress
   )(using engine: XrplEngine): IO[AccountCurrencies.Rs] = {
-    engine.send[AccountCurrencies.Rq, AccountCurrencies.Rs](AccountCurrencies.Rq(address, validated)).map(_.rs)
+    val rq                                                        = AccountCurrencies.Rq(address, validated)
+    val result: IO[XrplEngineCommandResult[AccountCurrencies.Rs]] =
+      engine.send[AccountCurrencies.Rq, AccountCurrencies.Rs](rq)
+    val warnings                                                  = result.map(_.warnings)
+    val ledgerInfo: IO[Option[ResponseLedgerInfo]]                = result.map(_.ledgerInfo)
+    val rs: IO[AccountCurrencies.Rs]                              = result.map(_.rs)
+    rs
   }
 
   /**
@@ -197,30 +205,28 @@ object TestHelpers {
     *
     * Note: The XrplLabs Docker image is version 1.0.0 as first/last/good bummer
     */
-  def enableAllAmendments(using engine: XrplEngine) = {
+  def enableAllAmendments(using engine: XrplEngine): IO[Map[Hash256, Amendment]] = {
     for {
-      xrplVersionInfo         <- engine.send[Version.Rq, Version.Rs](Version.Rq()).map(_.rs)
-      _                        = log.info(s"XRPL VersionInfo: ${xrplVersionInfo.asJson.noSpaces}")
-      features                <- engine.send[Feature.Rq, Feature.Rs](Feature.Rq(None, None)).map(_.rs.features)
-      (notVetoed, vetoed)      = features.partition(v => v._2.vetoed.isEmpty) // None == Not Vetoed or Obsolete
-      // _                        = log.debug(s"Vetoed: ${pprint.apply(vetoed)}")
-      // _                        = log.debug(s"NOT Vetoed: ${pprint.apply(notVetoed)}")
-      (supported, unsupported) = vetoed.partition(v => v._2.supported)
-      (enabled, disabled)      = supported.partition(v => v._2.enabled)
-      //  _                        = log.info(s"Enabled: ${pprint.apply(enabled)}")
-      //  _                        = log.info(s"Disabled and Supported and Vetoed: ${pprint.apply(disabled)}")
-      toUnVeto                 = disabled.keys
-      _                        = log.info(s"Found ${toUnVeto.size} amendments to enable")
-      _                       <- toUnVeto.toList.traverse { featureId =>
-                                   log.info(s"Enabling ${featureId.asJson.noSpaces}")
-                                   for {
-                                     result <- engine.send[Feature.Rq, Feature.Rs](Feature.Rq(featureId.some, false.some))
-                                     _      <- engine.ledgerAccept
-                                     feature = result.rs.features.filter { case (id, amendment) => id == featureId }
-                                     _       = log.info(s"UnVetoed FeatureId: ${featureId.asJson.noSpaces}: ${pprint.apply(feature)}")
-                                   } yield feature
-                                 }
-    } yield ()
+
+      features    <- engine.send[Feature.Rq, Feature.Rs](Feature.Rq(None, None)).map(_.rs.features.values)
+      needsEnabled =
+        features.filter(a => a.enabled || !a.supported || a.vetoed.contains("Obsolete") || a.vetoed.contains(false))
+
+      _                = log.info(s"Found ${needsEnabled.size} amendments to enable")
+      _                = log.info(s"Feautre Names to Set NotVetoed: ${needsEnabled.map(_.name)}")
+      unvetoed        <- needsEnabled.toList.traverse { (featureId: Amendment) =>
+                           for {
+                             result <- engine.send[Feature.Rq, Feature.Rs](Feature.Rq(featureId.name.some, false.some))
+                             _      <- engine.ledgerAccept
+                             feature = result.rs.features.filter { case (id, amendment) => id == featureId }
+                           } yield feature
+                         }
+      unvetoedInfo     = unvetoed.flatMap(_.values)
+      _                = log.info(s"UnVetoed: ${unvetoedInfo.map((a: Amendment) => a.name).mkString("\n")}")
+      _               <- engine.ledgerAccept
+      updatedFeatures <- engine.send[Feature.Rq, Feature.Rs](Feature.Rq(None, None)).map(_.rs.features)
+
+    } yield updatedFeatures
 
   }
 }

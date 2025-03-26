@@ -18,7 +18,7 @@ import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.internal.Wallet
 import com.odenzo.xrpl.models.scodecs.XrpBinCodecAPI
-import com.tersesystems.blindsight.LoggerFactory
+import com.tersesystems.blindsight.{ Condition, LoggerFactory }
 import io.circe.derivation.Configuration
 import io.circe.optics.JsonPath.root
 import io.circe.pointer.literal.pointer
@@ -39,7 +39,6 @@ import scala.util.Try
 class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with BlindsightLogging {
   private val log = LoggerFactory.getLogger
 
-  log.info(s"Constructing RPCEngine pointing to port URI: $server")
   private val rpcRequest: Request[IO] =
     Request[IO](Method.POST).withContentType(`Content-Type`(MediaType.application.json)).withUri(server)
 
@@ -50,18 +49,17 @@ class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with Blindsi
     */
   def send[RQ <: XrpCommandRq: Encoder.AsObject: Decoder, RS <: XrpCommandRs: Encoder.AsObject: Decoder](
       rq: RQ
-  ): IO[XrplEngineCommandResult[RS]] = {
+  )(using debug: Condition = Condition.never): IO[XrplEngineCommandResult[RS]] = {
     val command           = rq.command.label
     log.info(s"Executing Command [$command]")
     val json              = rq.asJson.deepDropNullValues
     val rpcRq: RpcRequest = RpcRequest(rq.command.label, List(json))
-    wireLog.info(s"$command::RQ:\n ${rpcRq.asJson.spaces4}")
+    wireLog.withCondition(debug).debug(s"$command::RQ:\n ${rpcRq.asJson.spaces4}")
     client.run(rpcRequest.withEntity(rpcRq)).use { (response: Response[IO]) =>
-      println("Hello")
       for {
         _      <- IO(log.info("Got the response"))
         rs     <- response.as[Json] // HTTP4S as to get the response as JSON
-        _       = wireLog.info(s"$command::RS\n ${rs.spaces4}")
+        _       = wireLog.withCondition(debug).info(s"$command::RS\n ${rs.spaces4}")
         result <- ResponseExtractors.extractCommandResult[RS](rs)
       } yield result
     }
@@ -78,14 +76,14 @@ class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with Blindsi
       commonTx: TxCommon,
       txn: T,
       wallet: Wallet,
-  ): IO[XrplEngineTxnResult] = {
+  )(using debug: Condition = Condition.never): IO[XrplEngineTxnResult] = {
     for {
       _         <- IO(log.info(s"Sending Transaction ${txn.asJson.spaces4} RPCEngine"))
       // TODO: Have something to fill out the autofill fields (lastLedger / fee etc iff empty).
       fullTxn    = merge(txn, commonTx)
       signed    <- signTxn(txJson = fullTxn, wallet)
       submitted <- submitSignedTxn(signed.rs) // We have the SubmitRs, lets seperate out its error handling as needed
-      _         <- IO(log.info(s"Raw Submit Response ${submitted.asJson.spaces4}"))
+      _         <- IO(log.withCondition(debug).info(s"Raw Submit Response ${submitted.asJson.spaces4}"))
       // TODO: We have to look for engine_error stuff in the raw response too, and decide if we want to
       // raise an error.
       // It could be that success=true will have engine errors? If success=false we get raised exception here
@@ -98,7 +96,8 @@ class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with Blindsi
     */
   def ledgerAccept: IO[XrplEngineCommandResult[LedgerAccept.Rs]] = {
     log.debug("Accepting Ledger")
-    val accept = LedgerAccept.Rq()
+    val accept    = LedgerAccept.Rq()
+    given Boolean = false
     send[LedgerAccept.Rq, LedgerAccept.Rs](accept)
   }
 
@@ -107,7 +106,9 @@ class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with Blindsi
     * key information We now have no type Txn because we did a merge of the
     * JsonObjects. Really need to push that farther down the stack
     */
-  private[rpc] def signTxn(txJson: JsonObject, wallet: Wallet): IO[XrplEngineCommandResult[Sign.Rs]] = {
+  private[rpc] def signTxn(txJson: JsonObject, wallet: Wallet)(using
+      debug: Boolean = false
+  ): IO[XrplEngineCommandResult[Sign.Rs]] = {
     val rq: Sign.Rq = Sign.Rq(wallet.keyType, wallet.masterSeed.some, None, txJson)
     println(s"Full Sign.Rq: ${rq.asJson.spaces4}")
     val prog        = for {

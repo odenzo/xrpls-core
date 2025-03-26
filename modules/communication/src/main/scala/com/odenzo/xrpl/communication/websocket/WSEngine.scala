@@ -10,14 +10,13 @@ import com.odenzo.xrpl.communication.XrplEngine
 import com.odenzo.xrpl.communication.models.*
 import com.odenzo.xrpl.communication.models.ResponseExtractors.{ extractStatus, findResultRecord }
 import com.odenzo.xrpl.communication.websocket.WSEngine.enrichOutboundMessageEnvelope
-
 import com.odenzo.xrpl.models.api.commands.Submit
 import com.odenzo.xrpl.models.api.commands.Submit as engine
 import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.api.commands.{ LedgerAccept, Sign }
 import com.odenzo.xrpl.models.internal.Wallet
-import com.tersesystems.blindsight.LoggerFactory
+import com.tersesystems.blindsight.{ Condition, LoggerFactory }
 import io.circe.pointer.literal.pointer
 import io.circe.{ ACursor, Decoder, Encoder, Json, JsonObject }
 import io.circe.syntax.given
@@ -44,7 +43,7 @@ class WSEngine(transport: WebSocketTransport) extends XrplEngine {
     */
   override def send[RQ <: XrpCommandRq: Encoder.AsObject: Decoder, RS <: XrpCommandRs: Encoder.AsObject: Decoder](
       message: RQ
-  ): IO[XrplEngineCommandResult[RS]] = {
+  )(using debug: Condition = Condition.never): IO[XrplEngineCommandResult[RS]] = {
     val outbound: JsonObject = enrichOutboundMessageEnvelope(message, message.asJsonObject)
     log.info(s"Outbound WebSocket Message: ${outbound.toJson.spaces4}")
     for {
@@ -66,7 +65,7 @@ class WSEngine(transport: WebSocketTransport) extends XrplEngine {
       commonTx: TxCommon,
       txn: T,
       wallet: Wallet,
-  ): IO[XrplEngineTxnResult] = {
+  )(using debug: Condition = Condition.never): IO[XrplEngineTxnResult] = {
     for {
       _         <- IO(log.info(s"Sending Transaction ${txn.asJson.spaces4} to WebSocket"))
       txJson    <- WSEngine.formatTxJsonForTxnSigning[T](txn, commonTx)
@@ -77,11 +76,14 @@ class WSEngine(transport: WebSocketTransport) extends XrplEngine {
   }
 
   override def ledgerAccept: IO[XrplEngineCommandResult[LedgerAccept.Rs]] =
+    given Condition = Condition.never
     send[LedgerAccept.Rq, LedgerAccept.Rs](LedgerAccept.Rq())
 
   // TODO: Pull out Sign.Rq to a function (wallet, txJson) and use with both engines.
-  private[websocket] def signTxn(txJson: JsonObject, wallet: Wallet): IO[XrplEngineCommandResult[Sign.Rs]] = {
-    log.debug(s"--- Signing With Key for ${wallet.publicKey}:\n ${txJson.asJson.spaces4} \n---")
+  private[websocket] def signTxn(txJson: JsonObject, wallet: Wallet)(using
+      debug: Condition = Condition.never
+  ): IO[XrplEngineCommandResult[Sign.Rs]] = {
+    log.withCondition(debug).debug(s"--- Signing With Key for ${wallet.publicKey}:\n ${txJson.asJson.spaces4} \n---")
     val rq: Sign.Rq = Sign.Rq(wallet.keyType, wallet.masterSeed.some, None, txJson)
     send[Sign.Rq, Sign.Rs](rq)
   }

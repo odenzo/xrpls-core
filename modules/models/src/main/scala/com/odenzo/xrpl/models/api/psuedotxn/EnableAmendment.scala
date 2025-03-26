@@ -1,9 +1,10 @@
 package com.odenzo.xrpl.models.api.psuedotxn
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.atoms.{AccountAddress, Hash256, RippleTime}
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, RippleTime }
+import com.odenzo.xrpl.models.data.models.atoms.hash256.*
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
-import io.circe.derivation.{Configuration, ConfiguredCodec}
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 /**
   * https://xrpl.org/docs/references/protocol/transactions/pseudo-transaction-types/enableamendment

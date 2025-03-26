@@ -4,7 +4,7 @@ import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import scodec.bits.ByteVector
 import com.odenzo.xrpl.common.utils.CirceCodecUtils.hexCodec
-import com.odenzo.xrpl.models.data.models.atoms.Hash256
+import com.odenzo.xrpl.models.data.models.atoms.hash256.*
 import io.circe.{ Codec, Decoder, Encoder }
 
 /**
@@ -15,7 +15,13 @@ import io.circe.{ Codec, Decoder, Encoder }
   * @param vetoed
   *   true or false or String (ie Obsolete)
   */
-case class Amendment(enabled: Boolean, name: String, supported: Boolean, vetoed: Option[Vetoed]) derives ConfiguredCodec
+case class Amendment(
+    enabled: Boolean,
+    name: String,
+    supported: Boolean,
+    validations: Option[Int],
+    vetoed: Option[Vetoed],
+) derives ConfiguredCodec
 
 object Amendment:
   given hexByteVectorCodec: Codec[ByteVector] = CirceCodecUtils.hexCodec
@@ -24,9 +30,11 @@ object Amendment:
 case class Vetoed(vetoed: Boolean | String) extends AnyVal
 
 object Vetoed:
-  given Decoder[Vetoed] = Decoder[Boolean]
-    .map(Vetoed.apply).or(Decoder[String].map(Vetoed.apply))
-    .or(Decoder.failedWithMessage("Could Not Decode Wonky vetoed Field"))
+  given Decoder[Vetoed] =
+    Decoder[Boolean]
+      .map(Vetoed.apply)
+      .or(Decoder[String].map(Vetoed.apply))
+      .or(Decoder.failedWithMessage("Could Not Decode Wonky vetoed Field"))
 
   given Encoder[Vetoed] = Encoder.instance {
     case Vetoed(v: Boolean) => Encoder.encodeBoolean(v)
