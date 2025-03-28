@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.communication.subscription
 
-import com.odenzo.xrpl.models.data.models.monetary.{ BookCurrency, Script, XrpCurrency, XrplStdCurrency }
+import com.odenzo.xrpl.models.data.models.monetary.{ BookCurrency, Script, XrpCurrency }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import io.circe.{ Codec, Decoder, Encoder }
+import io.circe.{ Decoder, Encoder }
 
 case class OrderBook(takerPays: BookCurrency, takerGets: BookCurrency, snapshot: Boolean) derives ConfiguredCodec
 

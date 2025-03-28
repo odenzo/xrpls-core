@@ -1,13 +1,8 @@
 package com.odenzo.xrpl.models.data.models.fields.ids
 
-import io.circe
-import io.circe.Codec.{ AsObject, codecForValidated }
 import scodec.bits.*
 import scodec.bits.ByteOrdering.BigEndian
 import scodec.codecs.{ uint4, uint8 }
-import scodec.{ Codec, Decoder, Encoder }
-
-import scala.math.Ordered.orderingToOrdered
 
 /**
   * https://xrpl.org/docs/references/protocol/binary-format#field-ids FieldId
@@ -27,9 +22,7 @@ case class FieldId(dataTypeCode: BitVector, fieldCode: BitVector) extends Ordere
   val dataTypeCodeAsInt: Int = dataTypeCode.toInt(signed = false, ordering = BigEndian)
   val fieldCodeAsInt: Int    = fieldCode.toInt(signed = false)
 
-  /**
-    * Packs to full binary which sometimes require padding. Total length varies.
-    */
+  /** Packs to full binary which sometimes require padding. Total length varies. */
   val packedBinary: BitVector = {
     (fieldCode.size, dataTypeCode.size) match
       case (4, 4) => dataTypeCode ++ fieldCode

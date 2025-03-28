@@ -8,14 +8,14 @@ import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 case class EscrowCreateTx(
-    account: AccountAddress,
-    amount: Drops, // This amount is encoded as String in docs!
-    destination: AccountAddress,
-    cancelAfter: Option[RippleTime] = None,
-    finishAfter: Option[RippleTime] = None, // as above, need a new type for this.
-    condition: Option[String]       = None, // preimage-sha-256 crypto-condition.
-    destinationTag: Option[DestTag] = None,
-    sourceTag: Option[SourceTag]    = None,
+                           account: AccountAddress,
+                           amount: Drops, // This amount is encoded as String in docs!
+                           destination: AccountAddress,
+                           cancelAfter: Option[XrplTime] = None,
+                           finishAfter: Option[XrplTime] = None, // as above, need a new type for this.
+                           condition: Option[String]       = None, // preimage-sha-256 crypto-condition.
+                           destinationTag: Option[DestTag] = None,
+                           sourceTag: Option[SourceTag]    = None,
 ) extends XrpTxn derives ConfiguredCodec {
   def txnType: XrpTxnType = XrpTxnType.EscrowCreate
 }

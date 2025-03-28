@@ -1,18 +1,10 @@
 package com.odenzo.xrpl.models.scodecs
 
-import cats.*
-import cats.data.*
-import cats.implicits.*
-import com.odenzo.xrpl.models.data.models.monetary.FiatValue.*
-import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, FiatValue, Script, XrplStdCurrency }
-import com.odenzo.xrpl.models.scodecs.AmountCurrencyScodecs.{ currencyCustom, currencyIsoCode }
+import com.odenzo.xrpl.models.data.models.monetary.FiatValue
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.*
 import scodec.Codec.*
-import scodec.bits.*
 import scodec.codecs.*
-
-import scala.util.Try
 
 /**
   * A FiatAmount contains a BigDecimal "amount" plus a Currency and Issuer. This
@@ -27,7 +19,6 @@ import scala.util.Try
   * validation of BigDecimal amount there. Yes.
   */
 object AmountFiatValueScodecs {
-  import AccountScodecs.accountAddressCodec
 
   private val log                               = LoggerFactory.getLogger
   private[scodecs] val minVal: BigDecimal       = BigDecimal("-9999999999999999E80")

@@ -1,40 +1,33 @@
 package com.odenzo.xrpl.models.api.commands
 
+import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
+import io.circe.*
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+/**
+  * Admin command:
+  * https://xrpl.org/docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/get_counts
+  */
+object GetCounts extends XrpCommand[GetCounts.Rq, GetCounts.Rs] {
 
+  /**
+    * https://ripple.com/build/rippled-apis/#get-counts
+    *
+    * @param min_count
+    *   Filters fields with counts less than this value
+    * @param id
+    */
+  case class Rq(minCount: Long = 0) extends XrpCommandRq derives ConfiguredCodec {
+    val command: Command = Command.GET_COUNTS
+  }
 
+  case class Rs(counts: Json) extends XrpCommandRs derives ConfiguredCodec
 
+  object Rq {
+    given Configuration = Configuration.default.withSnakeCaseMemberNames
+  }
 
-
-//package com.odenzo.xrpl.apis.commands.serverinfo
-//
-//
-//import io.circe.*
-//import io.circe.generic.semiauto.deriveEncoder
-//import io.circe.syntax.*
-//
-///**
-//  * https://ripple.com/build/rippled-apis/#get-counts
-//  *
-//  * @param min_count
-//  *   Filters fields with counts less than this value
-//  * @param id
-//  */
-//case class GetCountsRq(min_count: Long = 0) extends RippleAdminRq
-//
-//case class GetCountsRs(counts: Json) extends RippleAdminRs
-//
-//object GetCountsRq {
-//  given circe: Encoder.AsObject[GetCountsRq] = CirceCodecUtils.deriveRqEncoder("get_counts")
-//}
-//
-//object GetCountsRs {
-//
-//  /**
-//    * This decoder is used on the result field, but has an arbitrary content.
-//    * So, actually we just use the result object as Json stored in counts field
-//    */
-//  given Decoder[GetCountsRs] = Decoder.instance[GetCountsRs] { hc =>
-//    Right(GetCountsRs(hc.value))
-//  }
-//}
+  object Rs {
+    given Configuration = Configuration.default.withSnakeCaseMemberNames
+  }
+}

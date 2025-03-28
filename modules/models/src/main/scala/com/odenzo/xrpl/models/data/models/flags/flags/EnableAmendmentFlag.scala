@@ -1,14 +1,7 @@
 package com.odenzo.xrpl.models.data.models.flags.flags
 
-import cats.*
-import cats.data.*
-import cats.effect.*
 import cats.effect.syntax.all.*
-import cats.syntax.all.*
 import io.circe.{ Decoder, Encoder }
-import scodec.bits.{ BitVector, ByteVector, hex }
-
-import scala.collection.immutable
 
 enum EnableAmendmentFlag(val value: Long):
   case tfGotMajority extends EnableAmendmentFlag(65536)

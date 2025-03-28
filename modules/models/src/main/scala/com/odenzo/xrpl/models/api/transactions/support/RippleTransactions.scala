@@ -1,10 +1,7 @@
 package com.odenzo.xrpl.models.api.transactions.support
 
-
-
-
-
-
+/** THink I enumerrated these already */
+object RippleTransactions {}
 
 //package com.odenzo.xrpl.apis.transactions
 //

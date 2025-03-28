@@ -28,19 +28,19 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * @param index
   */
 case class EscrowNode(
-    account: Option[AccountAddress], // Think not optional
-    destination: Option[AccountAddress], // Think not optional
-    amount: Option[Drops],
-    condition: Option[String], // SHA256?
-    cancelAfter: Option[RippleTime],
-    finishAfter: Option[RippleTime],
-    sourceTag: Option[SourceTag],
-    destinationTag: Option[DestTag],
-    flags: Option[Long],
-    ownerNode: Option[UInt64],
-    prevTxnId: Option[TxnHash], // The 64 character hex index (key)  , proper name? LedgerNodeIndex?  Cannot
-    prevTxnLgrSeq: Option[LedgerIndex], // LedgerSequence type...yeah should be called prevTxnLgrIndex then?
-    index: Option[String], // Guessing this is a LedgerNodeIndex of this node.
+                       account: Option[AccountAddress], // Think not optional
+                       destination: Option[AccountAddress], // Think not optional
+                       amount: Option[Drops],
+                       condition: Option[String], // SHA256?
+                       cancelAfter: Option[XrplTime],
+                       finishAfter: Option[XrplTime],
+                       sourceTag: Option[SourceTag],
+                       destinationTag: Option[DestTag],
+                       flags: Option[Long],
+                       ownerNode: Option[UInt64],
+                       prevTxnId: Option[TxnHash], // The 64 character hex index (key)  , proper name? LedgerNodeIndex?  Cannot
+                       prevTxnLgrSeq: Option[LedgerIndex], // LedgerSequence type...yeah should be called prevTxnLgrIndex then?
+                       index: Option[String], // Guessing this is a LedgerNodeIndex of this node.
 ) extends LedgerNode derives ConfiguredCodec
 
 object EscrowNode {

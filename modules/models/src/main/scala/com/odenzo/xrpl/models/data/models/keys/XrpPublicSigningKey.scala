@@ -1,10 +1,9 @@
 package com.odenzo.xrpl.models.data.models.keys
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import io.circe.{ Codec, Encoder }
+import io.circe.Codec
 import scodec.bits.ByteVector
 
-import java.security.KeyPair
 import scala.util.Try
 
 /**

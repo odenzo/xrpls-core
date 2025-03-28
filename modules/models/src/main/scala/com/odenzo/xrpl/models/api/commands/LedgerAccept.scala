@@ -1,11 +1,7 @@
 package com.odenzo.xrpl.models.api.commands
 
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpAdminCommandRq, XrpCommand, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.{ LedgerIndex, given_Encoder_LedgerHandle }
 import io.circe.*
-import io.circe.generic.semiauto.{ deriveDecoder, deriveEncoder }
-import io.circe.syntax.*
 
 /**
   * Use this to advance and validate the current ledger only on a stand-alone

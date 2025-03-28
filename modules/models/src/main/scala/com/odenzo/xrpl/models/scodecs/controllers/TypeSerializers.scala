@@ -1,6 +1,11 @@
 package com.odenzo.xrpl.models.scodecs.controllers
 
-
+/**
+  * FIXME: Leaving here for a bit until I decide if I want to just use core XRPL
+  * types in wrapper case classes.
+ * Maybe with AnyVal, maybe not.
+  */
+object TypeSerializers {}
 
 //package com.odenzo.xrp.bincodec.controllers
 //

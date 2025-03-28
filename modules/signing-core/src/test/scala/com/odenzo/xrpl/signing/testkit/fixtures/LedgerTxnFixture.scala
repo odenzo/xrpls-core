@@ -1,6 +1,7 @@
 package com.odenzo.xrpl.signing.testkit.fixtures
 
-
+/** This should definately be resurrected */
+object LedgerTxnFixture {}
 
 //package com.odenzo.ripple.localops.fixtures
 //

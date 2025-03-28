@@ -1,19 +1,10 @@
 package com.odenzo.xrpl.models.api.commands
 
-import cats.*
-import cats.data.*
-import cats.effect.*
 import cats.effect.syntax.all.*
-import cats.syntax.all.*
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
-import com.odenzo.xrpl.models.internal.definitions.{ FieldEntryRaw, ServerDefinitionsData }
+import com.odenzo.xrpl.models.internal.definitions.FieldEntryRaw
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import io.circe.generic.semiauto.deriveCodec
-import io.circe.syntax.*
 
 /**
   * Get the definitions.json file from the server. Unclear if this is just

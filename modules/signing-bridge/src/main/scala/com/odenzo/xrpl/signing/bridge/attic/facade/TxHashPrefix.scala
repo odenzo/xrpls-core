@@ -7,7 +7,7 @@ import scodec.bits.{ ByteVector, hex }
   * "53545800 + TxBlob sha512half // Unsigned Multisigned // Signed "54584E00
   * (both kinds I think)
   */
-enum TxHashPrefix(bytes: ByteVector) {
+enum TxHashPrefix(val bytes: ByteVector) {
 
   /** Prefix to txblob to make transaction hash */
   case transactionID extends TxHashPrefix(hex"54584E00")

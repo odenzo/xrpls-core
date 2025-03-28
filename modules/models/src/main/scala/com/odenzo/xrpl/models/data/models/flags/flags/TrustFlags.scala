@@ -1,9 +1,6 @@
 package com.odenzo.xrpl.models.data.models.flags.flags
 
-import io.circe.{ Decoder, Encoder }
-import scodec.bits.{ BitVector, ByteVector, hex }
-
-import scala.collection.immutable
+import scodec.bits.{ ByteVector, hex }
 
 /** UInt32 */
 enum TrustFlags(val value: Int, val bits: ByteVector):

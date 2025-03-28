@@ -1,20 +1,16 @@
 package com.odenzo.xrpl.models.api.commands
 
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import io.circe.syntax.*
 
 /**
   * Get the current XRPL server Fee statistics.
   * https://ripple.com/build/rippled-apis/#server-info
   */
 object Manifest extends XrpCommand[Manifest.Rq, Manifest.Rs] {
-  import XrpPublicKey.Codecs.given
+  import XrpPublicKey.given
 
   /** Case Object that is empty? */
   case class Rq(publicKey: XrpPublicKey) extends XrpCommandRq derives ConfiguredCodec {

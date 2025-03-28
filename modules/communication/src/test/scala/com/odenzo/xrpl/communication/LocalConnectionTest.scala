@@ -1,10 +1,7 @@
 package com.odenzo.xrpl.communication
 
 import cats.*
-import cats.data.*
 import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.syntax.all.*
 import com.odenzo.xrpl.communication.config.XrplEngineConfig
 import com.odenzo.xrpl.communication.rpc.RPCEngine
 import com.odenzo.xrpl.communication.websocket.WSEngine
@@ -12,10 +9,6 @@ import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
 import com.tersesystems.blindsight.LoggerFactory
 import org.http4s.Uri
-import org.http4s.client.Client
-import org.http4s.implicits.uri
-
-import scala.concurrent.duration.given
 
 class LocalConnectionTest extends munit.CatsEffectSuite {
 

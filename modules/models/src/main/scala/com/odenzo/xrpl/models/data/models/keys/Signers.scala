@@ -2,15 +2,11 @@ package com.odenzo.xrpl.models.data.models.keys
 
 import cats.*
 import cats.data.*
-import cats.effect.*
 import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, TxnSignature }
 import io.circe.*
-import io.circe.Decoder.Result
-import io.circe.DecodingFailure.Reason
-import io.circe.derivation.{ Configuration, ConfiguredCodec }
+import io.circe.derivation.Configuration
 import io.circe.syntax.given
 
 /** Double check codec, add some helpers to add a Signer, which appends to List */

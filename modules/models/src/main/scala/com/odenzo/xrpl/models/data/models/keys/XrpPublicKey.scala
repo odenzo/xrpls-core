@@ -70,12 +70,11 @@ object XrpPublicKey extends XrpBinaryOps {
     ).mapN((_, _) => ms: XrpPublicKey)
   }
 
-  object Codecs:
-    /**
-      * This should be applied to public_key field which is in Base58, when used
-      * as Signing Key its Hex though
-      */
-    given base58Codec: Codec[XrpPublicKey] =
-      CirceCodecUtils.xrpBase58Codec.iemap[XrpPublicKey](fromBase58Bytes)(wrapped)
+  /**
+    * This should be applied to public_key field which is in Base58, when used
+    * as Signing Key its Hex though
+    */
+  given base58Codec: Codec[XrpPublicKey] =
+    CirceCodecUtils.xrpBase58Codec.iemap[XrpPublicKey](fromBase58Bytes)(wrapped)
 
 }

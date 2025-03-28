@@ -1,10 +1,5 @@
 package com.odenzo.xrpl.models.data.models.flags.flags
 
-import io.circe.{ Decoder, Encoder }
-import scodec.bits.{ BitVector, ByteVector, hex }
-
-import scala.collection.immutable
-
 /** Inidivual UINT32 flags */
 enum OfferCreateFlags(val value: Int):
 

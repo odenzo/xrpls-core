@@ -1,11 +1,9 @@
 package com.odenzo.xrpl.common.binary
 
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.Encoder
+
 import munit.*
-import scodec.bits.{ BitVector, hex }
 
 /**
   * This looks good and its simple. Ignores whitespace. Note I have trouble with

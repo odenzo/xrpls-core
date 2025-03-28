@@ -4,7 +4,6 @@ import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.models.api.transactions.support.{ XrpTxn, XrpTxnType }
 import com.odenzo.xrpl.models.data.models.atoms.*
 import com.odenzo.xrpl.models.data.models.atoms.blob.*
-import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, XrplCurrency, XrplStdCurrency }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 /**
@@ -18,13 +17,13 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * @param base
   */
 case class OracleSetTx(
-    account: AccountAddress,
-    oracleDocumentID: Long,
-    provider: Blob,
-    URI: Blob,
-    lastUpdateTime: RippleTime,
-    assetClass: Blob, // ASCII BLOB as Hex, max 16
-    priceDataSeries: List[PriceData],
+                        account: AccountAddress,
+                        oracleDocumentID: Long,
+                        provider: Blob,
+                        URI: Blob,
+                        lastUpdateTime: XrplTime,
+                        assetClass: Blob, // ASCII BLOB as Hex, max 16
+                        priceDataSeries: List[PriceData],
 ) extends XrpTxn derives ConfiguredCodec {
 
   def txnType: XrpTxnType = XrpTxnType.OfferCreate

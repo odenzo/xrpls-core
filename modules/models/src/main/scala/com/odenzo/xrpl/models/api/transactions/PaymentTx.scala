@@ -8,7 +8,6 @@ import com.odenzo.xrpl.models.data.models.flags.Flags
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount
 import com.odenzo.xrpl.models.data.models.paths.PaymentPath
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import io.circe.syntax.*
 
 /**
   * V1 vs V2 differences. sendMax must be None for XRP-to-XRP. deliverMin can

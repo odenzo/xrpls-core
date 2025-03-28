@@ -1,67 +1,57 @@
 package com.odenzo.xrpl.models.api.commands
 
+import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
+import com.odenzo.xrpl.models.data.models.atoms.LedgerHash
+import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.TxnHash
+import com.odenzo.xrpl.models.data.models.atoms.hash256.Hash256
+import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import io.circe.*
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object LedgerRequest extends XrpCommand[LedgerRequest.Rq, LedgerRequest.Rs] {
 
+  /**
+    * TODO: Not done at all. Asks Rippled to fetch the ledger if missing.
+    * https://ripple.com/build/rippled-apis/#ledger-request This has really
+    * strange response stuff (signals error if no ledger but rippled will try
+    * and fetch etc). But that is signaled in the result (like a txn error)
+    * WARNING: I don't use this, so its just a framework.
+    *
+    * @param ledger
+    *   This must be a LedgerHash or LedgerIndex, no named ledgers it seems
+    */
+  case class Rq(ledgerIndex: LedgerIndex, ledgerHash: LedgerHash) extends XrpCommandRq derives ConfiguredCodec {
+    val command: Command = Command.LEDGER_REQUEST
+  }
 
+  case class Rs(json: Json) extends XrpCommandRs derives ConfiguredCodec
 
+  case class LedgerRequestFailed(acquiring: Option[Json])
 
+  case class LedgerRequestPending(
+      hash: Option[LedgerHash],
+      have_header: Boolean,
+      have_state: Option[Boolean],
+      have_transaction: Boolean,
+      needed_state_hashes: List[Hash256],
+      needed_transaction_hashes: List[TxnHash],
+      peers: Long,
+      timeouts: Long,
+  )
 
+  /**
+    * Will actually give ledger information. This may be a duplicate of ledger
+    * call, check. This is a Ledger Header
+    * https://ripple.com/build/ledger-format/#header-format
+    */
+  case class LedgerRequestSucceed(ledger: Json, ledgerIndex: LedgerIndex)
 
+  object Rq {
+    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
-//package com.odenzo.xrpl.apis.commands.ledgerinfo
-//
-//import com.odenzo.ripple.models.atoms.*
-//import com.odenzo.ripple.models.support.{ RippleRq, RippleRs }
-//import io.circe.*
-//import io.circe.generic.semiauto.deriveEncoder
-//
-///**
-//  * TODO: Not done at all. Asks Rippled to fetch the ledger if missing.
-//  * https://ripple.com/build/rippled-apis/#ledger-request This has really
-//  * strange response stuff (signals error if no ledger but rippled will try and
-//  * fetch etc). But that is signaled in the result (like a txn error) WARNING: I
-//  * don't use this, so its just a framework.
-//  * @param ledger
-//  *   This must be a LedgerHash or LedgerIndex, no named ledgers it seems
-//  */
-//case class LedgerRequestRq(ledger: Ledger, id: RippleMsgId = RippleMsgId.random) extends RippleRq
-//case class LedgerRequestRs(json: Json) extends RippleRs
-//
-//case class LedgerRequestFailed(acquiring: Option[Json])
-//
-//case class LedgerRequestPending(
-//    hash: Option[LedgerHash],
-//    have_header: Boolean,
-//    have_state: Option[Boolean],
-//    have_transaction: Boolean,
-//    needed_state_hashes: List[RippleHash],
-//    needed_transaction_hashes: List[TxnHash],
-//    peers: Long,
-//    timeouts: Long,
-//)
-//
-///**
-//  * Will actually give ledger information. This may be a duplicate of ledger
-//  * call, check. This is a Ledger Header
-//  * https://ripple.com/build/ledger-format/#header-format
-//  */
-//case class LedgerRequestSucceed(ledger: Json, ledger_index: LedgerIndex)
-//
-//object LedgerRequestRq {
-//  val command: (String, Json)             = "command" -> Json.fromString("ledger_request")
-//  given Encoder.AsObject[LedgerRequestRq] = {
-//    deriveEncoder[LedgerRequestRq].mapJsonObject(o => command +: o).mapJsonObject(o => Ledger.renameLedgerField(o))
-//  }
-//}
-//
-//object LedgerRequestRs {
-//
-//  /**
-//    * Explain this. We arae getting no JSON back if the is no such ledger,
-//    * returning a 404?
-//    */
-//  given Decoder[LedgerRequestRs] = Decoder.instance[LedgerRequestRs] { hc =>
-//    val resjson = hc.focus.getOrElse(Json.Null)
-//    Right(LedgerRequestRs(resjson))
-//  }
-//}
+  }
+
+  object Rs {
+    given Configuration = Configuration.default.withSnakeCaseMemberNames
+  }
+}

@@ -1,20 +1,10 @@
 package com.odenzo.xrpl.models.api.commands
 
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.ledgertree.LedgerHeader
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
 import io.circe.JsonObject
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-
-//package com.odenzo.xrpl.apis.commands.ledgerinfo
-//
-//import com.odenzo.ripple.models.atoms.*
-//import com.odenzo.ripple.models.atoms.ledgertree.nodes.LedgerNode
-//import com.odenzo.ripple.models.support.{ RippleScrollingRq, RippleScrollingRs }
-//import io.circe.*
-//import io.circe.generic.semiauto.{ deriveDecoder, deriveEncoder }
-//import io.circe.syntax.*
 
 /**
   * https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/ledger-methods/ledger_data

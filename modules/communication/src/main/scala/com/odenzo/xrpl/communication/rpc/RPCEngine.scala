@@ -92,8 +92,7 @@ class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with Blindsi
     */
   def ledgerAccept: IO[XrplEngineCommandResult[LedgerAccept.Rs]] = {
     log.debug("Accepting Ledger")
-    val accept    = LedgerAccept.Rq()
-    given Boolean = false
+    val accept = LedgerAccept.Rq()
     send[LedgerAccept.Rq, LedgerAccept.Rs](accept)
   }
 

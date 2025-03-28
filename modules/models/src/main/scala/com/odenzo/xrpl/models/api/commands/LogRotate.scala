@@ -1,12 +1,6 @@
 package com.odenzo.xrpl.models.api.commands
 
-
-
-
-
-
-
-
+object LogRotate {}
 
 //package com.odenzo.xrpl.apis.commands.serverinfo
 //

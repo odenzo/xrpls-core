@@ -1,12 +1,6 @@
 package com.odenzo.xrpl.models.api.commands
 
-
-
-
-
-
-
-
+object LedgerCleaner {}
 
 //package com.odenzo.xrpl.apis.commands.ledgerinfo
 //

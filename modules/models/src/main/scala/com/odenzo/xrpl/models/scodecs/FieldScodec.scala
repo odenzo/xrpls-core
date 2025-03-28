@@ -1,5 +1,12 @@
 package com.odenzo.xrpl.models.scodecs
 
+/**
+  * I will probablyt actually make a Scodec for fieldName/Metadata and tie it to
+  * scodecs instead of the current approach in the EncoderController and
+  * DecoderCOntrolers
+  */
+object FieldScodec {}
+
 //package com.odenzo.xrp.bincodec.scodecs
 //
 //import com.odenzo.xrp.bincodec.controllers.{ MetaData, GenericDataTypeCodecFn }

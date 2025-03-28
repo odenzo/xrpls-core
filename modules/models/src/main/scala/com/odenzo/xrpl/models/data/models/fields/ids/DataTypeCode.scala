@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.models.data.models.fields.ids
 
-import scodec.Codec
-import scodec.bits.{ BitVector, ByteVector }
+import scodec.bits.BitVector
 
 /**
   * Clarify TypeCode vs TypePrefix vs Ripple Standard Types 9e.g. UINt8,
@@ -18,5 +17,5 @@ object DataTypeCode:
     def compare(x: DataTypeCode, y: DataTypeCode): Int = (x: BitVector).compare(y: BitVector)
   }
   given Ordering[DataTypeCode] = bitOrdering
-  
+
   extension (tc: DataTypeCode) def bits: BitVector = tc

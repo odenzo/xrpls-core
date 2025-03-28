@@ -1,11 +1,9 @@
 package com.odenzo.xrpl.common.binary
 
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.Encoder
 import munit.*
-import scodec.bits.{ BitVector, hex }
+import scodec.bits.BitVector
 
 /**
   * Well, now things are broken and I had no decent tests. The inbuild
@@ -26,8 +24,9 @@ class XrplBase58FixTest extends munit.FunSuite with BlindsightLogging {
     val fixedO = BitVector.fromValidBase58(base58Str, XrplBase58Alphabet)
     val backO  = fixedO.toBase58(XrplBase58Alphabet)
     log.info(s"""OIn:\t $base58Str
-                |OFixed\t$fixed
-                |OBack:\t $back""".stripMargin)
+                |Fixed\t$fixed
+                |OBack:\t $backO
+                |Back:\t $back""".stripMargin)
 
   }
 
@@ -40,5 +39,5 @@ class XrplBase58FixTest extends munit.FunSuite with BlindsightLogging {
   test("Seed") {
     roundTrip("snoPBrXtMeMyMHUVTgbuqAfg1SUTb")
   }
-  
+
 }

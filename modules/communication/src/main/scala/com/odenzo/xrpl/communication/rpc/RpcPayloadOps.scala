@@ -1,10 +1,7 @@
 package com.odenzo.xrpl.communication.rpc
 
 import cats.*
-import cats.data.*
 import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.syntax.all.*
 import io.circe.Json
 import io.circe.pointer.literal.pointer
 

@@ -1,26 +1,20 @@
 package com.odenzo.xrpl.communication.websocket
 
 import cats.*
-import cats.data.*
 import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.syntax.all.*
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.JsonObject
-import spire.implicits.leftActionOps
 
 import java.time.Instant
-import java.util.UUID
 import scala.collection.concurrent.TrieMap
-import scala.collection.mutable
 
 class MessageCorrelator[T] {
 
   private val log = LoggerFactory.getLogger
 
   /**
-    * List of in-flight messages, lets add a timestamp to each so we can't audit
-    * ones not responded to. Note this TrieMap is multi-thread safe
+    * List of in-flight messages, add a timestamp to each so we can audit ones
+    * not responded to. Note this TrieMap is multi-thread safe
     */
   private val pending = TrieMap.empty[T, (Deferred[IO, JsonObject], Instant)]
 
@@ -56,10 +50,8 @@ class MessageCorrelator[T] {
       case None                   =>
         IO.raiseError(IllegalStateException(s"No deferred entry for correlation id $id"))
 
-
     }
 
     findAndRelease
-
 
 }

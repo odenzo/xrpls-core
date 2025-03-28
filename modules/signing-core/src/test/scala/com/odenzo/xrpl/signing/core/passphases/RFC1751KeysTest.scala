@@ -2,11 +2,11 @@ package com.odenzo.xrpl.signing.core.passphases
 
 import cats.effect.IO
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpSeed }
+import com.odenzo.xrpl.models.data.models.keys.XrpSeed
 import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory
-import scodec.bits.Bases.Alphabets
-import scodec.bits.ByteVector
+
+import scala.annotation.unused
 
 /**
   * This is really just a test of RFC1751 works converting to a seed, compared
@@ -15,8 +15,9 @@ import scodec.bits.ByteVector
   */
 class RFC1751KeysTest extends CommandRqRsTestDataIOSpec[WalletPropose.Rq, WalletPropose.Rs]("WalletProposeRqRs.json") {
   import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
-  private val log                                                           = LoggerFactory.getLogger
-  import com.odenzo.xrpl.models.data.models.keys.XrpSeed.given // Extension method
+  @unused
+  private val log = LoggerFactory.getLogger // Extension method
+
   def checkRFC(walletRs: WalletPropose.Rs)(using loc: munit.Location): Unit = {
     test(s"${walletRs.accountId.asBits.toHex}") {
       val seedFromResponse: XrpSeed = PassphraseOps.seedFromString(walletRs.masterKey)

@@ -1,6 +1,5 @@
 package com.odenzo.xrpl.models.data.models.memos
 
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import io.circe.Codec
 import scodec.bits.ByteVector

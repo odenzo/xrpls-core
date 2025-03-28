@@ -275,7 +275,7 @@ object RFC1751Keys {
     val parity: Int            = computeParity(fullBuffer) // This is unsigned int shifted or just 4 bytes
     val parityByte: Byte       = (parity << 6).toByte
     val withParity             = caBuffer ++ ByteVector(parityByte) ++ hex"00"
-    fullBuffer.update(8, parityByte)
+    val fullBuggerWithParity   = fullBuffer.update(8, parityByte)
 
     val human = Seq(0, 11, 22, 33, 44, 55).map(start => WORDLIST(extract(fullBuffer, start, 11).toInt))
     human.mkString(" ")

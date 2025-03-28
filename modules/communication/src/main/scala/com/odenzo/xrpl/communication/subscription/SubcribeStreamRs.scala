@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.communication.subscription
 
-import com.odenzo.xrpl.models.data.models.ValidatedLedger
-import com.odenzo.xrpl.models.data.models.atoms.{ LedgerHash, RippleTime }
+import com.odenzo.xrpl.models.data.models.atoms.{ LedgerHash, XrplTime }
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerIndexRange
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
@@ -22,16 +21,16 @@ import io.circe.literal.json
 trait SubcribeStreamRs
 
 case class LedgerClosed(
-    feeBase: Drops,
-    feeRef: Drops,
-    ledgerHash: LedgerHash,
-    ledgerIndex: LedgerIndex,
-    ledgerTime: RippleTime,
-    reserveBase: Drops,
-    reserveInc: Drops,
-    txnCount: Long,
-    `type`: String, // ledgerClosed
-    validatedLedgers: LedgerIndexRange,
+                         feeBase: Drops,
+                         feeRef: Drops,
+                         ledgerHash: LedgerHash,
+                         ledgerIndex: LedgerIndex,
+                         ledgerTime: XrplTime,
+                         reserveBase: Drops,
+                         reserveInc: Drops,
+                         txnCount: Long,
+                         `type`: String, // ledgerClosed
+                         validatedLedgers: LedgerIndexRange,
 )
 
 val ledgerMsg = json"""

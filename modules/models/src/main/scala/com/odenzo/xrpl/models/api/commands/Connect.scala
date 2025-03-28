@@ -1,10 +1,7 @@
 package com.odenzo.xrpl.models.api.commands
 
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import io.circe.Codec
-
-import javax.sound.sampled.Port
 
 /**
   * The documentation on rippled site is incorrect. This is correct.

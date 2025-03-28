@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
-
-
+object TransactionRecord {}
 //package com.odenzo.xrpl.models.atoms
 //
 //import io.circe.Decoder

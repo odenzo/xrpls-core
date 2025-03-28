@@ -1,11 +1,9 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
-import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, XrpBinaryOps }
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
 import io.circe.Codec
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import scodec.bits.{ BitVector, ByteVector }
+import scodec.bits.ByteVector
 
 import scala.util.Try
 

@@ -15,7 +15,7 @@ case class XrplEngineCommandResult[T: Decoder: Encoder](
 object XrplEngineCommandResult {
   given Configuration = Configuration.default.withSnakeCaseMemberNames
 
-  implicit def makeEncoder[T](using enc: Encoder[T]): Encoder[XrplEngineCommandResult[T]] =
+   given [T](using enc: Encoder[T]): Encoder[XrplEngineCommandResult[T]] =
     Encoder.instance[XrplEngineCommandResult[T]] { v =>
       JsonObject(
         "rs" := v.rs,

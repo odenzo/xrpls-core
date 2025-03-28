@@ -35,7 +35,7 @@ object LedgerNode {
   implicit val show: Show[LedgerNode] = Show.show[LedgerNode] { v =>
 //    case n: DirectoryNodeEntry => n.show
 //    case n: AccountData => n.show
-    "Should Be Showing Ledger Entry Now"
+    s"Should Be Showing $v Now"
   }
 
 }

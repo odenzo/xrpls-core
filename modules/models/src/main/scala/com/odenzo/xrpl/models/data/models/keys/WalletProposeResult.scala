@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.data.models.keys
 
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.Codecs.given
+import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.given
 import io.circe.Codec
 
 /**

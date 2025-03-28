@@ -1,10 +1,8 @@
 package com.odenzo.xrpl.models.data.models.ledgerids
 
-import _root_.scodec.bits.ByteVector
 import cats.implicits.*
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import io.circe.*
-import io.circe.Decoder.Result
 
 import scala.util.Try
 

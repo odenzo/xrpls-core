@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.data.models.monetary
 
-
-
+/** Check if this is used, or `Quality` is enough and the same thing really. */
+object TransferRate {}
 //package com.odenzo.xrpl.models.monetary
 //
 ///**

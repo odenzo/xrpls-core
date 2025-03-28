@@ -134,10 +134,10 @@ object WSEngine {
     * enrichOutboundMessageEnveelope but doesn't care about field order
     */
   private[websocket] def formatMessage[T <: XrpCommandRq: Encoder.AsObject](message: T): JsonObject = {
-    val jo = message.asJsonObject
-    jo.add("id", UUID.randomUUID().asJson)
-    jo.add("command", message.command.toString.asJson)
-    jo.add("api_version", Json.fromInt(2))
+    message
+      .asJsonObject.add("id", UUID.randomUUID().asJson)
+      .add("command", message.command.toString.asJson)
+      .add("api_version", Json.fromInt(2))
   }
 
   /**

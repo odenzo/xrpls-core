@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.models.data.models.keys
 
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.Codecs.given
-import com.tersesystems.blindsight.LoggerFactory
+import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.given
 import io.circe.Codec
 
 /**
@@ -22,7 +21,5 @@ case class Wallet(
 
 object Wallet {
   val GENESIS_MASTER_PASSPHRASE: String = "masterpassphrase"
-
-  private val log = LoggerFactory.getLogger
 
 }

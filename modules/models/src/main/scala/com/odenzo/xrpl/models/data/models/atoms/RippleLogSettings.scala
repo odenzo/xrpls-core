@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
-
+object RippleLogSettings {}
 
 //package com.odenzo.xrpl.models.atoms
 //

@@ -1,10 +1,8 @@
 package com.odenzo.xrpl.models.scodecs
 
 import io.circe.JsonObject
-import scodec.bits.*
-import scodec.codecs.{ *, given }
-import scodec.{ *, given }
-import spire.syntax.all.given
+import scodec.*
+import scodec.codecs.*
 
 object AdditionalScodecs {
 

@@ -1,22 +1,4 @@
-package com.odenzo.xrpl.signing.core.api
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//package com.odenzo.ripple.signing.impl
+//package com.odenzo.xrpl.signing.core.api
 //
 //import io.circe.optics.JsonPath
 //import io.circe.syntax.*
@@ -24,13 +6,16 @@ package com.odenzo.xrpl.signing.core.api
 //import cats.*
 //import cats.data.*
 //import cats.implicits.*
+//import com.odenzo.xrpl.models.data.models.keys.XrpPublicSigningKey
 //import monocle.{ Optional, Traversal }
-//
 //import scodec.bits.ByteVector
+//
+//import scala.util.Try
 //
 ///**
 //  * Multisigning functions. signForSignerOnly does the actual work. The rest of
 //  * the routines are just for manipulating Json messages. Needs a real cleanup
+//  * FIXME: Not Implemented
 //  */
 //trait SignFor {
 //
@@ -52,7 +37,7 @@ package com.odenzo.xrpl.signing.core.api
 //    * @return
 //    *   updated tx_json with new Signer, the hash is not updated
 //    */
-//  def signFor(tx_json: Json, key: SigningKey, signAddrB58Check: String): Either[Throwable, Json] = {
+//  def signFor(tx_json: Json, key: XrpPublicSigningKey, signAddrB58Check: String): Either[Throwable, Json] = {
 //    val root = txjsonPubKeyAdd(tx_json)
 //    for {
 //
@@ -62,13 +47,13 @@ package com.odenzo.xrpl.signing.core.api
 //      sorted         <- sortSigners(updatedArray)
 //      hacked          = ensureSignersField(root)
 //      rsTxJson        = JsonPath.root.Signers.arr.replace(sorted.toVector)(hacked)
-//      reply           = rsTxJson.mapObject(jo => jo.sortFields)
+//      reply           = rsTxJson.mapObject(jo => jo)
 //    } yield reply
 //  }
 //
 //  protected def ensureSignersField(json: Json): Json = {
 //    json.mapObject { obj =>
-//      if (obj.contains("Signers")) obj
+//      if obj.contains("Signers") then obj
 //      else obj.add("Signers", List.empty[Json].asJson)
 //    }
 //  }
@@ -80,14 +65,14 @@ package com.odenzo.xrpl.signing.core.api
 //    */
 //  protected def signForSignerOnly(
 //      tx_json: Json,
-//      signingPublicKey: ByteVector,
+//      signingPublicKey: XrpPublicSigningKey,
 //      addr: String,
 //  ): Either[Throwable, Json] = {
 //    // This will add the account address at the end. Not sure why I split across files.
-//    val signingPublicKeyBase58 = signingPublicKey.toBase58(XRPBase58Alphabet)
+//    signForTxnSignature(tx_json, signingPublicKey, addr).map { sig =>
 //    signForTxnSignature(tx_json, signingPublicKey, addr).map { sig =>
 //      JsonObject(
-//        "Signer" := JsonObject("Account" := addr, "SigningPubKey" := key.signPubKey, "TxnSignature" := sig.hex)
+//        "Signer" := JsonObject("Account" := addr, "SigningPubKey" := signingPublicKey, "TxnSignature" := sig.hex)
 //      ).asJson
 //    }
 //  }
@@ -100,7 +85,7 @@ package com.odenzo.xrpl.signing.core.api
 //    * @return
 //    *   TxnSignature which includes the the Signer account
 //    */
-//  def signForTxnSignature(tx_json: Json, key: SigningKey, signerAddr: String): Either[Throwable, TxnSignature] = {
+//  def signForTxnSignature(tx_json: Json, key: XrpPublicSigningKey, signerAddr: String): Either[Throwable, TxnSignature] = {
 //
 //    // Well, first, we need to use different hash prefix. (transactionMultiSig)
 //    // Then a suffix is encoding of the signingAccount as bytes.
@@ -120,15 +105,14 @@ package com.odenzo.xrpl.signing.core.api
 //  /** Generates the TxBlob for fully multi-signed tx_json */
 //  def generateTxBlob(tx_json: Json): Either[LOpException, String] = {
 //    for {
-//      encoded <- BinCodecProxy.binarySerialize(tx_json).leftMap(e => LocalOpsError("Error Serializing", e))
+//      encoded <- BinCodecProxy.binarySerialize(tx_json)
 //      binBytes = encoded.toHex
-//    } yield binBytes
+//    } yield Blob(binBytes)
 //  }
 //
-//  def sortSigners(encObj: List[Json]): Either[LocalOpsError, List[Json]] = {
-//    LocalOpsError.handle("Sorting Signers") {
-//      encObj.sortBy(v => unsafeSortFn(v))
-//    }
+//  // FIXME: Broken because not used
+//  def sortSigners(encObj: List[Json]): Any = {
+//    Try { encObj.sortBy(v => unsafeSortFn(v)) }
 //  }
 //
 //  /**
@@ -175,7 +159,7 @@ package com.odenzo.xrpl.signing.core.api
 //  def mergeMultipleFullResponses(responses: List[Json]): Either[LocalOpsError, Json] = {
 //
 //    responses match {
-//      case Nil                     => LocalOpsError("Cannot combine empty list").asLeft
+//      case Nil                     => Throwable("Cannot combine empty list").asLeft
 //      case head :: Nil             => head.asRight
 //      case fulllist @ head :: tail =>
 //        // Each response may have multiple Signer in general case
@@ -190,9 +174,9 @@ package com.odenzo.xrpl.signing.core.api
 //    * @return
 //    *   The first tx_json with updated Signers
 //    */
-//  def mergeMultipleTxJsonResponses(txjsonRs: List[Json]): Either[LocalOpsError, Json] = {
+//  def mergeMultipleTxJsonResponses(txjsonRs: List[Json]): Either[Throwable, Json] = {
 //    txjsonRs match {
-//      case Nil                     => LocalOpsError("Cannot combine empty list").asLeft
+//      case Nil                     => Throwable("Cannot combine empty list").asLeft
 //      case head :: Nil             => head.asRight
 //      case fulllist @ head :: tail =>
 //        // Each response may have multiple Signer in general case

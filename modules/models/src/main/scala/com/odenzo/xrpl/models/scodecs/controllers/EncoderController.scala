@@ -2,18 +2,15 @@ package com.odenzo.xrpl.models.scodecs.controllers
 
 import _root_.scodec.bits.{ BitVector, hex }
 import cats.*
-import cats.data.*
-import cats.effect.*
-import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.common.utils.BlindsightLogging
-import com.odenzo.xrpl.models.internal.definitions.{ FieldEntryRaw, FieldMetaData }
+import com.odenzo.xrpl.models.internal.definitions.FieldMetaData
 import com.odenzo.xrpl.models.scodecs.MetaData
 import com.tersesystems.blindsight.{ Condition, Logger, LoggerFactory }
 import io.circe
 import io.circe.syntax.*
 import io.circe.{ Json, JsonObject }
-import scodec.{ *, given }
+import scodec.*
 
 /**
   * This takes a JsonObject and converts it to XRPL Binary Format. The encoding

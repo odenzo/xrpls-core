@@ -1,6 +1,5 @@
 package com.odenzo.xrpl.models.data.ledgertree
 
-import cats.Show
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.common.utils.CirceCodecUtils.capitalize
 import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.TxnHash

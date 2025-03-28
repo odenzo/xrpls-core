@@ -1,18 +1,18 @@
 package com.odenzo.xrpl.common.utils
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.tersesystems.blindsight.{ *, given }
+import com.tersesystems.blindsight.*
 import io.circe.*
 import io.circe.syntax.*
 import scodec.bits.Bases.Alphabets.HexUppercase
 import scodec.bits.{ BitVector, ByteVector }
-
+import com.tersesystems.blindsight.AST.*
 import java.time.Instant
 
 trait BlindsightUtils {
-
-  import com.tersesystems.blindsight.AST.{ *, given }
-  import com.tersesystems.blindsight.DSL.{ *, given }
+//
+//  import com.tersesystems.blindsight.AST.{ *, given }
+//  import com.tersesystems.blindsight.DSL.{ *, given }
   import io.circe.Encoder
 
   protected given ToArgument[List[String]] = { v =>
@@ -31,13 +31,6 @@ trait BlindsightUtils {
 
   extension (bv: BitVector) def asBValue: BValue  = BString(bv.toHex(HexUppercase))
   extension (bv: ByteVector) def asBValue: BValue = BString(bv.toHex(HexUppercase))
-
-  protected given ToArgument[Throwable] = { err =>
-    // WOuld love to have a stack trace maybe four deep or something
-    // B;indsight logback stuff has an exception formatter, hmmm...
-    Argument(bobj("exception" -> bobj("message" -> err.getMessage)))
-
-  }
 
   /**
     * TODO: Place this more ergonomically into a ToArgument. This is also slow
@@ -61,18 +54,6 @@ trait BlindsightUtils {
   protected given ToArgument[(String, BValue)] = {
     case (k, v) =>
       Argument(bobj(k -> v))
-  }
-
-  /** Allows easy logging of a Circe JSON Decoding Failure */
-  protected given ToArgument[DecodingFailure] = { err =>
-    val bo = bobj(
-      BField("circe", "decoding_error"),
-      BField("reason", err.reason.toString),
-      BField("error_message", err.message),
-      BField("history", err.history.toString),
-      BField("root_string", err.pathToRootString.getOrElse("Unknown Root")),
-    )
-    Argument(bo)
   }
 
   /** Instant to String */

@@ -1,13 +1,9 @@
 package com.odenzo.xrpl.models.api.commands
 
-import com.odenzo.xrpl.models.api.commands.Command
-import com.odenzo.xrpl.models.api.commands.Command.BOOK_OFFERS
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.ledgertree.nodes.OfferNode
 import com.odenzo.xrpl.models.data.models.atoms.LedgerHash
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.{ LedgerIndex, validated }
-import com.odenzo.xrpl.models.data.models.monetary.{ BookCurrency, Script }
 import io.circe.JsonObject
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
@@ -19,8 +15,6 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * Transactions
   */
 object BookChanges extends XrpCommand[BookChanges.Rq, BookChanges.Rs] {
-
-  import BookCurrency.given
   case class Rq(
       ledgerHash: Option[LedgerHash]    = None,
       ledgerIndex: Option[LedgerHandle] = Some(validated),

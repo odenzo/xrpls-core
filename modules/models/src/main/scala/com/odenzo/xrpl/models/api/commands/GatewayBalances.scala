@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.models.api.commands
 
 import cats.syntax.all.*
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.api.commands.GatewayBalances.{ Rq, Rs }
 import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, LedgerHash }

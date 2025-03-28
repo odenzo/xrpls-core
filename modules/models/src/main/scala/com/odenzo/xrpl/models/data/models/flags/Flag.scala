@@ -3,8 +3,6 @@ package com.odenzo.xrpl.models.data.models.flags
 import io.circe.{ Decoder, Encoder }
 import scodec.bits.{ BitVector, ByteVector, hex }
 
-import scala.collection.immutable
-
 /**
   * This is the flag in the PaymentTx, may be used other places. They are 42
   * bit-wise flags and masked based on context. Should we have a Tag for Flags
@@ -42,9 +40,7 @@ object Flags {
   given Decoder[Flags] = Decoder.decodeLong.map(l => Flags.fromLong(l))
 }
 
-/**
-  * A Flag Represent a Single Value, may be Integral value or just a single bit
-  */
+/** A Flag Represent a Single Value, may be Integral value or just a single bit */
 opaque type BitFlag = BitVector
 
 /**

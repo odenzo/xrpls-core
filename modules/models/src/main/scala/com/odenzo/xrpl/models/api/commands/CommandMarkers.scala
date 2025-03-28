@@ -1,8 +1,7 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import io.circe.{ Decoder, Encoder, Json }
+import io.circe.{ Decoder, Encoder }
 
 object CommandMarkers {
 

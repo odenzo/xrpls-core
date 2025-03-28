@@ -18,10 +18,8 @@ object LedgerHash {
     */
   given ledgerHashCodec: Codec[LedgerHash] = {
     val hex2LedgerHash: ByteVector => Try[LedgerHash] = bv => Try(LedgerHash(Hash256.validatedBits(bv.bits)))
-    val mapFn: Hash256 => Try[LedgerHash]             = (h256: Hash256) => Try(LedgerHash(h256))
-    val contraFn: LedgerHash => Hash256               = (lh: LedgerHash) => lh.v
     val contraFnHex: LedgerHash => ByteVector         = (lh: LedgerHash) => lh.v.asBits.bytes
-    // summon[Codec[Hash256]].iemapTry[LedgerHash](mapFn)(contraFn) // This exists but IJ can't deal with it right
+    // TODO: Be nice to have a predefined builder for these wrapper things.
     CirceCodecUtils.hexCodec.iemapTry[LedgerHash](hex2LedgerHash)(contraFnHex)
   }
 }

@@ -3,8 +3,7 @@ package com.odenzo.xrpl.signing.core
 import cats.effect.IO
 import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpPublicKey }
-import com.odenzo.xrpl.models.internal.Wallet
+import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
 import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.EncoderOps
@@ -14,7 +13,6 @@ class DeriveAccountAddressTest
     extends CommandRqRsTestDataIOSpec[WalletPropose.Rq, WalletPropose.Rs]("WalletProposeRqRs.json") {
 
   import AccountAddress.given
-  import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.given
   private val log = LoggerFactory.getLogger // Extension method
 
   def check(rs: WalletPropose.Rs)(using loc: munit.Location): Unit = {

@@ -1,6 +1,5 @@
 package com.odenzo.xrpl.models.api.commands
 
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.TxnHash
 import com.odenzo.xrpl.models.data.models.atoms.TxBlob
@@ -14,7 +13,7 @@ object Sign {
   /** This doesn't support secret, specify keytype and (seedHex OR passphrase) */
   case class Rq(
       keyType: KeyType = KeyType.secp256k1,
-      seed: Option[XrpSeed], // Damn, our examples are master_seed_hex not master_seed
+      seed: Option[XrpSeed],
       passphrase: Option[String],
       txJson: JsonObject,
       feeMultMax: Int  = 10,

@@ -1,10 +1,8 @@
 package com.odenzo.xrpl.models.data.models.memos
 
-import cats.Show
 import cats.data.NonEmptyList
 import cats.implicits.*
 import io.circe.*
-import io.circe.syntax.*
 
 /**
   * Another bit of a dogs breakfast. This whole memo heirarchy

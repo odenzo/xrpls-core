@@ -2,12 +2,10 @@ package com.odenzo.xrpl.models.data.models.memos
 
 import cats.*
 import cats.data.*
-import cats.effect.*
-import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import scodec.bits.ByteVector
 
-import java.nio.charset.{ CharacterCodingException, Charset, StandardCharsets }
+import java.nio.charset.{ Charset, StandardCharsets }
 
 trait MemoBase {
 

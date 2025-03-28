@@ -35,7 +35,7 @@ class SignDataGeneratorTest extends LocalCommsTest(TestScenarios.mode) {
       _             = log.info(s"Receiver Fiat Balances: ${receiverBalance.asJson.spaces4}")
       offerRq       = OfferCreateTx(
                         account       = issuer.accountAddress,
-                        expiration    = RippleTime.now.plusSeconds(30).some,
+                        expiration    = XrplTime.now.plusSeconds(30).some,
                         offerSequence = Option.empty[AccountTxnNumber],
                         takerGets     = script.amount("1.99"),
                         takerPays     = CurrencyAmount.xrp(1),

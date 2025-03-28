@@ -6,7 +6,6 @@ import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
 import com.odenzo.xrpl.models.data.models.flags.flags.AccountFlag
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import io.circe.syntax.*
 
 /** Set Options on a Ripple Account */
 case class AccountSetTx(

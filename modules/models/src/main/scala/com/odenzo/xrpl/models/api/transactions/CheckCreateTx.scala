@@ -17,11 +17,11 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * @param offerSequence
   */
 case class CheckCreateTx(
-    destination: AccountAddress,
-    destinationTag: Option[DestTag],
-    sendMax: CurrencyAmount,
-    expiration: Option[RippleTime],
-    invoiceID: Option[InvoiceHash],
+                          destination: AccountAddress,
+                          destinationTag: Option[DestTag],
+                          sendMax: CurrencyAmount,
+                          expiration: Option[XrplTime],
+                          invoiceID: Option[InvoiceHash],
 ) extends XrpTxn derives ConfiguredCodec {
   def txnType: XrpTxnType = XrpTxnType.CheckCreate
 }

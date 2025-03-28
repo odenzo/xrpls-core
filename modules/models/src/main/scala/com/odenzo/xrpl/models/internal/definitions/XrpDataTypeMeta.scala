@@ -1,11 +1,9 @@
 package com.odenzo.xrpl.models.internal.definitions
 
 import cats.*
-import cats.data.*
-import cats.effect.*
 import cats.effect.syntax.all.*
 import cats.syntax.all.*
-import io.circe.{ Decoder, DecodingFailure }
+import io.circe.Decoder
 import scodec.bits.ByteVector
 
 /**

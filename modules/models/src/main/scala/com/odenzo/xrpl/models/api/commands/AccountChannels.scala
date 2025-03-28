@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.AccountChannels.{ Rq, Rs }
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.RippleChannel
 import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, LedgerHash }

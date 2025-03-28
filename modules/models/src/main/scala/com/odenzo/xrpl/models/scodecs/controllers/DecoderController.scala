@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.scodecs.controllers
 
-
-
+/** May be resurrect for Ledger browsing and just debugging the Blobs */
+object DecoderController {}
 //package com.odenzo.xrp.bincodec.controllers
 //
 //import com.odenzo.xrpl.common.utils.ELogging

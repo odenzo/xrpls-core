@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.models.data.models
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.common.utils.CirceCodecUtils.hexCodec
 import com.odenzo.xrpl.models.data.models.atoms.hash256.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.{ Codec, Decoder, Encoder }

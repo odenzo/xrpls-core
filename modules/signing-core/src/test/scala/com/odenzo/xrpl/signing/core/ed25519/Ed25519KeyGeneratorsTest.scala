@@ -1,10 +1,8 @@
 package com.odenzo.xrpl.signing.core.ed25519
 
 import cats.effect.IO
-import cats.syntax.all.given
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.keys.KeyType.ed25519
-import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpKeyPair, XrpSeed }
+import com.odenzo.xrpl.models.data.models.keys.XrpKeyPair
 import com.odenzo.xrpl.signing.core.DeriveAccountAddress
 import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory

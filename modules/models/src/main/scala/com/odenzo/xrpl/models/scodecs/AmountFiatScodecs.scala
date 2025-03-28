@@ -1,18 +1,10 @@
 package com.odenzo.xrpl.models.scodecs
 
-import cats.*
-import cats.data.*
-import cats.implicits.*
-import com.odenzo.xrpl.common.binary.FixedSizeBinary
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
 import com.odenzo.xrpl.models.data.models.monetary.*
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.FiatAmount
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.*
-import scodec.bits.*
-import scodec.codecs.*
-
-import scala.util.Try
 
 /**
   * https://xrpl.org/currency-formats.html#issued-currency-math ULong max is
@@ -29,7 +21,6 @@ import scala.util.Try
   */
 object AmountFiatScodecs {
 
-  import AccountScodecs.accountAddressCodec
   import XrplCurrency.*
 
   private val log = LoggerFactory.getLogger

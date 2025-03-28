@@ -1,6 +1,5 @@
 package com.odenzo.xrpl.models.data.models.monetary
 
-import com.odenzo.xrpl.models.data.models.monetary.{ Script, XrplStdCurrency }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.{ Codec, Decoder, Encoder }
 

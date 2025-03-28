@@ -9,7 +9,7 @@ import com.odenzo.xrpl.communication.websocket.WebSocketTransport.extractUUIDFro
 import com.tersesystems.blindsight.LoggerFactory
 import fs2.concurrent.Topic
 import fs2.data.json.*
-import fs2.data.json.circe.{ *, given }
+import fs2.data.json.circe.*
 import io.circe.syntax.*
 import io.circe.{ Json, JsonObject }
 import org.http4s.Uri

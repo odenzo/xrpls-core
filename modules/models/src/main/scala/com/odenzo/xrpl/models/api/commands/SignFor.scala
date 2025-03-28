@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.models.api.commands
 
-
-
+object SignFor {}
 //package com.odenzo.xrpl.communication.websocket.transactionOps
 //
 //

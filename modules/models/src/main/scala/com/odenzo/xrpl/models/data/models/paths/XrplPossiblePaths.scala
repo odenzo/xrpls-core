@@ -1,13 +1,10 @@
 package com.odenzo.xrpl.models.data.models.paths
 
-import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, XrplStdCurrency }
+import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount
 import io.circe
 import io.circe.*
 import io.circe.derivation.Configuration
 import io.circe.generic.semiauto.*
-import io.circe.syntax.*
-
-import java.util.Currency
 
 case class XrplPossiblePaths(
     pathsCanonical: List[PaymentPath],

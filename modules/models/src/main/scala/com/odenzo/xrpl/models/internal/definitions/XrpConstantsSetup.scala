@@ -69,7 +69,7 @@ object XrpConstantsSetup {
   // def normalizeFields()
   private def filtered(data: Map[String, Int]): Vector[(String, Int)] =
     log.info(s"Concerting to ISO Structure: ${data.head}")
-    data.filter((n, i) => i >= 0).map((n, i) => (n, i)).toVector
+    data.filter((_, i) => i >= 0).map((n, i) => (n, i)).toVector
 }
 
 /**

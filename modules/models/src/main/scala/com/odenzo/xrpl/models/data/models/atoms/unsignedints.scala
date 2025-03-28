@@ -1,6 +1,5 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
-import cats.syntax.all.given
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.{ Decoder, Encoder }
 import scodec.bits.BitVector

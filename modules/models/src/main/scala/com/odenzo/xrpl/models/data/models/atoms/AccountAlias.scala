@@ -1,10 +1,6 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
-import cats.Show
-import ch.qos.logback.classic.joran.sanity.IfNestedWithinSecondPhaseElementSC
-import io.circe.*
-import io.circe.syntax.*
-
+/** This will go away I think */
 case class AccountAlias(named: String)
 
 ///**

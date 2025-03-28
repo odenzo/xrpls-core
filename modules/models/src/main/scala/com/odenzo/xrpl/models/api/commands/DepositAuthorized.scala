@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.models.api.commands
 
 import cats.data.NonEmptyList
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
 import io.circe.Json

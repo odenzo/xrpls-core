@@ -12,6 +12,7 @@ import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.optics.JsonPath.root
+import io.circe.pointer.Pointer
 import io.circe.pointer.literal.pointer
 import io.circe.{ Codec, Decoder, Encoder, Json }
 
@@ -50,7 +51,7 @@ object ResponseExtractors {
     * Revisit
     */
   def extractLedgerIndex(rs: Json): IO[Option[Either[LedgerHandle.LedgerIndex, LedgerHandle.LedgerIndex]]] = {
-    val ledgerIndexPts          = pointer"/ledger_index"
+    val ledgerIndexPts: Pointer = pointer"/ledger_index"
     val ledgerCurrentIndexPts   = pointer"/ledger_current_index"
     val ledgerValidatedIndexPts = pointer"/validated_ledger_index"
 

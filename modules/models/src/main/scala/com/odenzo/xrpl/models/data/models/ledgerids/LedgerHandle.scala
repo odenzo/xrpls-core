@@ -1,26 +1,15 @@
 package com.odenzo.xrpl.models.data.models.ledgerids
 
-import _root_.scodec.bits.ByteVector
 import cats.*
-import cats.data.*
-import cats.effect.*
 import cats.effect.syntax.all.*
 import cats.implicits.*
-import cats.syntax.all.{ *, given }
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.*
-import io.circe.CursorOp.MoveUp
-import io.circe.Decoder.Result
-import io.circe.DecodingFailure.Reason.CustomReason
-import io.circe.derivation.{ Configuration, ConfiguredEnumCodec }
 import io.circe.syntax.given
-import spire.algebra.Field
 
-import scala.Right
-import scala.util.Try
+import scala.annotation.unused
 
 /**
   * On request ledger_index field can be String or Int, we use LedgerHandle for
@@ -49,8 +38,7 @@ enum LedgerHandle:
 //  val MIN: LedgerIndex             = LedgerHandle.LedgerIndex(-1L)
 
 object LedgerHandle extends BlindsightLogging {
-
-  import ByteVector.given
+  @unused
   private val log = LoggerFactory.getLogger
 
   val WILDCARD_LEDGER: LedgerIndex = LedgerHandle.LedgerIndex(-1L)

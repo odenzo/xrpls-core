@@ -1,24 +1,20 @@
 package com.odenzo.xrpl.models.data.models.monetary
 
-//package com.odenzo.xrpl.models.atoms
-//
-//import cats.implicits.*
-//import com.odenzo.xrpl.models.wireprotocol.CodecTesting
-//
-//class XRPTest extends munit.FunSuite {
-//
-//  test("Precision") {
-//
-//    val big = Drops.fromXrp(1000)
-//    logger.info(s"Big Show: ${big.show}")
-//    logger.info(s"Big     : $big")
-//  }
-//
-//  test("MAX Precision") {
-//
-//    val big = Drops.fromXrp(Long.MaxValue)
-//    logger.info(s"Big Show: ${big.show}")
-//    logger.info(s"Big     : $big")
-//  }
-//
-//}
+import com.tersesystems.blindsight.LoggerFactory
+
+class XRPTest extends munit.FunSuite {
+
+  private val log = LoggerFactory.getLogger
+
+  test("Precision") {
+
+    val big = CurrencyAmount.xrp(1000)
+    log.info(s"Big     : $big")
+  }
+
+  test("MAX Precision") {
+    val big = CurrencyAmount.xrp(Long.MaxValue)
+    log.info(s"Big     : $big")
+  }
+
+}

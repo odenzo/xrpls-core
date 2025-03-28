@@ -1,9 +1,6 @@
 package com.odenzo.xrpl.models.data.models.flags.flags
 
-import io.circe.{ Decoder, Encoder }
-import scodec.bits.{ BitVector, ByteVector, hex }
-
-import scala.collection.immutable
+import scodec.bits.{ ByteVector, hex }
 
 //// Really UInt32 I think. And triming of the Hex leading 0 happens. Make sure to padLeft(<totalSie>) 2 or 4 ?
 // Need a link to wear these are actually defined

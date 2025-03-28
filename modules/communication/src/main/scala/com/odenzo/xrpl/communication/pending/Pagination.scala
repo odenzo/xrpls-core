@@ -3,13 +3,11 @@ package com.odenzo.xrpl.communication.pending
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import io.circe.generic.semiauto.deriveDecoder
-import io.circe.syntax.*
-import io.circe.{ Decoder, Json, JsonObject }
+import io.circe.{ Decoder, Json }
 //
 /**
   * This is usually an embedded in a Result top level response for requests that
-  * do scrolling and Pagination. TODO: In Progress
+  * do scrolling and Pagination. TODO: Not Implemented Yet
   * @param ledger_index_max
   * @param ledger_index_min
   * @param limit

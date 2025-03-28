@@ -7,11 +7,8 @@ import cats.implicits.*
 import com.odenzo.xrpl.common.binary.FixedSizeBinary
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.*
-import io.circe.Decoder.{ Result, decodeValidated }
-import io.circe.generic.semiauto.*
 
-import java.nio.charset.{ CharacterCodingException, Charset, StandardCharsets }
-import scala.collection.immutable
+import java.nio.charset.{ CharacterCodingException, StandardCharsets }
 import scala.util.Try
 
 /**

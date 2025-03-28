@@ -2,7 +2,6 @@ package com.odenzo.xrpl.models.data.models.monetary
 
 import com.odenzo.xrpl.models.data.models.atoms.*
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
-import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.*
 import io.circe.{ Decoder, Encoder }
 
@@ -23,8 +22,6 @@ object CurrencyAmount {
 
   extension (fa: FiatAmount) def withValue(fiatValue: FiatValue): FiatAmount = fa.copy(amount = fiatValue)
   extension (fa: FiatAmount) def withValue(fiatValue: String): FiatAmount    = fa.copy(amount = FiatValue(fiatValue))
-
-  private val log = LoggerFactory.getLogger
 
   def drops(l: Long): CurrencyAmount.Drops = Drops(l)
   def xrp(l: Long): CurrencyAmount.Drops   = dropOps.fromXrp(l)

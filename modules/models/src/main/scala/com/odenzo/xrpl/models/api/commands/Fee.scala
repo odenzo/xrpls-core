@@ -1,12 +1,10 @@
 package com.odenzo.xrpl.models.api.commands
 
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import io.circe.syntax.*
 
 /**
   * Get the current XRPL server Fee statistics.

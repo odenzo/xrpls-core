@@ -22,7 +22,7 @@ import scodec.bits.{ BitVector, ByteVector }
 opaque type AccountAddress = BitVector
 
 object AccountAddress extends Field:
-  private val totalLen                = 1 + 20 + 4 // Bytes
+//  private val totalLen                = 1 + 20 + 4 // Bytes
   override val typePrefix: TypePrefix = TypePrefix.accountAddress
 
   given FixedSizeBinary[AccountAddress](25 * 8) with {

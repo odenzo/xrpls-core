@@ -1,9 +1,6 @@
 package com.odenzo.xrpl.models.data.models.flags.flags
 
-import io.circe.{ Decoder, Encoder }
-import scodec.bits.{ BitVector, ByteVector, hex }
-
-import scala.collection.immutable
+import scodec.bits.{ ByteVector, hex }
 
 /**
   * These are concrete bitmasks flags and can have multiple bits set. MUltiple

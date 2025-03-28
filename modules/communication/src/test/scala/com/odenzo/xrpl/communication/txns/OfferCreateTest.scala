@@ -7,7 +7,7 @@ import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
 import com.odenzo.xrpl.models.api.transactions.{ OfferCancelTx, OfferCreateTx }
 import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.TxnHash
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountTxnNumber, RippleTime }
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountTxnNumber, XrplTime }
 import com.odenzo.xrpl.models.data.models.monetary.*
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.*
@@ -32,7 +32,7 @@ class OfferCreateTest extends LocalCommsTest(TestScenarios.mode) {
       _                  = log.info(s"Receiver Fiat Balances: ${receiverBalance.asJson.spaces4}")
       offerRq            = OfferCreateTx(
                              account       = issuer.accountAddress,
-                             expiration    = RippleTime.now.plusSeconds(30).some,
+                             expiration    = XrplTime.now.plusSeconds(30).some,
                              offerSequence = Option.empty[AccountTxnNumber],
                              takerGets     = script.amount("1.99"),
                              takerPays     = CurrencyAmount.xrp(1),
@@ -57,7 +57,7 @@ class OfferCreateTest extends LocalCommsTest(TestScenarios.mode) {
       _                  = log.debug(s"CancelRs: ${cancelRs.submitted.asJson.spaces4}")
       _                 <- engine.ledgerAccept
       afterDeleted      <- engine.send[BookOffers.Rq, BookOffers.Rs](bookRq)
-
+      _                  = log.fluent.info.argument(logArg("afterDeleted", afterDeleted))
     } yield ()
     end for
 

@@ -1,9 +1,7 @@
 package com.odenzo.xrpl.models.data.models.fields.ids
 
 import scodec.Codec
-import scodec.bits.{ BitVector, ByteVector }
-
-import scala.util.hashing.ByteswapHashing
+import scodec.bits.BitVector
 
 /**
   * -https://xrpl.org/docs/references/protocol/binary-format#length-prefixing

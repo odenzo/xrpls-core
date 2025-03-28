@@ -1,10 +1,7 @@
 package com.odenzo.xrpl.models.data.models.memos
 
-import cats.Show
-import cats.data.{ Validated, ValidatedNec }
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.common.utils.{ CirceCodecUtils, ValidationUtils }
-import com.odenzo.xrpl.models.data.models.memos.MemoType.fromXrpSubsetTextUnsafe
+import cats.data.Validated
+import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import io.circe.Codec
 import scodec.bits.ByteVector
 

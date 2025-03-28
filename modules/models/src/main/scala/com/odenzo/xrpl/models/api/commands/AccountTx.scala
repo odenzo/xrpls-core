@@ -1,6 +1,5 @@
 package com.odenzo.xrpl.models.api.commands
 
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs, XrpScrolling }
 import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, LedgerHash }
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
@@ -62,7 +61,7 @@ object AccountTx extends XrpCommand[AccountTx.Rq, AccountTx.Rs] with XrpScrollin
       ledgerIndexMin: LedgerIndex, // Our fanciness looking for ledger_index or ledger_current_index screws this up
       ledgerIndexMax: LedgerIndex,
       offset: Option[Long], // Not in request and never seen?
-      transactions: List[JsonObject], // TODO: TransactionRecords is a beast, and don't use much yet.
+      transactions: List[JsonObject], // TODO: TransactionRecords is a beast,  and TxNode
   ) extends XrpCommandRs derives ConfiguredCodec
 
   object Rs:

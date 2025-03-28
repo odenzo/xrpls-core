@@ -1,13 +1,7 @@
 package com.odenzo.xrpl.models.internal.definitions
 
-import cats.*
-import cats.data.*
 import cats.implicits.*
 import io.circe.*
-import io.circe.generic.semiauto.{ deriveCodec, deriveDecoder, deriveEncoder }
-
-import scala.io.Source
-import scala.util.Try
 
 /**
   * This represents a field in the dump of XRPL configuration file

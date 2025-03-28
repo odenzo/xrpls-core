@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.api.psuedotxn
 
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, RippleTime }
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, XrplTime }
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
 
 /**
@@ -8,12 +8,12 @@ import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
   * https://xrpl.org/docs/references/protocol/transactions/pseudo-transaction-types/setfee
   */
 case class SetFee(
-    baseFeeDrops: Drops,
-    reserveBaseFeeDrops: Drops,
-    reserveIncrementDrops: Drops,
-    date: RippleTime,
-    account: AccountAddress = AccountAddress.ACCOUNT_ZERO,
-    fee: Drops              = Drops(0),
+                   baseFeeDrops: Drops,
+                   reserveBaseFeeDrops: Drops,
+                   reserveIncrementDrops: Drops,
+                   date: XrplTime,
+                   account: AccountAddress = AccountAddress.ACCOUNT_ZERO,
+                   fee: Drops              = Drops(0),
 )
 
 /**
@@ -21,8 +21,8 @@ case class SetFee(
   * https://xrpl.org/docs/references/protocol/transactions/pseudo-transaction-types/setfee
   */
 case class SetFeeAmendment(
-    baseFeeDrops: Drops,
-    reserveBaseDrops: Drops,
-    reserveIncrementDrops: Drops,
-    date: RippleTime,
+                            baseFeeDrops: Drops,
+                            reserveBaseDrops: Drops,
+                            reserveIncrementDrops: Drops,
+                            date: XrplTime,
 )

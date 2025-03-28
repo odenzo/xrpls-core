@@ -29,5 +29,4 @@ object XrpPrivateKey:
     def asHex: String  = ms.toHex(Alphabets.HexUppercase)
     def base58: String = XrpBinaryOps.toXrpBase58(ms: ByteVector)
 
-  object Codecs:
-    given Codec[XrpPrivateKey] = CirceCodecUtils.xrpBase58Codec
+  given Codec[XrpPrivateKey] = CirceCodecUtils.xrpBase58Codec

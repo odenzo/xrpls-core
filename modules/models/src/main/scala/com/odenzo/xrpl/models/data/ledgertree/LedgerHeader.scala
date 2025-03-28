@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.data.ledgertree
 
 import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.{ AccountHash, TxnHash }
-import com.odenzo.xrpl.models.data.models.atoms.{ LedgerHash, RippleTime }
+import com.odenzo.xrpl.models.data.models.atoms.{ LedgerHash, XrplTime }
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
@@ -23,20 +23,20 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
 //  * [[https://ripple.com/build/ledger-format/#header-format]]
 //  */
 case class LedgerHeader(
-    ledgerIndex: Option[LedgerIndex], // Noted as String Number or Number! F
-    ledgerHash: Option[LedgerHash],
-    accountHash: Option[AccountHash],
-    closeTime: Option[RippleTime],
-    closed: Boolean,
-    parentHash: Option[LedgerHash],
-    totalCoins: Option[Drops],
-    transactionHash: Option[TxnHash],
-    closeTimeResolution: Option[Int],
-    closeFlags: Option[Int], // Actually their docs outdated. TODO: Have a dedicated model
-    accepted: Option[Boolean],
-    parentCloseTime: Option[RippleTime], // Not sure why this is missing on closed if we have a hash.
-    accountState: Option[List[LedgerNodeIndex]], // optional field and may be empty array
-    transactions: Option[List[LedgerNodeIndex]], // optional field and may be empty array
+                         ledgerIndex: Option[LedgerIndex], // Noted as String Number or Number! F
+                         ledgerHash: Option[LedgerHash],
+                         accountHash: Option[AccountHash],
+                         closeTime: Option[XrplTime],
+                         closed: Boolean,
+                         parentHash: Option[LedgerHash],
+                         totalCoins: Option[Drops],
+                         transactionHash: Option[TxnHash],
+                         closeTimeResolution: Option[Int],
+                         closeFlags: Option[Int], // Actually their docs outdated. TODO: Have a dedicated model
+                         accepted: Option[Boolean],
+                         parentCloseTime: Option[XrplTime], // Not sure why this is missing on closed if we have a hash.
+                         accountState: Option[List[LedgerNodeIndex]], // optional field and may be empty array
+                         transactions: Option[List[LedgerNodeIndex]], // optional field and may be empty array
 ) derives ConfiguredCodec
 
 object LedgerHeader {

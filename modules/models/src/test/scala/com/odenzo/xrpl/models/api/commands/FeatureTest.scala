@@ -8,12 +8,12 @@ import cats.syntax.all.*
 import com.odenzo.xrpl.models.api.commands.Submit
 import com.odenzo.xrpl.models.data.models.atoms.TxBlob
 import com.tersesystems.blindsight.LoggerFactory
+import io.circe.*
 import io.circe.literal.json
 import io.circe.optics.JsonPath.root
 import io.circe.pointer.PointerFailure
 import io.circe.pointer.literal.pointer
 import io.circe.syntax.given
-import io.circe.*
 import spire.math.{ ULong, UShort }
 class FeatureTest extends munit.CatsEffectSuite {
   private val log = LoggerFactory.getLogger

@@ -1,14 +1,13 @@
 package com.odenzo.xrpl.models.data.models.monetary
 
-import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import io.circe.{ Decoder, Encoder }
-import jdk.jfr
-import scodec.bits.BitVector
 
 /**
   * The conversion rate from two FiatAmounts of the same currency when they
   * "Ripple" as an integer in the implied ratio 1,000,000,000. The value 0 is
   * equivalent to 1 billion, or face value.
+  *
+  * TODO: Compare with TransferRate
   *
   * @param v
   *   See

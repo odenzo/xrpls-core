@@ -1,9 +1,5 @@
 package com.odenzo.xrpl.models.internal.definitions
 
-import _root_.io.circe.*
-import _root_.io.circe.literal.*
-import io.circe.syntax.*
-
 /**
   * This is the definitions.json file from the 2025-01 Java Client by XRPL Labs.
   * Why not a file, because I want to try some Scala 3 macros.

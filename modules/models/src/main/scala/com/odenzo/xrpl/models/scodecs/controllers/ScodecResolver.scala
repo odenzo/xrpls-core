@@ -1,25 +1,16 @@
 package com.odenzo.xrpl.models.scodecs.controllers
 
 import _root_.scodec.*
-import _root_.scodec.bits.{ BitVector, ByteVector, given, hex }
 import _root_.scodec.codecs.*
-import cats.*
-import cats.data.*
-import cats.implicits.*
-import ch.qos.logback.classic.encoder
 import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
 import com.odenzo.xrpl.models.data.models.fields.ids.FieldId
-import com.odenzo.xrpl.models.internal.definitions.{ FieldEntryRaw, FieldMetaData }
-import com.odenzo.xrpl.models.scodecs.AccountScodecs.accountIdCodec
+import com.odenzo.xrpl.models.internal.definitions.FieldMetaData
 import com.odenzo.xrpl.models.scodecs.AdditionalScodecs.xrplTransactionType
-import com.odenzo.xrpl.models.scodecs.BasicScodecs.xrpuint16
 import com.odenzo.xrpl.models.scodecs.{ AmountScodecs, MetaData, VL }
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.{ Codec, Decoder, Encoder, * }
-import spire.math.ULong
-
-import scala.util.Try
+// FIXME: IJ Bug optimize imports kills this
+import io.circe.{ Codec as JsonCodec, Decoder as JsonDecoder, Encoder as JsonEncoder, * }
 
 /**
   * All of the known XRPL data types, bound to some scodec. Based on traversing

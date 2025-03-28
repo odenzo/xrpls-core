@@ -3,7 +3,6 @@ package com.odenzo.xrpl.application.testdatagenerator
 import cats.effect
 import cats.effect.*
 import cats.effect.std.Supervisor
-import cats.effect.syntax.all.given
 
 import scala.concurrent.duration.*
 

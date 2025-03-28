@@ -1,6 +1,7 @@
 package com.odenzo.xrpl.signing.testkit.fixtures
 
-
+/** FIXME: TODO */
+object SignFixture$Test {}
 
 //package com.odenzo.ripple.localops.fixtures
 //

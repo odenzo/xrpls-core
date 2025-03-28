@@ -1,11 +1,10 @@
 package com.odenzo.xrpl.common.binary
 
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.Encoder
+
 import munit.*
-import scodec.bits.{ BitVector, hex }
+import scodec.bits.BitVector
 
 class XRPBinaryTest extends munit.FunSuite with BlindsightLogging {
   private val log    = LoggerFactory.getLogger
@@ -23,11 +22,7 @@ class XRPBinaryTest extends munit.FunSuite with BlindsightLogging {
 
   test("Simple Usage ") {
 
-    trait BinaryClass[A] {
-      def bits: BitVector
-      def instance(bv: BitVector): A
-    }
-    object Foo           {
+    object Foo {
       case class BinChunk(bits: BitVector)
       object BinChunk {}
     }
@@ -40,7 +35,7 @@ class XRPBinaryTest extends munit.FunSuite with BlindsightLogging {
   }
 
   test("r -zeros") {
-    val s = "rBB"
+    val s  = "rBB"
     val bv = BitVector.fromBase58Descriptive(s, XrplBase58Alphabet).map(_.padLeft(26))
     log.info(s" $s => $bv")
     bv.foreach(v => log.info(s"${v.toBin}"))

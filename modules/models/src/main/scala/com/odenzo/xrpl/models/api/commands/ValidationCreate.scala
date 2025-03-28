@@ -1,6 +1,5 @@
 package com.odenzo.xrpl.models.api.commands
 
-import com.odenzo.xrpl.models.api.commands.Command
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpAdminCommandRq, XrpCommand, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models.keys.{ XrpPublicKey, XrpRFC1751Passphrase, XrpSeed }
 import io.circe.*
@@ -12,7 +11,7 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   */
 object ValidationCreate extends XrpCommand[ValidationCreate.Rq, ValidationCreate.Rs] {
 
-  import XrpPublicKey.Codecs.given
+  import XrpPublicKey.given
 
   /**
     * [[https://ripple.com/build/rippled-apis/#validation-create]] This is an

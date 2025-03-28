@@ -6,7 +6,6 @@ import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
 import com.odenzo.xrpl.models.data.models.keys.{ Signer, Signers }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.generic.semiauto.*
-import io.circe.syntax.*
 import io.circe.{ Codec, Decoder }
 
 /**

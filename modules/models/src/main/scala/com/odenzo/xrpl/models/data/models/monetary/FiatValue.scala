@@ -1,9 +1,10 @@
 package com.odenzo.xrpl.models.data.models.monetary
 
-import cats.implicits.catsSyntaxEq
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.{ Codec, Decoder, Encoder }
 import scodec.bits.{ BitVector, bin }
+
+import scala.annotation.unused
 
 opaque type FiatValue = BigDecimal
 
@@ -29,7 +30,9 @@ object FiatValue {
     // The range for the exponent when normalized (as signed Int, +97 gives range 1 to 177 unsigned)
     // THESE ARE NOT validation values for input.
     // ALthough fromBinary should be normalized already
-    private val minExponent: Int    = -96
+    // TODO: Playing with literal number types
+    @unused
+    private val minExponent: -96    = -96
     private val maxExponent: Int    = 80
     private val minMantissa: BigInt = BigDecimal("1e15").toBigInt // For normalizing not input
     private val maxMantissa: BigInt = BigDecimal("10e16").toBigInt - 1 // For normalizing not input
