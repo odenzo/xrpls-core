@@ -184,3 +184,16 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /.idea/sbt.xml
+/project/.bloop/bloop.settings.json
+/project/project/.bloop/bloop.settings.json
+/project/.bloop/xrpl4s-core-build/bloop-internal-classes/classes-Metals-u5iuiZQzR3aCC4115Qv9iQ==-DUMqlfgYTvKvKcakGrNfkg==/META-INF/semanticdb/BuildSettings.scala.semanticdb
+/project/.bloop/xrpl4s-core-build/bloop-internal-classes/classes-Metals-u5iuiZQzR3aCC4115Qv9iQ==-DUMqlfgYTvKvKcakGrNfkg==/META-INF/semanticdb/Libs.scala.semanticdb
+/.metals/metals.mv.db
+/project/project/project/metals.sbt
+/project/project/metals.sbt
+/project/metals.sbt
+/.metals/.reports/metals-full/2025-03-26/r_empty-definition_(xrpl4s-core-build)_19-17-36-423.md
+/.bsp/sbt.json
+/project/.bloop/xrpl4s-core-build.json
+/project/.bloop/xrpl4s-core-build/xrpl4s-core-build-analysis.bin
+/project/project/.bloop/xrpl4s-core-build-build.json
