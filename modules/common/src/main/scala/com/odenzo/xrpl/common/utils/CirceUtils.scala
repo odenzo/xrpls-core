@@ -5,11 +5,11 @@ import cats.data.*
 import cats.syntax.all.*
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe
+import io.circe.*
 import io.circe.Decoder.Result
+import io.circe.derivation.Configuration
 import io.circe.jawn.JawnParser
 import io.circe.syntax.*
-import io.circe.*
-import io.circe.derivation.Configuration
 
 import java.io.File
 import scala.io.Source

@@ -12,7 +12,7 @@ import scala.util.Try
   * proxy to safe code changes
   */
 trait RippleBase58Scodec {
-  val xrplAlphabet: RippleBase58Alphabet = new RippleBase58Alphabet()
+  private val xrplAlphabet: RippleBase58Alphabet = new RippleBase58Alphabet()
 
   /** Eager RippleBase58 scodec that will consume all the bytes */
   val xrplBase58: scodec.Codec[String] = scodec.Codec(fromBase58, toBase58)
@@ -26,9 +26,7 @@ trait RippleBase58Scodec {
     Attempt.fromTry {
       Try {
         val zeroChar = xrplAlphabet.toChar(0)
-        if (bv.isEmpty) {
-          DecodeResult("", BitVector.empty)
-        }
+        if bv.isEmpty then DecodeResult("", BitVector.empty)
         else {
           val ZERO  = BigInt(0)
           val RADIX = BigInt(58L)
@@ -71,9 +69,8 @@ trait RippleBase58Scodec {
               throw new IllegalArgumentException(s"Invalid base 58 character '$c' at index $idx")
           }
         }
-        if (trim.isEmpty) zeroes.bits
-        else
-          (zeroes ++ ByteVector(decoded.toByteArray.dropWhile(_ == 0))).bits
+        if trim.isEmpty then zeroes.bits
+        else (zeroes ++ ByteVector(decoded.toByteArray.dropWhile(_ == 0))).bits
         // drop because toByteArray sometimes prepends a zero
       }
     }

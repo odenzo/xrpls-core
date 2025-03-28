@@ -1,9 +1,9 @@
 package com.odenzo.xrpl.signing.bridge
 
-import cats.effect.{ IO, Resource }
+import cats.effect.{IO, Resource}
 import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-import com.odenzo.xrpl.models.data.models.keys.{ WalletProposeResult, XrpPublicKey }
+import com.odenzo.xrpl.models.data.models.keys.{WalletProposeResult, XrpPublicKey}
 import com.odenzo.xrpl.signing.core.DeriveAccountAddress
 import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory

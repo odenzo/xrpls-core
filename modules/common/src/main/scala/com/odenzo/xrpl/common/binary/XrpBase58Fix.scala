@@ -48,9 +48,8 @@ object XrpBase58Fix {
             throw new IllegalArgumentException(s"Invalid base 58 character '$c' at index $idx")
         }
       }
-      if (trim.isEmpty) Right(zeroes)
-      else
-        Right(zeroes ++ ByteVector(decoded.toByteArray.dropWhile(_ == 0)))
+      if trim.isEmpty then Right(zeroes)
+      else Right(zeroes ++ ByteVector(decoded.toByteArray.dropWhile(_ == 0)))
 
     }
     catch {
@@ -67,8 +66,7 @@ object XrpBase58Fix {
   }
 
   final def toXrpBase58(bv: ByteVector): String =
-    if (bv.isEmpty)
-      ""
+    if bv.isEmpty then ""
     else {
       val ZERO      = BigInt(0)
       val RADIX     = BigInt(58L)

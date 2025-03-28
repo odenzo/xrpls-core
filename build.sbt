@@ -61,7 +61,7 @@ lazy val `signing-core` = (project in file("modules/signing-core"))
            )
 
 lazy val `signing-bridge` = (project in file("modules/signing-bridge"))
-  .dependsOn(common, models, `signing-core`, communications)
+  .dependsOn(common, models, `signing-core` % "compile->compile;test->test",  communications)
   .settings(name := "xrpls-signing-bridge",
             scalacOptions := scala3Options,
             libraryDependencies ++= Libs.stdlibs ++ Libs.bouncycastle,
@@ -79,6 +79,7 @@ lazy val documentations = (project in file("modules/documentation"))
   .enablePlugins(TypelevelSitePlugin)
   .settings(name := "documentation")
   .settings(
+  
     //   tlBaseVersion := "0.0",
     tlSiteIsTypelevelProject := None,
     mdocVariables := Map(

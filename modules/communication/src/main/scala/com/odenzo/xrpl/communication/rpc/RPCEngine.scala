@@ -5,7 +5,6 @@ import cats.*
 import cats.effect.*
 import cats.implicits.catsSyntaxOptionId
 import com.odenzo.xrpl.common.utils.BlindsightLogging
-import com.odenzo.xrpl.communication.rpc.RPCEngine.{ createTxJsonBinary, given_Configuration, merge }
 import com.odenzo.xrpl.communication.*
 import com.odenzo.xrpl.communication.models.{
   ResponseExtractors,
@@ -13,28 +12,25 @@ import com.odenzo.xrpl.communication.models.{
   XrplEngineCommandResult,
   XrplEngineTxnResult,
 }
-import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
+import com.odenzo.xrpl.communication.rpc.RPCEngine.merge
 import com.odenzo.xrpl.models.api.commands.*
+import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.internal.Wallet
 import com.odenzo.xrpl.models.scodecs.XrpBinCodecAPI
 import com.tersesystems.blindsight.{ Condition, LoggerFactory }
 import io.circe.derivation.Configuration
-import io.circe.optics.JsonPath.root
-import io.circe.pointer.literal.pointer
 import io.circe.syntax.given
 import io.circe.{ Decoder, Encoder, Json, JsonObject }
 import org.http4s.*
 import org.http4s.circe.*
 import org.http4s.circe.CirceEntityCodec.circeEntityEncoder
 import org.http4s.client.*
-import org.http4s.client.middleware.RetryPolicy
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.headers.*
 import org.typelevel.ci.CIStringSyntax
 
 import scala.concurrent.duration.*
-import scala.util.Try
 
 class RPCEngine(server: Uri, client: Client[IO]) extends XrplEngine with BlindsightLogging {
   private val log = LoggerFactory.getLogger

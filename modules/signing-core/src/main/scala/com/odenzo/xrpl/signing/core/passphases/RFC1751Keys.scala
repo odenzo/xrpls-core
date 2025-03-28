@@ -302,7 +302,7 @@ object RFC1751Keys {
           if l > 4 || l < 1 then throw IllegalArgumentException(s"Word $strWord not 1...4 characters")
           else {
             val v = indexOf(WORDLIST, normalizeWord(strWord), 0)
-            if (v < 0) throw IllegalArgumentException(s"Word $strWord not in dictionary")
+            if v < 0 then throw IllegalArgumentException(s"Word $strWord not in dictionary")
 
             // Our nasty side effect will update the mutable bytes. The insert is override?
             insert(s = ab, x = v, start = index * 11, length = 11)
@@ -338,7 +338,7 @@ object RFC1751Keys {
     */
   def twelveWordsAsBytes(strHuman: String): XrpSeed = {
     val words: List[String] = strHuman.trim().split("""\s""").toList
-    if (words.length =!= 12) throw IllegalArgumentException(s"RFC1751 not 12 words: ${words.length}")
+    if words.length =!= 12 then throw IllegalArgumentException(s"RFC1751 not 12 words: ${words.length}")
     else {
       val strFirst: ByteVector  = wordToken2ByteVector(words.take(6))
       val strSecond: ByteVector = wordToken2ByteVector(words.drop(6))

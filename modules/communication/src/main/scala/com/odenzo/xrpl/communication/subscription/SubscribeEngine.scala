@@ -1,27 +1,18 @@
 package com.odenzo.xrpl.communication.subscription
 
-import org.http4s.client.websocket.*
 import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.*
-import cats.data.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.communication.config.XrplEngineConfig
 import com.tersesystems.blindsight.LoggerFactory
+import fs2.{ Pipe, Stream, concurrent }
 import fs2.concurrent.Topic
-import fs2.data.json.ast
-import _root_.fs2.{ Fallible, Pipe, Pull, Stream, concurrent }
-import io.circe.{ Json, JsonObject }
-import org.http4s.Uri
-import org.http4s.client.{ Client, RequestKey }
-import org.http4s.dsl.impl.Responses.UpgradeRequiredOps
-import org.http4s.ember.client.{ EmberClient, EmberClientBuilder, EmberConnection }
-import org.http4s.netty.client.NettyWSClientBuilder
-import org.typelevel.keypool.KeyPool
-import io.circe.syntax.*
-import org.http4s.jdkhttpclient.{ JdkHttpClient, JdkWSClient }
 import fs2.data.json.*
-import fs2.data.json.circe.{ *, given }
+import fs2.data.json.circe.given
+import io.circe.{ Json, JsonObject }
+import io.circe.syntax.*
+import org.http4s.Uri
+import org.http4s.client.websocket.*
+import org.http4s.jdkhttpclient.JdkWSClient
 
 /**
   * Connects and starts sending all messages in rq and begins receiving messages
@@ -30,7 +21,7 @@ import fs2.data.json.circe.{ *, given }
   * IO.
   */
 class SubscribeEngine(
-    ws: WSConnection[IO],
+    ws: WSConnectionHighLevel[IO],
     rq: List[SubscribeRq],
     pipeOut: Option[Pipe[IO, JsonObject, JsonObject]],
     topicToPublish: Option[Topic[IO, JsonObject]],
@@ -94,13 +85,11 @@ object SubscribeEngine {
   ): Resource[IO, SubscribeEngine] = {
     val request: WSRequest = WSRequest(serverWebsocketUri)
     log.info(s"Building SubscribeEngine with $request")
-    for {
-      wsclient   <- JdkWSClient.simple[IO]
-      connection <- wsclient.connect(request)
-      _           = log.info(s"Created wsclient: ${wsclient}")
-      engine      = SubscribeEngine(connection, rq, pipe, topicToPublish)
-      _           = log.info(s"Created Engine $engine")
-    } yield engine
+    JdkWSClient.simple[IO].flatMap(client => client.connectHighLevel(request)).map {
+      (connection: WSConnectionHighLevel[IO]) =>
+        val engine = SubscribeEngine(connection, rq, pipe, topicToPublish)
+        log.info(s"Created Engine $engine")
+        engine
+    }
   }
-
 }

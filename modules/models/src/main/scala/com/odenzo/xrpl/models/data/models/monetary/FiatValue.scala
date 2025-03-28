@@ -84,7 +84,7 @@ object FiatValue {
       log.debug(s"Unpacking to BigDecimal: Sign:  $isPositive Raw Exponent $exponent Raw Mantissa: $mantissa")
       val exponentAdj           = exponent - 97
       val answer: BigDecimal    = BigDecimal(mantissa) * BigDecimal.exact(10).pow(exponentAdj)
-      val signedAns: BigDecimal = if (isPositive) answer else (-answer)
+      val signedAns: BigDecimal = if isPositive then answer else (-answer)
       log.debug(s"UnPacked BigDecimal $signedAns")
       signedAns
 

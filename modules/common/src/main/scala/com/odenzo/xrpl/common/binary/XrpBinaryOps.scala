@@ -2,21 +2,16 @@ package com.odenzo.xrpl.common.binary
 
 import com.odenzo.xrpl.common.utils.*
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.{ Decoder, Encoder }
-import scodec.bits.Bases.Alphabet
-import scodec.bits.Bases.Alphabets.*
 import scodec.bits.{ BitVector, ByteVector, hex }
-import spire.math.{ UByte, UInt, log }
 
-import java.math.BigInteger
 import java.nio.charset.StandardCharsets
 import java.security.{ MessageDigest, SecureRandom }
 import scala.annotation.tailrec
-import scala.quoted.ToExpr.ArrayOfByteToExpr
-import scala.util.Try
+import scala.annotation.unused
 
 /** XrpSpecific (mostly) binary utilities */
 trait XrpBinaryOps extends BlindsightLogging with HashOps {
+  @unused
   private val log                         = LoggerFactory.getLogger
   private val sha256Digest: MessageDigest = MessageDigest.getInstance("SHA-256")
 
@@ -42,11 +37,8 @@ trait XrpBinaryOps extends BlindsightLogging with HashOps {
       * Limits on size to 64 bits, throws. ByteVector is considered as unsigned
       * bytes *
       */
-  def unsignedBytesToBigInt(bv: ByteVector): BigInt  =
-    val fromBytes: BigInt = BigInt.apply(bv.toArray)
-    val signedBig         = BigInt(1, bv.toArray)
-    signedBig
-
+  def unsignedBytesToBigInt(bv: ByteVector): BigInt  =    BigInt(1, bv.toArray)
+    
   /**
     * TypeCode and FieldCode need sorting. This is one way to do it. There bit
     * vectors are unsigned and hopefully this sorts on unsigned (not 2-comp)
@@ -127,9 +119,6 @@ trait XrpBinaryOps extends BlindsightLogging with HashOps {
   /** These might beed fixing for leading 'r' (0 decimal) values */
   inline def toXrpBase58(input: IterableOnce[Byte]): String = toXrpBase58(ByteVector(input))
   inline def toXrpBase58(bv: ByteVector): String            = XrpBase58Fix.toXrpBase58(bv)
-
-  import io.circe.*
-  import cats.syntax.all.*
 
 }
 

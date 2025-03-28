@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.communication.subscription
 
 import com.odenzo.xrpl.models.data.models.ValidatedLedger
-import com.odenzo.xrpl.models.data.models.atoms.{LedgerHash, RippleTime}
+import com.odenzo.xrpl.models.data.models.atoms.{ LedgerHash, RippleTime }
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerIndexRange
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops

@@ -9,10 +9,9 @@ import com.odenzo.xrpl.communication.*
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.XrpCommandRs
 import com.odenzo.xrpl.models.data.models.atoms.LedgerHash
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.{ LedgerIndex, WILDCARD_LEDGER }
+import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.optics.JsonPath.root
-import io.circe.pointer.PointerFailure
 import io.circe.pointer.literal.pointer
 import io.circe.{ Codec, Decoder, Encoder, Json }
 
@@ -29,7 +28,6 @@ import java.util.UUID
   * subfield for RPC and the top-level response for WS
   */
 object ResponseExtractors {
-  import com.odenzo.xrpl.models.data.models.atoms.hash256.*
 
   private val log = LoggerFactory.getLogger
 

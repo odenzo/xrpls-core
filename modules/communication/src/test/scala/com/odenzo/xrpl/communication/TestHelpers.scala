@@ -7,7 +7,6 @@ import com.odenzo.xrpl.communication.models.{ ResponseLedgerInfo, XrplEngineComm
 import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.PaymentTx
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
-import com.odenzo.xrpl.models.data.models.{ Amendment, Vetoed }
 import com.odenzo.xrpl.models.data.models.atoms.*
 import com.odenzo.xrpl.models.data.models.atoms.hash256.{ Hash256, given_Order_Hash256 }
 import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpSeed }
@@ -16,6 +15,7 @@ import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{ Drops, FiatAmount }
 import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, TrustLine }
 import com.odenzo.xrpl.models.data.models.paths.PaymentPath
+import com.odenzo.xrpl.models.data.models.{ Amendment, Vetoed }
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.given

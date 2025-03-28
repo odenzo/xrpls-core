@@ -9,9 +9,7 @@ import scodec.bits.{ BitVector, ByteVector, bin, hex }
 import scodec.codecs.*
 import scodec.{ Codec, Encoder }
 
-/**
-  * Each field has a FieldId header that tells us what it is. Also used to sort.
-  */
+/** Each field has a FieldId header that tells us what it is. Also used to sort. */
 object FieldIdScodec {
 
 //  def encode(typeCode: Int, fieldCode: Int): BitVector = {
@@ -46,7 +44,7 @@ object FieldIdScodec {
   private val orderedChoice = List(typeAndField, smallTypeAndField, smallFieldAndType, smallTypeAndSmallField)
 
   given xrpfieldid: Codec[FieldId] = { // Can Peek
-    Codec[FieldId](encoder = choice(orderedChoice.reverse: _*), decoder = choice(orderedChoice: _*))
+    Codec[FieldId](encoder = choice(orderedChoice.reverse*), decoder = choice(orderedChoice*))
   }
 
   /**

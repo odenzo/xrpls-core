@@ -3,9 +3,8 @@ package com.odenzo.xrpl.communication
 import cats.effect.IO
 import com.odenzo.xrpl.communication.models.{ XrplEngineCommandResult, XrplEngineTxnResult }
 import com.odenzo.xrpl.communication.rpc.RPCEngine
-import com.odenzo.xrpl.communication.models.XrplEngineTxnResult
-import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.api.commands.*
+import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.Condition

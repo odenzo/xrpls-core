@@ -1,19 +1,9 @@
 package com.odenzo.xrpl.common.binary
 
-import cats.data.{ Validated, ValidatedNec }
-import io.circe
-import io.circe.*
-import _root_.scodec.bits.{ BitVector, ByteVector, hex }
-import cats.Monoid
-import cats.effect.*
-import cats.effect.syntax.all.*
-
+import _root_.scodec.bits.{ BitVector, ByteVector }
 import cats.*
-import cats.data.*
-import cats.syntax.all.*
 
 import java.security.MessageDigest
-import scala.util.Try
 
 /** Generic (mostly) Exensions and implicits for ByteVector and BitVector */
 object ScodecExtensions {
@@ -31,7 +21,8 @@ object ScodecExtensions {
     def stripPrefix(u: BitVector): BitVector             = u.drop(1 * 8)
     def stripChecksum(u: BitVector): BitVector           = u.dropRight(4 * 8)
     def unwrappedPropertyHandler: Any                    = stripPrefix.andThen(stripChecksum)
-    def base58Check(headerAndBody: BitVector): BitVector = headerAndBody ++ HashOps.sha256(headerAndBody).take(4).bits
+    def base58Check(headerAndBody: BitVector): BitVector =
+      headerAndBody ++ HashOps.sha256(headerAndBody.bytes).take(4).bits
 
   given Monoid[BitVector] with {
     def empty: BitVector                               = BitVector.empty

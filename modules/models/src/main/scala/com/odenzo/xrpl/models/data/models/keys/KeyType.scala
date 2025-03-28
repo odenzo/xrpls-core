@@ -8,8 +8,8 @@ enum KeyType derives ConfiguredEnumCodec:
   case ed25519
 
 object KeyType:
-  given Configuration                         = Configuration.default
-   
+  given Configuration = Configuration.default
+
   extension (kt: KeyType)
     def isEd25519: Boolean   = kt == ed25519
     def isSecp256k1: Boolean = kt == secp256k1

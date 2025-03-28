@@ -8,8 +8,8 @@ import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.data.models.atoms.*
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
-import com.odenzo.xrpl.models.data.models.monetary.{ BookCurrency, Script, XrplStdCurrency }
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.xrp
+import com.odenzo.xrpl.models.data.models.monetary.{ BookCurrency, Script, XrplStdCurrency }
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.*
 

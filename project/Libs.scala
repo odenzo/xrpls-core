@@ -6,7 +6,7 @@ object Libs {
     val circe       = "0.14.12"
     val circeOptics = "0.15.0"
     val cats        = "2.13.0"
-    val catsEffect  = "3.5.7"
+    val catsEffect  = "3.6.0"
 
     val spire           = "0.18.0"
     val scribe          = "3.15.2"

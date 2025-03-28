@@ -1,9 +1,7 @@
 package com.odenzo.xrpl.common.collections
 
-import cats.*
-import cats.data.*
-import cats.implicits.*
-import cats.syntax.all.{ given, * }
+
+import cats.syntax.all.given
 
 /**
   * Immutable IsoMorphic map of two data models, each with unique keys. KeyA =>

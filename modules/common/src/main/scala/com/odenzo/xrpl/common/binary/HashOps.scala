@@ -1,7 +1,8 @@
 package com.odenzo.xrpl.common.binary
 
-import java.security.{ MessageDigest, Security }
 import scodec.bits.ByteVector
+
+import java.security.MessageDigest
 
 /**
   * Collection of Hashing Operations. Inputs need to go Java byte[], but outputs
@@ -15,8 +16,8 @@ import scodec.bits.ByteVector
 trait HashOps {
 
   /**
-    * When check sum is applied to XRP stuff it generally includes any prefix to
-    * the value
+    * When the check sum is applied to XRP stuff, it generally includes any
+    * prefix to the value
     */
   inline def xrpChecksum(body: ByteVector): ByteVector =
     sha256(sha256(body)).take(4)
@@ -75,7 +76,7 @@ trait HashOps {
     ByteVector(md.digest(bytes.toArray))
   }
 
-  private val sha256Digest: MessageDigest = MessageDigest.getInstance("SHA-256")
+  //private val sha256Digest: MessageDigest = MessageDigest.getInstance("SHA-256")
 }
 
 object HashOps extends HashOps

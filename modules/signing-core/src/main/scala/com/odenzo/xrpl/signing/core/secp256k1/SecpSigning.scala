@@ -51,7 +51,7 @@ object SecpSigning extends BlindsightLogging {
     val r: BigInteger      = sigs(0)
     val s: BigInteger      = sigs(1)
     val otherS: BigInteger = Constants.N_Order.subtract(s)
-    val finalS             = if (s.compareTo(otherS) === 1) otherS else s // s > otherS
+    val finalS             = if s.compareTo(otherS) === 1 then otherS else s // s > otherS
     DER.Signature.packFromRandS(r, finalS)
 
   }

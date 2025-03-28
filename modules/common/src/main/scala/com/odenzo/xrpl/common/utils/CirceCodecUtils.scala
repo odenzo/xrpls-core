@@ -1,29 +1,17 @@
 package com.odenzo.xrpl.common.utils
 
-import cats.*
-import cats.data.*
-import cats.syntax.all.*
 import com.odenzo.xrpl.common.binary.{ XrpBase58Fix, XrplBase58Alphabet }
-import com.odenzo.xrpl.common.binary.XrpBinaryOps.toXrpBase58
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe
-import io.circe.Decoder.{ Result, decodeString }
-import io.circe.Encoder
-import io.circe.jawn.JawnParser
-import io.circe.syntax.*
 import io.circe.*
+import io.circe.Decoder.decodeString
 import io.circe.derivation.Configuration
 import scodec.bits.Bases.Alphabets.HexUppercase
 import scodec.bits.{ BitVector, ByteVector }
 
-import java.io.File
-import scala.io.Source
-import scala.util.Try
-
 /** Some of this is duplicated all over the place. Centralize here. */
 trait CirceCodecUtils extends BlindsightLogging {
   private val log                                          = LoggerFactory.getLogger
-  import XrpBase58Fix.*
   val alphabet: XrplBase58Alphabet.type                    = XrplBase58Alphabet
   def fromXrpBase58Unsafe(s: String): ByteVector           = XrpBase58Fix.fromValidXrpBase58(s)
   def fromXrpBase58(s: String): Either[String, ByteVector] = XrpBase58Fix.fromXrpBase58Descriptive(s)
@@ -88,14 +76,14 @@ trait CirceCodecUtils extends BlindsightLogging {
   val typeName: KeyTransformer = (s: String) => if s.equals("xrpType") then "type" else s
 
   val unCapitalize: KeyTransformer = { (toString: String) =>
-    if (toString == null) null
-    else if (toString.isEmpty) toString
-    else if (toString.charAt(0).isLower) toString
-    else {
+    if toString == null then null
+    else if toString.isEmpty then toString
+    else if toString.charAt(0).isLower then toString
+    else
       val chars = toString.toCharArray
       chars(0) = chars(0).toLower
       new String(chars)
-    }
+
   }
 
   def capitalizeConfig: Configuration = customConfiguration(capitalize)
@@ -143,11 +131,8 @@ trait CirceCodecUtils extends BlindsightLogging {
     */
   def customNameTransformer(map: Map[String, String], name: String): String = map.getOrElse(name, name)
 
-  def capitalizeExcept(these: List[String]): (String) => String = { (key: String) =>
-    val newKey = if (!these.contains(key)) key.capitalize else key
-    // logger.debug(s"Converted $key -> $newKey")
-    newKey
-  }
+  def capitalizeExcept(these: List[String]): (String) => String = (key: String) =>
+    if !these.contains(key) then key.capitalize else key
 
   /**
     * Caution that this must be done AFTER any general transaction of names for
@@ -186,5 +171,7 @@ trait CirceCodecUtils extends BlindsightLogging {
 
   inline def customFailure(message: String, c: ACursor): Left[DecodingFailure, Nothing] =
     Left(DecodingFailure(message, c.history))
+
+  val configSnakes: Configuration = Configuration.default.withSnakeCaseMemberNames
 }
 object CirceCodecUtils extends CirceCodecUtils

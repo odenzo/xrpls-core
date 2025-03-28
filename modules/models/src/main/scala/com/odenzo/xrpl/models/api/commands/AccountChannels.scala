@@ -21,6 +21,8 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
 object AccountChannels extends XrpCommand[AccountChannels.Rq, AccountChannels.Rs] {
   val command: Command = Command.ACCOUNT_CHANNELS
 
+  given stdConf: Configuration = Configuration.default.withSnakeCaseMemberNames
+
   /** Scrtollable */
   case class Rq(
       account: AccountAddress,

@@ -1,27 +1,21 @@
 package com.odenzo.xrpl.communication.websocket
 
-import cats.effect.*
-import cats.effect.syntax.all.*
 import cats.*
 import cats.data.*
+import cats.effect.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.communication
 import com.odenzo.xrpl.communication.XrplEngine
 import com.odenzo.xrpl.communication.models.*
-import com.odenzo.xrpl.communication.models.ResponseExtractors.{ extractStatus, findResultRecord }
 import com.odenzo.xrpl.communication.websocket.WSEngine.enrichOutboundMessageEnvelope
-import com.odenzo.xrpl.models.api.commands.Submit
-import com.odenzo.xrpl.models.api.commands.Submit as engine
-import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.api.commands.{ LedgerAccept, Sign }
+import com.odenzo.xrpl.models.api.commands.{ LedgerAccept, Sign, Submit }
+import com.odenzo.xrpl.models.api.transactions.support.{ TxCommon, XrpTxn }
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.{ Condition, LoggerFactory }
-import io.circe.pointer.literal.pointer
-import io.circe.{ ACursor, Decoder, Encoder, Json, JsonObject }
 import io.circe.syntax.given
+import io.circe.{ Decoder, Encoder, Json, JsonObject }
 import org.http4s.Uri
-import scodec.bits.BitVector
 
 import java.util.UUID
 

@@ -123,7 +123,6 @@ trait BlindsightUtils {
   protected object markers {
 
     import net.logstash.logback.marker.Markers as LogstashMarkers
-    import net.logstash.logback.marker.{ Markers => LogstashMarkers }
 
     private val tlog = LoggerFactory.getLogger
 
@@ -137,7 +136,7 @@ trait BlindsightUtils {
 
     val xx: Markers   = Markers(processMarker("foo"))
     val m1log: Logger = tlog.withMarker(processMarker("foo")).withMarker(correlationId("1"))
-    m1log.markers.size
+    // m1log.markers.size
     /* import net.logstash.logback.marker.{Markers => LogstashMarkers} val loggerWithTwoMarkers =
      * entryLogger.withMarker(LogstashMarkers.append("user", "will")) */
     // def addMarker(markers: Markers, marker:Ma) =

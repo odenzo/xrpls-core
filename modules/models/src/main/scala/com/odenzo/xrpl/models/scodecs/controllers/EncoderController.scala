@@ -88,7 +88,7 @@ object EncoderController extends BlindsightLogging {
   def preprocessJson(forSigning: Boolean, jobj: JsonObject): List[(BitVector, String, FieldMetaData, Json)] = {
     def filterSigning(fm: FieldMetaData)     = fm.isSigningField
     def filterSerializing(fm: FieldMetaData) = fm.isSerialized
-    val filterFn                             = if forSigning then filterSigning _ else filterSerializing _
+    val filterFn                             = if forSigning then filterSigning else filterSerializing
 
     // Want to try named tuples here.
     val output: List[(BitVector, String, FieldMetaData, Json)] = jobj
@@ -99,7 +99,7 @@ object EncoderController extends BlindsightLogging {
           log.debug(s"$fieldName / $content with entry $fieldMetaData")
           val fieldId                      = fieldMetaData.fieldId
           log.info(s"FieldId: ${fieldId.packedBinary} DataTypeCode: ${fieldId.dataTypeCodeAsInt} FieldCode: ${fieldId.fieldCodeAsInt}")
-          if filterFn(fieldMetaData) && content != Json.Null then
+          if filterFn(fieldMetaData) && content.eqv(Json.Null) then
             val encoder: Encoder[Json] = ScodecResolver.codecForDataType(fieldMetaData).asEncoder
             val header: BitVector      = fieldMetaData.fieldId.packedBinary
             log.info(s"About to Encode $content using ${fieldMetaData.fieldName} of type ${fieldMetaData.dataTypeName}")

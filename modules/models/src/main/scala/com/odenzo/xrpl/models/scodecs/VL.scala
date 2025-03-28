@@ -53,7 +53,7 @@ object VL {
     }
   }
 
-  val encodeVL: Encoder[Int] = Encoder[Int](encodeVlAttempt _)
+  val encodeVL: Encoder[Int] = Encoder[Int](encodeVlAttempt)
 
   protected def decodeVL: Decoder[Int] = {
     peek(uint(8)).flatMap { (x: Int) =>

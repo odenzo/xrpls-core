@@ -1,9 +1,6 @@
-import scodec.bits.*
-import scodec.bits.given
+import scodec.bits.{ *, given }
 
 import scala.compiletime.*
-
-import scala.compiletime.constValue
 import scala.compiletime.ops.int.S
 
 def foo[T](using v: ValueOf[T]): T = v.value

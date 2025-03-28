@@ -9,7 +9,7 @@ import com.odenzo.xrpl.models.api.transactions.support.TxCommon
 import com.odenzo.xrpl.models.data.models.keys.KeyType
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.*
-import com.odenzo.xrpl.models.data.models.monetary.{CurrencyAmount, Script, XrplCurrency}
+import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, Script, XrplCurrency }
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.LoggerFactory
 
