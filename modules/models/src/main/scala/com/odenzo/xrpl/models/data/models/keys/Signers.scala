@@ -1,18 +1,15 @@
 package com.odenzo.xrpl.models.data.models.keys
 
-import cats.effect.*
-import cats.effect.syntax.all.*
-
 import cats.*
 import cats.data.*
+import cats.effect.*
+import cats.effect.syntax.all.*
 import cats.syntax.all.*
-
-import cats.data.NonEmptyList
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, TxnSignature }
+import io.circe.*
 import io.circe.Decoder.Result
 import io.circe.DecodingFailure.Reason
-import io.circe.{ Decoder, DecodingFailure, Encoder, Json, JsonObject }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.syntax.given
 

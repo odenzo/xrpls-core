@@ -1,9 +1,8 @@
 package com.odenzo.xrpl.models.data.models.monetary
 
 import com.odenzo.xrpl.models.data.models.monetary.{ Script, XrplStdCurrency }
-import io.circe.{ Codec, Encoder }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import io.circe.Decoder
+import io.circe.{ Codec, Decoder, Encoder }
 
 /**
   * FOr BookOrders and Offers were we need to specify XRP as a Currency but it

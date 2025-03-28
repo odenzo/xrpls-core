@@ -2,8 +2,8 @@ package com.odenzo.xrpl.models.wireprotocol
 
 import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.{ Logger, LoggerFactory }
-import io.circe.{ Decoder, Encoder, Json }
 import io.circe.Decoder.Result
+import io.circe.{ Decoder, Encoder, Json }
 import munit.*
 import munit.Assertions.fail
 

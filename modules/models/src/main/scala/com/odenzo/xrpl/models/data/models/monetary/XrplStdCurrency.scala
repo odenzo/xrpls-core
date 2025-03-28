@@ -2,8 +2,8 @@ package com.odenzo.xrpl.models.data.models.monetary
 
 import cats.*
 import cats.implicits.*
-import io.circe.{ Decoder, Encoder }
 import io.circe.generic.semiauto.*
+import io.circe.{ Decoder, Encoder }
 import scodec.bits.{ BitVector, ByteVector }
 
 import scala.collection.immutable

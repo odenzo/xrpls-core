@@ -1,11 +1,10 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import io.circe.{ Codec, Decoder }
-import io.circe.Encoder
+import io.circe.Codec
 import scodec.bits.ByteVector
 
+// FIXME: Re-File under the Hash256 types
 opaque type AccountTxnId <: ByteVector = ByteVector // Hash256
 
 object AccountTxnId:

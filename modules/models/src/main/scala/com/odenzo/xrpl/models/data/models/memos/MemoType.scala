@@ -4,7 +4,7 @@ import cats.Show
 import cats.data.{ Validated, ValidatedNec }
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.{ CirceCodecUtils, ValidationUtils }
-import MemoType.fromXrpSubsetTextUnsafe
+import com.odenzo.xrpl.models.data.models.memos.MemoType.fromXrpSubsetTextUnsafe
 import io.circe.Codec
 import scodec.bits.ByteVector
 

@@ -1,21 +1,13 @@
 package com.odenzo.xrpl.models.api.commands
 
-import cats.data.NonEmptyMap
-import com.odenzo.xrpl.common.utils.{ CirceCodecUtils, Foo }
-import com.odenzo.xrpl.models.api.commands.Command
+import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
 import com.odenzo.xrpl.models.data.models
 import com.odenzo.xrpl.models.data.models.Amendment
 import com.odenzo.xrpl.models.data.models.atoms.hash256.*
-import io.circe.{ cursor, * }
-import io.circe.Decoder.{ Result, failedWithMessage }
+import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.generic.semiauto.{ deriveDecoder, deriveEncoder }
-import io.circe.syntax.*
-import scodec.bits.Bases.Alphabets.HexUppercase
-import scodec.bits.ByteVector
-import Hash256.given
-import com.odenzo.xrpl.common.binary.ScodecExtensions.*
 
 /**
   * https:

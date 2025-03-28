@@ -16,8 +16,8 @@ class XrpPublicKeyTest extends munit.FunSuite with BlindsightLogging {
   val public_key_hex_json: Json = Json.fromString(publicKeyHex)
   val keyA: XrpPublicKey        = XrpPublicKey.fromPublicKeyBase58(publicKeyBase58)
   val keyB: XrpPublicKey        = XrpPublicKey.fromPublicKeyHex(publicKeyHex)
-  import XrpPublicKey.given
   import XrpPublicKey.Codecs.given
+  import XrpPublicKey.given
   test("Secp Basic") {
 
     println(s"KeyA: ${keyA.asHex}")

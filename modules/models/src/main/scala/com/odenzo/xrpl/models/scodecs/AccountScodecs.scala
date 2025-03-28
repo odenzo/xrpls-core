@@ -1,10 +1,9 @@
 package com.odenzo.xrpl.models.scodecs
 
-import com.odenzo.xrpl.models.data.models.atoms.AccountId
+import com.odenzo.xrpl.models.data.models.atoms.*
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.*
 import scodec.bits.*
-import com.odenzo.xrpl.models.data.models.atoms.*
 
 /**
   * AccountId are the core of AccountAddress. We have two different codecs, one

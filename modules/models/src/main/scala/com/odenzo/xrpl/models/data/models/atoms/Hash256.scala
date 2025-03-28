@@ -4,7 +4,7 @@ import cats.Order
 import cats.implicits.*
 import com.odenzo.xrpl.common.binary.ScodecExtensions.*
 import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, ScodecExtensions, XrpBinaryOps }
-import io.circe.{ Codec, Decoder, Encoder, KeyDecoder, KeyEncoder }
+import io.circe.*
 import scodec.bits
 import scodec.bits.Bases.Alphabets.HexUppercase
 import scodec.bits.{ BitVector, ByteVector }

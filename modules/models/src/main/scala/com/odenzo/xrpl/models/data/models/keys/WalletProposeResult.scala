@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.data.models.keys
 
-import io.circe.Codec
-import XrpPublicKey.Codecs.given
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
+import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.Codecs.given
+import io.circe.Codec
 
 /**
   * When proposing a new wallet this returns all the values in text form.

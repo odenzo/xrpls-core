@@ -1,21 +1,10 @@
 package com.odenzo.xrpl.common.utils
 
-import cats.*
-import cats.data.*
-import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.syntax.all.*
-import io.circe.*
-import io.circe.Decoder.{ Result, withReattempt }
-
-trait ErrorUtils {
-
-  // Trying to minimize my previous goofiness
-
+object ErrorUtils {
   def raiseError[E <: Throwable, T](attempt: Either[E, T]): T =
     attempt match
       case Left(value)  => throw value
       case Right(value) => value
-}
 
-object ErrorUtils extends ErrorUtils
+  extension [E <: Throwable, T](errorEither: Either[E, T]) def raise: T = raiseError(errorEither)
+}

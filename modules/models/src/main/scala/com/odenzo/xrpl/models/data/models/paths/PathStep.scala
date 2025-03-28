@@ -3,10 +3,10 @@ package com.odenzo.xrpl.models.data.models.paths
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
 import com.odenzo.xrpl.models.data.models.monetary.XrplStdCurrency
 import io.circe
+import io.circe.*
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.generic.semiauto.*
 import io.circe.syntax.*
-import io.circe.{derivation, *}
-import io.circe.derivation.{Configuration, ConfiguredCodec}
 
 import java.util.Currency
 

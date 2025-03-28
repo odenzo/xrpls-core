@@ -1,9 +1,10 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
+import com.odenzo.xrpl.models.data.models.atoms.hash256.*
 import io.circe.Codec
 import scodec.bits.ByteVector
-import hash256.*
+
 import scala.util.Try
 
 case class LedgerHash(v: Hash256) extends AnyVal // Uses standard field name, might need to take out of here.

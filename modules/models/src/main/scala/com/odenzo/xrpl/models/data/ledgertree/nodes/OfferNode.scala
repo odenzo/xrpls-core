@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.data.ledgertree.nodes
 
 import com.odenzo.xrpl.models.data.models.atoms.hash256.*
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountTxnNumber, LedgerHash }
+import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountTxnNumber, LedgerHash, RippleTime }
 import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, Quality }
 import io.circe.{ Decoder, Encoder }
 
@@ -20,7 +20,7 @@ case class OfferNode(
     takerGets: Option[CurrencyAmount],
     bookDirectory: Option[LedgerHash], // Hex, this a LeddgerHash
     bookNode: Option[String], // really an option
-    //  expiration: Option[RippleTime],
+    expiration: Option[RippleTime],
     ownerNode: Option[String], // LedgerNodeIndex type? "0000000000000000" So, its a LedgerId?
     previousTxnId: Option[Hash256],
     previousTxnLgrSeq: Option[Long], // LedgerIndex as Long/Int, what is this, AccountLedgerSequence ?
@@ -31,7 +31,7 @@ case class OfferNode(
     quality: Option[Quality],
     takerGetsFunded: Option[CurrencyAmount],
     takerPaysFunded: Option[CurrencyAmount],
-)
+) extends LedgerNode
 
 object OfferNode {
   // Name Transformers: Capitalize all excecpt the "index",
@@ -42,7 +42,7 @@ object OfferNode {
   // and snake case those.
   // Probably less error prone.
   // A sane API V2 of this would be nice.
-  given encode: Encoder[OfferNode] = Encoder.forProduct15(
+  given encode: Encoder[OfferNode] = Encoder.forProduct16(
     "Flags",
     "Account",
     "Sequence",
@@ -50,7 +50,7 @@ object OfferNode {
     "TakerGets",
     "BookDirectory",
     "BookNode",
-    //  "Expiration",
+    "Expiration",
     "OwnerNode",
     "PreviousTxnID",
     "PreviousTxnLgrSeq",
@@ -67,6 +67,7 @@ object OfferNode {
      v.takerGets,
      v.bookDirectory,
      v.bookNode,
+     v.expiration,
      v.ownerNode,
      v.previousTxnId,
      v.previousTxnLgrSeq,
@@ -79,7 +80,7 @@ object OfferNode {
   )
 
   given decode: Decoder[OfferNode] =
-    Decoder.forProduct15(
+    Decoder.forProduct16(
       "Flags",
       "Account",
       "Sequence",
@@ -87,7 +88,7 @@ object OfferNode {
       "TakerGets",
       "BookDirectory",
       "BookNode",
-      //  "Expiration",
+      "Expiration",
       "OwnerNode",
       "PreviousTxnID",
       "PreviousTxnLgrSeq",

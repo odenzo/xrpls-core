@@ -1,24 +1,22 @@
 package com.odenzo.xrpl.models.scodecs.controllers
 
-import _root_.scodec.codecs.variableSizeBytes
+import _root_.scodec.*
+import _root_.scodec.bits.{ BitVector, ByteVector, given, hex }
+import _root_.scodec.codecs.*
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import com.odenzo.xrpl.common.utils.BlindsightLogging
-import _root_.scodec.bits.{ BitVector, ByteVector, hex, given }
-import _root_.scodec.{ Attempt, Codec, DecodeResult, Decoder, Encoder, Err }
-import _root_.scodec.codecs.*
 import ch.qos.logback.classic.encoder
-import com.odenzo.xrpl.models.scodecs.AccountScodecs.accountIdCodec
-import com.odenzo.xrpl.models.scodecs.AdditionalScodecs.xrplTransactionType
-import com.odenzo.xrpl.models.scodecs.BasicScodecs.xrpuint16
-
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
 import com.odenzo.xrpl.models.data.models.fields.ids.FieldId
 import com.odenzo.xrpl.models.internal.definitions.{ FieldEntryRaw, FieldMetaData }
+import com.odenzo.xrpl.models.scodecs.AccountScodecs.accountIdCodec
+import com.odenzo.xrpl.models.scodecs.AdditionalScodecs.xrplTransactionType
+import com.odenzo.xrpl.models.scodecs.BasicScodecs.xrpuint16
 import com.odenzo.xrpl.models.scodecs.{ AmountScodecs, MetaData, VL }
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.{ Json, Decoder as JsonDecoder, Encoder as JsonEncoder }
+import io.circe.{ Codec, Decoder, Encoder, * }
 import spire.math.ULong
 
 import scala.util.Try

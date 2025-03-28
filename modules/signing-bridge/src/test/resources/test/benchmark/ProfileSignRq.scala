@@ -1,20 +1,18 @@
 package com.odenzo.ripple.localops.benchmark
 
-import java.util.concurrent.TimeUnit
-import scala.util.Random
-
-import io.circe.syntax._
-import io.circe.{Decoder, Json, JsonObject}
-
-import cats._
-import cats.data._
-import cats.implicits._
-import org.openjdk.jmh.annotations._
-import org.openjdk.jmh.infra.Blackhole
-
+import cats.*
+import cats.data.*
+import cats.implicits.*
 import com.odenzo.ripple.bincodec.RippleCodecAPI
 import com.odenzo.ripple.localops.impl.utils.JsonUtils
-import com.odenzo.ripple.localops.{LocalOpsError, MessageBasedAPI}
+import com.odenzo.ripple.localops.{ LocalOpsError, MessageBasedAPI }
+import io.circe.syntax.*
+import io.circe.{ Decoder, Json, JsonObject }
+import org.openjdk.jmh.annotations.*
+import org.openjdk.jmh.infra.Blackhole
+
+import java.util.concurrent.TimeUnit
+import scala.util.Random
 
 /**
   * Basic benchmarkuing, this is not really a microbenchmark but we abuse it.

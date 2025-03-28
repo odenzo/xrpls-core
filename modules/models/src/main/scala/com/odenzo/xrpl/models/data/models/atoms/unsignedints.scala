@@ -1,17 +1,12 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
-import cats.data.Validated
 import cats.syntax.all.given
-import com.odenzo.xrpl.common.binary.XrpBinaryOps.asLong
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.{ Decoder, Encoder }
-import scodec.bits.ByteOrdering.BigEndian
-import scodec.bits.{ BitVector, ByteVector }
-import spire.math.NumberTag.{ Integral, Resolution }
-import spire.math.{ NumberTag, UInt, ULong, UShort }
+import scodec.bits.BitVector
+import spire.math.{ UInt, ULong, UShort }
 
 import java.math.BigInteger
-import scala.deriving.Mirror.Singleton
 import scala.util.Try
 import scala.util.chaining.given
 
@@ -96,6 +91,7 @@ object UInt32 extends UnsignedIntTag[UInt32](32) {
   extension (u: UInt32)
     def unwrap: ULong = u: ULong
     def asLong: Long  = u.toLong
+
 }
 
 opaque type UInt16 = UShort
@@ -108,6 +104,7 @@ object UInt16 extends UnsignedIntTag[UInt16](16) {
   extension (u: UInt16)
     def unwrap: UShort = u: UShort
     def asLong: Long   = u.toLong
+
 }
 
 opaque type UInt8 = UShort
@@ -120,6 +117,7 @@ object UInt8 extends UnsignedIntTag[UInt8](8) {
   extension (u: UInt8)
     def unwrap: UShort = u: UShort
     def asLong: Long   = u.toLong
+
 }
 
 opaque type UInt4 = UShort

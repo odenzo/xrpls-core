@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.data.models.flags
 
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.{Decoder, Encoder}
-import scodec.bits.{BitVector, ByteVector}
+import io.circe.{ Decoder, Encoder }
+import scodec.bits.{ BitVector, ByteVector }
 
 import scala.util.Try
 

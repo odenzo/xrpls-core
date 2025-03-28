@@ -1,7 +1,6 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
 import cats.implicits.*
-
 import io.circe.Decoder.{ Result, decodeString }
 import io.circe.Encoder.encodeString
 import io.circe.generic.semiauto.deriveDecoder

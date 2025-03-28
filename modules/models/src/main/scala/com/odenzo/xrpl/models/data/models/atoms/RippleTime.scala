@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
-import java.time.Instant
-
 import io.circe.{ Decoder, Encoder }
+
+import java.time.Instant
 
 /**
   * The rippled server and its APIs represent time as an unsigned integer. This

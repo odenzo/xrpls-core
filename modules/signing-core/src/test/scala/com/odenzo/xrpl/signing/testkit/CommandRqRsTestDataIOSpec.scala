@@ -1,21 +1,13 @@
 package com.odenzo.xrpl.signing.testkit
 
+import cats.*
 import cats.effect.*
 import cats.effect.syntax.all.*
-
-import cats.*
-import cats.data.*
 import cats.syntax.all.*
-
-import cats.effect.{ IO, Resource }
 import com.odenzo.xrpl.communication.rpc.RpcPayloadOps
-import com.odenzo.xrpl.models.api.commands.CommandMarkers.XrpCommand
-import com.odenzo.xrpl.models.data.models.keys.WalletProposeResult
-import io.circe.pointer.literal.pointer
-import io.circe.{ Codec, Decoder, Encoder, Json, JsonObject }
+import io.circe.{ Codec, Decoder, Encoder, JsonObject }
 import munit.CatsEffectSuite
 import munit.catseffect.IOFixture
-import io.circe.syntax.given
 
 /**
   * This should handle all commands except the Signing and Submission commands.

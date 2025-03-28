@@ -1,13 +1,12 @@
 package com.odenzo.ripple.localops.benchmark
 
-import java.io.{BufferedWriter, File, FileWriter}
-import java.net.URL
-import scala.io.{BufferedSource, Source}
-
-import io.circe.Json
-
 import com.odenzo.ripple.localops.LocalOpsError
 import com.odenzo.ripple.localops.impl.utils.JsonUtils
+import io.circe.Json
+
+import java.io.{ BufferedWriter, File, FileWriter }
+import java.net.URL
+import scala.io.{ BufferedSource, Source }
 
 object BenchmarkUtils {
 

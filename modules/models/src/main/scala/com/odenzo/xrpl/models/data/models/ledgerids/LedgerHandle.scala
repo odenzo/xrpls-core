@@ -1,33 +1,26 @@
 package com.odenzo.xrpl.models.data.models.ledgerids
 
-import cats.effect.*
-import cats.effect.syntax.all.*
+import _root_.scodec.bits.ByteVector
 import cats.*
 import cats.data.*
-import cats.syntax.all.*
-import cats.syntax.all.given
+import cats.effect.*
+import cats.effect.syntax.all.*
 import cats.implicits.*
-import io.circe.Decoder.Result
-import io.circe.*
-import io.circe.syntax.given
-import _root_.scodec.bits.ByteVector
+import cats.syntax.all.{ *, given }
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
+import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import com.tersesystems.blindsight.LoggerFactory
+import io.circe.*
 import io.circe.CursorOp.MoveUp
+import io.circe.Decoder.Result
 import io.circe.DecodingFailure.Reason.CustomReason
 import io.circe.derivation.{ Configuration, ConfiguredEnumCodec }
+import io.circe.syntax.given
 import spire.algebra.Field
 
 import scala.Right
 import scala.util.Try
-import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.*
-import cats.data.*
-import cats.syntax.all.*
-import cats.implicits.*
-import com.odenzo.xrpl.common.utils.BlindsightLogging
-import com.tersesystems.blindsight.LoggerFactory
 
 /**
   * On request ledger_index field can be String or Int, we use LedgerHandle for

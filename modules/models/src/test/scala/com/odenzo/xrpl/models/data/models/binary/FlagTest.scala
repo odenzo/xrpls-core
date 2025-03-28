@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.data.models.binary
 
-import com.odenzo.xrpl.models.data.models.flags.{Flags, PaymentFlag}
+import com.odenzo.xrpl.models.data.models.flags.{ Flags, PaymentFlag }
 import com.tersesystems.blindsight.*
 import munit.FunSuite
 

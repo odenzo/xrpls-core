@@ -1,11 +1,10 @@
 package com.odenzo.xrpl.models.data.models.ledgerids
 
-import cats.implicits.*
-
-import io.circe.Decoder.Result
-import io.circe.*
 import _root_.scodec.bits.ByteVector
-import LedgerHandle.LedgerIndex
+import cats.implicits.*
+import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import io.circe.*
+import io.circe.Decoder.Result
 
 import scala.util.Try
 

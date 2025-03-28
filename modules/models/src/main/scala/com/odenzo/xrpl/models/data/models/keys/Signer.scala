@@ -1,9 +1,9 @@
 package com.odenzo.xrpl.models.data.models.keys
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
+import com.odenzo.xrpl.models.data.models.atoms.TxnSignature.given
 import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, TxnSignature }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-import TxnSignature.given 
 case class Signer(account: AccountAddress, singingPubkey: XrpPublicSigningKey, txnSignature: TxnSignature)
     derives ConfiguredCodec
 

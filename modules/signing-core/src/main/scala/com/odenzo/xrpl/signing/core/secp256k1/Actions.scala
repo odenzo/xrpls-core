@@ -3,8 +3,8 @@ package com.odenzo.xrpl.signing.core.secp256k1
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import SecpOps.privateKey2D
 import com.odenzo.xrpl.common.utils.BlindsightLogging
+import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.privateKey2D
 import org.bouncycastle.asn1.sec.SECNamedCurves
 import org.bouncycastle.asn1.x9.X9ECParameters
 import org.bouncycastle.crypto.digests.SHA256Digest

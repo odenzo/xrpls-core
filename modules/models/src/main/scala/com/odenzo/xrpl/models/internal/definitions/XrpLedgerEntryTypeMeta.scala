@@ -1,12 +1,11 @@
 package com.odenzo.xrpl.models.internal.definitions
 
-import io.circe.Decoder
-import cats.effect.*
-import cats.effect.syntax.all.*
-
 import cats.*
 import cats.data.*
+import cats.effect.*
+import cats.effect.syntax.all.*
 import cats.syntax.all.*
+import io.circe.Decoder
 
 /**
   * These are in an object and name is the JsonObject field name and value is

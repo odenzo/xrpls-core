@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.data.models.keys
 
+import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.Codecs.given
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Codec
-import XrpPublicKey.Codecs.given
 
 /**
   * A Wallet holds credentials and addresses for an account. It can be used to

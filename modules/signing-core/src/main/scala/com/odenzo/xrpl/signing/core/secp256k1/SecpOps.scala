@@ -12,7 +12,7 @@ import org.bouncycastle.math.ec.ECPoint
 import scodec.bits.{ ByteVector, hex }
 
 import java.math.BigInteger
-import java.security.{ KeyFactory, KeyPair, KeyPairGenerator, PrivateKey, PublicKey, SecureRandom }
+import java.security.*
 
 /**
   * IMports are important here, Java vs Bouncy Castle -- lost them on IJ

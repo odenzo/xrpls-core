@@ -6,14 +6,14 @@ import scodec.bits.{ BitVector, ByteVector, hex }
 
 import java.nio.charset.StandardCharsets
 import java.security.{ MessageDigest, SecureRandom }
-import scala.annotation.tailrec
-import scala.annotation.unused
+import scala.annotation.{ tailrec, unused }
 
 /** XrpSpecific (mostly) binary utilities */
 trait XrpBinaryOps extends BlindsightLogging with HashOps {
   @unused
-  private val log                         = LoggerFactory.getLogger
-  private val sha256Digest: MessageDigest = MessageDigest.getInstance("SHA-256")
+  private val log = LoggerFactory.getLogger
+
+  // private val sha256Digest: MessageDigest = MessageDigest.getInstance("SHA-256")
 
   // TODO: Move to TypePRefix which is now in common
   val accountPrefix          = hex"00"
@@ -37,8 +37,8 @@ trait XrpBinaryOps extends BlindsightLogging with HashOps {
       * Limits on size to 64 bits, throws. ByteVector is considered as unsigned
       * bytes *
       */
-  def unsignedBytesToBigInt(bv: ByteVector): BigInt  =    BigInt(1, bv.toArray)
-    
+  def unsignedBytesToBigInt(bv: ByteVector): BigInt  = BigInt(1, bv.toArray)
+
   /**
     * TypeCode and FieldCode need sorting. This is one way to do it. There bit
     * vectors are unsigned and hopefully this sorts on unsigned (not 2-comp)

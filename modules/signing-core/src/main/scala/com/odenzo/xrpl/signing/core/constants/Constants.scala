@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.signing.core.constants
 
-import scodec.bits.{ByteVector, hex}
+import scodec.bits.{ ByteVector, hex }
 
 object Constants {
 

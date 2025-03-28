@@ -2,7 +2,7 @@ package com.odenzo.xrpl.models.api.transactions.support
 
 import cats.syntax.all.*
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountTxnNumber }
+import com.odenzo.xrpl.models.data.models.atoms.AccountTxnNumber
 import com.odenzo.xrpl.models.data.models.flags.Flags
 import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.odenzo.xrpl.models.data.models.memos.{ Memo, Memos }
@@ -56,9 +56,9 @@ object TxCommon extends CirceCodecUtils {
   given Configuration = CirceCodecUtils.customConfiguration(capitalize)
 
   /** Need some nice factory builders */
-  val default = TxCommon(fee = CurrencyAmount.Drops(555).some)
+  val default: TxCommon = TxCommon(fee = CurrencyAmount.Drops(555).some)
 
-  def psuedoTxnDefault = TxCommon(
+  def psuedoTxnDefault: TxCommon = TxCommon(
     fee      = CurrencyAmount.Drops(0).some,
     sequence = AccountTxnNumber(0).some,
   )

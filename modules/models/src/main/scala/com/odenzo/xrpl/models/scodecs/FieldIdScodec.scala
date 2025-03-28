@@ -3,7 +3,6 @@ package com.odenzo.xrpl.models.scodecs
 import cats.*
 import cats.data.*
 import cats.implicits.*
-
 import com.odenzo.xrpl.models.data.models.fields.ids.FieldId
 import scodec.bits.{ BitVector, ByteVector, bin, hex }
 import scodec.codecs.*

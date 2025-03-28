@@ -1,21 +1,20 @@
 package com.odenzo.xrpl.models.api.commands
 
+import cats.*
+import cats.data.*
+import cats.effect.*
+import cats.effect.syntax.all.*
+import cats.syntax.all.*
 import com.odenzo.xrpl.models.api.commands.Submit
 import com.odenzo.xrpl.models.data.models.atoms.TxBlob
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.JsonObject
 import io.circe.literal.json
-import io.circe.syntax.given
-import spire.math.{ ULong, UShort }
-import cats.effect.*
-import cats.effect.syntax.all.*
-import cats.*
-import cats.data.*
-import cats.syntax.all.*
 import io.circe.optics.JsonPath.root
 import io.circe.pointer.PointerFailure
 import io.circe.pointer.literal.pointer
-import io.circe.{ Codec, Decoder, Encoder, Json }
+import io.circe.syntax.given
+import io.circe.*
+import spire.math.{ ULong, UShort }
 class FeatureTest extends munit.CatsEffectSuite {
   private val log = LoggerFactory.getLogger
 

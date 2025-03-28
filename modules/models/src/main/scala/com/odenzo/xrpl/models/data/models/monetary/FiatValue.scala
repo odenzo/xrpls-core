@@ -2,8 +2,7 @@ package com.odenzo.xrpl.models.data.models.monetary
 
 import cats.implicits.catsSyntaxEq
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.{ Codec, Encoder, Decoder }
-
+import io.circe.{ Codec, Decoder, Encoder }
 import scodec.bits.{ BitVector, bin }
 
 opaque type FiatValue = BigDecimal

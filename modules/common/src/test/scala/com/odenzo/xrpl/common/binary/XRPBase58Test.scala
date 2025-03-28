@@ -1,6 +1,5 @@
 package com.odenzo.xrpl.common.binary
 
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.tersesystems.blindsight.LoggerFactory
 import munit.*
@@ -23,12 +22,13 @@ class XRPBase58Test extends munit.FunSuite with BlindsightLogging {
     val src       = ACCOUNT_SAMPLE
     val bv        = XrpBinaryOps.fromXrpBase58Unsafe(src)
     val backToB58 = XrpBinaryOps.toXrpBase58(bv)
-    log.debug(s"$src => ( 1 byte + ${bv.size} bytes + 4 bytes) ${bv.toHex}")
-
+    log.fluent.debug.message(s"$src => ( 1 byte + ${bv.size} bytes + 4 bytes)").argument("bits" -> bv.asBValue).log()
+    assert(backToB58 == src)
   }
 
   test("r -zeros") {
     val bv = BitVector.fromBase58Descriptive("r", XrplBase58Alphabet)
-    log.info(s"r => $bv")
+    assert(bv.isRight)
+    assert(bv.contains(BitVector.empty))
   }
 }

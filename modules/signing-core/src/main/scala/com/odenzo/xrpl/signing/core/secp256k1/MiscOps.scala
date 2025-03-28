@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.signing.core.secp256k1
 
-import SecpOps.Constants
+import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.Constants
 import org.bouncycastle.jce.spec.{ ECPrivateKeySpec, ECPublicKeySpec }
 import org.bouncycastle.math.ec.ECPoint
 

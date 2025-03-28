@@ -3,15 +3,15 @@ package com.odenzo.xrpl.models.scodecs
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import AmountCurrencyScodecs.{ currencyIsoCode, currencyCustom }
 import com.odenzo.xrpl.models.data.models.monetary
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{ Drops, FiatAmount }
 import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, FiatValue, Script, XrplStdCurrency }
+import com.odenzo.xrpl.models.scodecs.AmountCurrencyScodecs.{ currencyCustom, currencyIsoCode }
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.*
+import scodec.Codec.*
 import scodec.bits.*
 import scodec.codecs.*
-import scodec.Codec.*
 
 import scala.util.Try
 

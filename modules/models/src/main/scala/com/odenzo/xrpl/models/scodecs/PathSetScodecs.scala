@@ -3,16 +3,16 @@ package com.odenzo.xrpl.models.scodecs
 import cats.*
 import cats.data.*
 import cats.implicits.*
+import com.odenzo.xrpl.models.data.models.atoms.*
 import com.odenzo.xrpl.models.data.models.monetary.XrplCurrency
 import com.odenzo.xrpl.models.data.models.paths.{ XRPLPath, XRPLPathStep }
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Json
 import scodec.*
-import scodec.bits.{ *, given }
-import scodec.codecs.*
-import scodec.codecs.given
 import scodec.Codec.*
-import com.odenzo.xrpl.models.data.models.atoms.*
+import scodec.bits.{ *, given }
+import scodec.codecs.{ *, given }
+
 import scala.util.Try
 object PathScodecs {
   private val log = LoggerFactory.getLogger

@@ -2,13 +2,12 @@ package com.odenzo.xrpl.models.data.models.fields.ids
 
 import io.circe
 import io.circe.Codec.{ AsObject, codecForValidated }
+import scodec.bits.*
 import scodec.bits.ByteOrdering.BigEndian
+import scodec.codecs.{ uint4, uint8 }
 import scodec.{ Codec, Decoder, Encoder }
-import scodec.bits.{ BitVector, BitwiseOperations, ByteVector, bin, hex }
 
 import scala.math.Ordered.orderingToOrdered
-
-import scodec.codecs.{ uint4, uint8 }
 
 /**
   * https://xrpl.org/docs/references/protocol/binary-format#field-ids FieldId

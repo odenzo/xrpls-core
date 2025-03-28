@@ -4,24 +4,16 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.tersesystems.blindsight.{ *, given }
 import io.circe.*
 import io.circe.syntax.*
-import net.logstash.logback.argument.*
-import net.logstash.logback.argument.StructuredArguments.{ kv, raw }
+import scodec.bits.Bases.Alphabets.HexUppercase
+import scodec.bits.{ BitVector, ByteVector }
 
 import java.time.Instant
-import java.util.UUID
 
 trait BlindsightUtils {
 
   import com.tersesystems.blindsight.AST.{ *, given }
   import com.tersesystems.blindsight.DSL.{ *, given }
   import io.circe.Encoder
-
-  //  implicit val requestToResolver: LoggerResolver[UUID] = LoggerResolver { (instance: UUID) =>
-  //    org.slf4j.LoggerFactory.getLoggerFactory.getLogger("requests." + instance.toString)
-  //  }
-
-  import com.tersesystems.blindsight.AST.{ *, given }
-  import com.tersesystems.blindsight.DSL.{ *, given }
 
   protected given ToArgument[List[String]] = { v =>
     Argument(bobj("details" -> BArray(v.map(new BString(_)))))
@@ -36,6 +28,9 @@ trait BlindsightUtils {
     def asBValue: BString = {
       BString(x.asJson.noSpacesSortKeys)
     }
+
+  extension (bv: BitVector) def asBValue: BValue  = BString(bv.toHex(HexUppercase))
+  extension (bv: ByteVector) def asBValue: BValue = BString(bv.toHex(HexUppercase))
 
   protected given ToArgument[Throwable] = { err =>
     // WOuld love to have a stack trace maybe four deep or something
@@ -121,8 +116,6 @@ trait BlindsightUtils {
   // Some Marker helprs
 
   protected object markers {
-
-    import net.logstash.logback.marker.Markers as LogstashMarkers
 
     private val tlog = LoggerFactory.getLogger
 

@@ -1,16 +1,14 @@
 package com.odenzo.xrpl.signing.testkit
 
-import cats.effect.{ IO, Resource }
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.{ Decoder, Json }
-import io.circe.parser.decode
+import io.circe.*
 
-import java.io.InputStream
+import scala.annotation.unused
 import scala.io.{ BufferedSource, Source }
 import scala.util.chaining.given
 
 trait TestUtils {
-
+  @unused
   private val log = LoggerFactory.getLogger
 
   def loadResourceNamed(fileName: String): String = {

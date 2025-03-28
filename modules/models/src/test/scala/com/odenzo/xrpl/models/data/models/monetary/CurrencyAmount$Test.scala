@@ -4,13 +4,13 @@ package com.odenzo.xrpl.models.data.models.monetary
 
 
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{Drops, FiatAmount, given}
+import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{ Drops, FiatAmount, given }
 import com.tersesystems.blindsight.LoggerFactory
-import io.circe.{Encoder, Json}
-import io.circe.syntax.*
 import io.circe.Decoder.Result
 import io.circe.literal.json
-import scodec.bits.{BitVector, hex}
+import io.circe.syntax.*
+import io.circe.{ Encoder, Json }
+import scodec.bits.{ BitVector, hex }
 
 import java.util.UUID
 

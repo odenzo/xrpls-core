@@ -1,13 +1,10 @@
 package com.odenzo.xrpl.models.data.models.memos
 
-import _root_.scodec.bits.{ BitVector, ByteVector }
-import cats.Show
+import _root_.scodec.bits.ByteVector
 import cats.implicits.*
-import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.*
-import io.circe.syntax.*
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 /**
   * One of the three fields is technically needed. This is the Ripple formatted

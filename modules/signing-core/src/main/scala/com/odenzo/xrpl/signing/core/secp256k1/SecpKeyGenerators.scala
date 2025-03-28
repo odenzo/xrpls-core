@@ -2,7 +2,7 @@ package com.odenzo.xrpl.signing.core.secp256k1
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
 import com.odenzo.xrpl.common.utils.BlindsightLogging
-import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpKeyPair, XrpPrivateKey, XrpPublicKey, XrpSeed }
+import com.odenzo.xrpl.models.data.models.keys.*
 import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.Constants.params
 import com.odenzo.xrpl.signing.core.secp256k1.SecpOps.isValidPrivateKey
 import com.tersesystems.blindsight.LoggerFactory

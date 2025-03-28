@@ -2,8 +2,7 @@ package com.odenzo.xrpl.signing.core.secp256k1
 
 import cats.effect.IO
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.keys.{ KeyType, WalletProposeResult, XrpKeyPair, XrpSeed }
-import com.odenzo.xrpl.signing.core.ed25519.Ed25519KeyGenerators
+import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpKeyPair, XrpSeed }
 import com.odenzo.xrpl.signing.core.DeriveAccountAddress
 import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory
@@ -20,7 +19,6 @@ class SecpKeyGeneratorsTest
     extends CommandRqRsTestDataIOSpec[WalletPropose.Rq, WalletPropose.Rs]("WalletProposeRqRs.json") {
   import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
   private val log                                                        = LoggerFactory.getLogger // Extension method
-  import XrpSeed.given
   def check(walletRs: WalletPropose.Rs)(using loc: munit.Location): Unit = {
     test(s"${walletRs.accountId.asBits.toHex} - ${walletRs.keyType}") {
       log.info(s"Full Wallet: ${walletRs.asJson.spaces4}")

@@ -9,8 +9,11 @@ import io.circe.derivation.Configuration
 import scodec.bits.Bases.Alphabets.HexUppercase
 import scodec.bits.{ BitVector, ByteVector }
 
+import scala.annotation.unused
+
 /** Some of this is duplicated all over the place. Centralize here. */
 trait CirceCodecUtils extends BlindsightLogging {
+  @unused
   private val log                                          = LoggerFactory.getLogger
   val alphabet: XrplBase58Alphabet.type                    = XrplBase58Alphabet
   def fromXrpBase58Unsafe(s: String): ByteVector           = XrpBase58Fix.fromValidXrpBase58(s)

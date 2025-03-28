@@ -1,13 +1,9 @@
 package com.odenzo.xrpl.models.data.models.atoms
 
 import cats.implicits.*
-import com.odenzo.xrpl.common.binary.ScodecExtensions.*
-import com.odenzo.xrpl.common.binary.{ FixedSizeBinary, ScodecExtensions, XrpBinaryOps }
+import com.odenzo.xrpl.common.binary.FixedSizeBinary
+import com.odenzo.xrpl.models.data.models.atoms.hash256.*
 import io.circe.{ Codec, Decoder, Encoder }
-import scodec.bits.{ BitVector, ByteVector }
-
-import scala.util.Try
-import hash256.*
 
 /**
   * This object has wrapper classes around Hash256 and Hash160 opaque types.
@@ -29,7 +25,6 @@ object RippleHashes {
     * @see
     *   [[https://ripple.com/build/rippled-apis/#hashes]]
     */
-  case class RippleHash(v: Hash256)
 
   /**
     * A Hash for a Transaction that can be used for TxRq to lookup Transaction

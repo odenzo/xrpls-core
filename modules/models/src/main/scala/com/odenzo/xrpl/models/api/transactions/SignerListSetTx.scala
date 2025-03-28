@@ -1,13 +1,13 @@
 package com.odenzo.xrpl.models.api.transactions
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.api.transactions.support.{XrpTxn, XrpTxnType}
+import com.odenzo.xrpl.models.api.transactions.support.{ XrpTxn, XrpTxnType }
 import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-import com.odenzo.xrpl.models.data.models.keys.{Signer, Signers}
-import io.circe.derivation.{Configuration, ConfiguredCodec}
-import io.circe.{Codec, Decoder}
+import com.odenzo.xrpl.models.data.models.keys.{ Signer, Signers }
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.generic.semiauto.*
 import io.circe.syntax.*
+import io.circe.{ Codec, Decoder }
 
 /**
   * For setting or removing Multi-Signature List. The general idea here is to

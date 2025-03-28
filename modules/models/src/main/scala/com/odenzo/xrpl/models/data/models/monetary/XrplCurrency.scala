@@ -6,9 +6,9 @@ import cats.data.{ Validated, ValidatedNec }
 import cats.implicits.*
 import com.odenzo.xrpl.common.binary.FixedSizeBinary
 import com.tersesystems.blindsight.LoggerFactory
+import io.circe.*
 import io.circe.Decoder.{ Result, decodeValidated }
 import io.circe.generic.semiauto.*
-import io.circe.*
 
 import java.nio.charset.{ CharacterCodingException, Charset, StandardCharsets }
 import scala.collection.immutable

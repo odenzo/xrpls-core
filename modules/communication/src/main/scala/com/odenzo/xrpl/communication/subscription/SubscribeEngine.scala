@@ -2,14 +2,13 @@ package com.odenzo.xrpl.communication.subscription
 
 import cats.effect.*
 import cats.syntax.all.*
-import com.odenzo.xrpl.communication.config.XrplEngineConfig
 import com.tersesystems.blindsight.LoggerFactory
-import fs2.{ Pipe, Stream, concurrent }
 import fs2.concurrent.Topic
 import fs2.data.json.*
 import fs2.data.json.circe.given
-import io.circe.{ Json, JsonObject }
+import fs2.{ Pipe, Stream, concurrent }
 import io.circe.syntax.*
+import io.circe.{ Json, JsonObject }
 import org.http4s.Uri
 import org.http4s.client.websocket.*
 import org.http4s.jdkhttpclient.JdkWSClient

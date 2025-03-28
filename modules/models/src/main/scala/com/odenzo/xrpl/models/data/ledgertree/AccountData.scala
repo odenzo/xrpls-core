@@ -5,11 +5,11 @@ import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.common.utils.CirceCodecUtils.capitalize
 import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.TxnHash
 import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountTxnId, AccountTxnNumber }
-import io.circe.{ Decoder, Json }
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
-import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import com.odenzo.xrpl.models.data.models.flags.Flags
+import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
 import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount
+import io.circe.derivation.{ Configuration, ConfiguredCodec }
+import io.circe.{ Decoder, Json }
 
 /**
   * The `account_info` inquiry returns this variant of account root ledger under

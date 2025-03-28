@@ -1,13 +1,10 @@
 package com.odenzo.xrpl.models.data.models.memos
 
-import cats.effect.*
-import cats.effect.syntax.all.*
-
 import cats.*
 import cats.data.*
+import cats.effect.*
+import cats.effect.syntax.all.*
 import cats.syntax.all.*
-
-import cats.data.Validated
 import scodec.bits.ByteVector
 
 import java.nio.charset.{ CharacterCodingException, Charset, StandardCharsets }

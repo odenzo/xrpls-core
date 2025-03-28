@@ -1,17 +1,12 @@
 package com.odenzo.xrpl.common.utils
 
 import cats.*
-import cats.data.*
 import cats.syntax.all.*
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe
 import io.circe.*
-import io.circe.Decoder.Result
-import io.circe.derivation.Configuration
-import io.circe.jawn.JawnParser
 import io.circe.syntax.*
 
-import java.io.File
 import scala.io.Source
 import scala.util.Try
 
@@ -20,7 +15,6 @@ trait CirceUtils extends BlindsightLogging {
 
   def loadResourceAsString(resourcePath: String): Either[RuntimeException, String] = {
     Try {
-      val stream = getClass.getResourceAsStream(resourcePath)
       val source = Source.fromResource(resourcePath)
       val text   = source.mkString
       source.close()
@@ -53,10 +47,6 @@ trait CirceUtils extends BlindsightLogging {
       case Right(value) => value
 
   }
-  // Wrapping Errors with full JSON source
-  // Specific JSON Errors (to embed additional info)
-
-  // To Clean:
 
   /** Ripled doesn't like objects like { x=null } */
   val droppingNullsPrinter: Printer = Printer.spaces2.copy(dropNullValues = true)
@@ -71,47 +61,14 @@ trait CirceUtils extends BlindsightLogging {
 
   def printObj(jsonObject: JsonObject): String = print(jsonObject.asJson)
 
-  /** Monoid/Semigroup for Circe Json Object so we can add them togeher. */
+  /**
+    * Monoid/Semigroup for Circe Json Object, so we can add them together. Not
+    * safe on collisions of field names
+    */
   given jsonObjectMonoid: Monoid[JsonObject] = new Monoid[JsonObject] {
-    def empty: JsonObject = JsonObject.empty
-
+    def empty: JsonObject                                 = JsonObject.empty
     def combine(x: JsonObject, y: JsonObject): JsonObject = JsonObject.fromIterable(x.toVector |+| y.toVector)
   }
-
-  /** Adds a command field to the given Request */
-  def deriveRqEncoder[T: Encoder.AsObject](command: String): Encoder.AsObject[T] = {
-    summon[Encoder.AsObject[T]].mapJsonObject((jo: JsonObject) => jo.add("command", Json.fromString(command)))
-  }
-
-  /**
-    * Utility to rename a field in a JsonObject, typically used in encoders
-    * .mapJsonObject
-    *
-    * @param autoLedger
-    * @param fieldName
-    * @return
-    */
-  //  def renameLedgerField(autoLedger: JsonObject, fieldName: String = "ledger"): JsonObject = {
-  //    val oldKey = fieldName
-  //
-  //    // Looks like Json.fold is reasonable way but not now.
-  //    // Also, case Json.JString(v)  not working really. Are there unaaply somewhere.
-  //    val ledgerVal: Option[(String, Json)] = autoLedger(oldKey).map {
-  //      case json if json.isNumber => ("ledger_index", json)
-  //      case json if json.isString =>
-  //        val hashOrName: (String, Json) = json.asString match {
-  //          case Some(ledger) if Hash256.isValidHash(ledger) => ("ledger_hash", json)
-  //          case Some(assume_named_ledger)                   => ("ledger_index", json)
-  //        }
-  //        hashOrName
-  //
-  //      case other => ("INVALID_LEDGER", Json.Null) // Not sure how to signal error yet
-  //    }
-  //
-  //    ledgerVal.map(field => field +: autoLedger.remove(oldKey)).getOrElse(autoLedger)
-  //
-  //
-  //  }
 
 }
 object CirceUtils extends CirceUtils
