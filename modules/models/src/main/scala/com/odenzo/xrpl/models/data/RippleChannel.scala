@@ -12,6 +12,9 @@ import com.odenzo.xrpl.models.data.keys.XrpPublicKey.given
 import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object RippleChannel:
+  given Configuration = Configuration.default.withSnakeCaseMemberNames
+
 /**
   * Represents a Ripple Payment Channel, as found in AccountChannels inquiry
   * reponse Details at: https://ripple.com/build/rippled-apis/#account-channels
@@ -29,6 +32,3 @@ case class RippleChannel(
                           sourceTag: Option[SourceTag], // TODO: Make more speciifc., this id dt=llll
                           destinationTag: Option[DestTag],
 ) derives ConfiguredCodec
-
-object RippleChannel:
-  given Configuration = Configuration.default.withSnakeCaseMemberNames

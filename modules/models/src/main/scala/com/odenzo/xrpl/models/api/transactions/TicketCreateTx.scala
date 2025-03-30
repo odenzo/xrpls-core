@@ -6,6 +6,10 @@ import com.odenzo.xrpl.models.data.atoms.*
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object TicketCreateTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * Create Ticket to reserve account txn sequence numbers. Love it! But this
   * incurrs reserve costs. Not sure there is any way to delete and reclaim the
@@ -19,6 +23,3 @@ case class TicketCreateTx(
   def txnType: XrpTxnType = XrpTxnType.EscrowCreate
 }
 
-object TicketCreateTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}

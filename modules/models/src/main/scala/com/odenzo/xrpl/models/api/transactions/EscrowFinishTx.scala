@@ -7,6 +7,10 @@ import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.generic.semiauto.*
 
+object EscrowFinishTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+
+}
 case class EscrowFinishTx(
     owner: AccountAddress,
     offerSequence: AccountTxnNumber,
@@ -19,7 +23,4 @@ case class EscrowFinishTx(
 
 }
 
-object EscrowFinishTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
 
-}

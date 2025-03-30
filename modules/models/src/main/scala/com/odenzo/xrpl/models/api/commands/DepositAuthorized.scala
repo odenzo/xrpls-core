@@ -12,6 +12,7 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * still in Beta for Amendment
   */
 object DepositAuthorized extends XrpCommand[DepositAuthorized.Rq, DepositAuthorized.Rs] {
+  
   case class Rq(
       sourceAccount: AccountAddress,
       destinationAccount: AccountAddress,
@@ -20,8 +21,7 @@ object DepositAuthorized extends XrpCommand[DepositAuthorized.Rq, DepositAuthori
     val command: Command = Command.DEPOSIT_AUTHORIZED
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
+
   case class Rs(
       credentials: List[String],
       depositAuthorized: Boolean,
@@ -29,6 +29,5 @@ object DepositAuthorized extends XrpCommand[DepositAuthorized.Rq, DepositAuthori
       destinationAccount: AccountAddress,
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
+
 }

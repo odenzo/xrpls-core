@@ -7,6 +7,9 @@ import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object ClawbackTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
 /**
   * Clawback an MPToken Part of MPToken Amendment
   * https://xrpl.org/docs/references/protocol/transactions/types/clawback
@@ -23,6 +26,4 @@ case class ClawbackTx(
   def txnType: XrpTxnType = XrpTxnType.Clawback
 }
 
-object ClawbackTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}
+

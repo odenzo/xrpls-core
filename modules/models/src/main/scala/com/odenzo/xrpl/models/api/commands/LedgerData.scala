@@ -17,15 +17,13 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * "state" "ticket"
   */
 object LedgerData extends XrpCommand[LedgerData.Rq, LedgerData.Rs] {
-
+  
   case class Rq(
       ledgerIndex: LedgerHandle = LedgerHandle.validated,
       binary: Boolean           = false,
   ) extends XrpCommandRq derives ConfiguredCodec {
     val command: Command = Command.LEDGER_DATA
   }
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   /**
     * TODO: Elaborate ledger is really Leader Header and is deprecated so
@@ -37,8 +35,5 @@ object LedgerData extends XrpCommand[LedgerData.Rq, LedgerData.Rs] {
       ledger: LedgerHeader,
       state: List[JsonObject], // LedgerNode - trait covering N types of data
   ) extends XrpCommandRs derives ConfiguredCodec
-
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

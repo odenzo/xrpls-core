@@ -2,6 +2,10 @@ package com.odenzo.xrpl.communication.subscription
 
 import io.circe.derivation.{ Configuration, ConfiguredEnumCodec }
 
+object XrplStream {
+  given Configuration = Configuration.default
+}
+
 enum XrplStream derives ConfiguredEnumCodec {
   case book_changes
   case consenses
@@ -12,8 +16,4 @@ enum XrplStream derives ConfiguredEnumCodec {
   case transactions_proposed
   case server
   case validations
-}
-
-object XrplStream {
-  given Configuration = Configuration.default
 }

@@ -20,8 +20,6 @@ object PathFind extends XrpCommand[PathFind.Rq, PathFind.Rs] {
   ) extends XrpCommandRq derives ConfiguredCodec {
     val command: Command = Command.PATH_FIND
   }
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   case class Rs(
       credentials: List[String],
@@ -30,6 +28,5 @@ object PathFind extends XrpCommand[PathFind.Rq, PathFind.Rs] {
       destinationAccount: AccountAddress,
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
+
 }

@@ -6,6 +6,10 @@ import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
 import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object LedgerHeader {
+  given Configuration = Configuration.default.withSnakeCaseMemberNames
+}
+
 //
 ///**
 //  * You can look up ledger headers user ledger inquiry. Testing for this does
@@ -23,22 +27,18 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
 //  * [[https://ripple.com/build/ledger-format/#header-format]]
 //  */
 case class LedgerHeader(
-                         ledgerIndex: Option[LedgerIndex], // Noted as String Number or Number! F
-                         ledgerHash: Option[LedgerHash],
-                         accountHash: Option[AccountHash],
-                         closeTime: Option[XrplTime],
-                         closed: Boolean,
-                         parentHash: Option[LedgerHash],
-                         totalCoins: Option[Drops],
-                         transactionHash: Option[TxnHash],
-                         closeTimeResolution: Option[Int],
-                         closeFlags: Option[Int], // Actually their docs outdated. TODO: Have a dedicated model
-                         accepted: Option[Boolean],
-                         parentCloseTime: Option[XrplTime], // Not sure why this is missing on closed if we have a hash.
-                         accountState: Option[List[LedgerNodeIndex]], // optional field and may be empty array
-                         transactions: Option[List[LedgerNodeIndex]], // optional field and may be empty array
+    ledgerIndex: Option[LedgerIndex], // Noted as String Number or Number! F
+    ledgerHash: Option[LedgerHash],
+    accountHash: Option[AccountHash],
+    closeTime: Option[XrplTime],
+    closed: Boolean,
+    parentHash: Option[LedgerHash],
+    totalCoins: Option[Drops],
+    transactionHash: Option[TxnHash],
+    closeTimeResolution: Option[Int],
+    closeFlags: Option[Int], // Actually their docs outdated. TODO: Have a dedicated model
+    accepted: Option[Boolean],
+    parentCloseTime: Option[XrplTime], // Not sure why this is missing on closed if we have a hash.
+    accountState: Option[List[LedgerNodeIndex]], // optional field and may be empty array
+    transactions: Option[List[LedgerNodeIndex]], // optional field and may be empty array
 ) derives ConfiguredCodec
-
-object LedgerHeader {
-  given Configuration = Configuration.default.withSnakeCaseMemberNames
-}

@@ -15,7 +15,7 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * implemented on response side, experiment and see what the Objects arr
   */
 object GatewayBalances extends XrpCommand[Rq, Rs] {
-
+  
   case class Rq(
       account: AccountAddress,
       strict: Boolean                   = true,
@@ -25,8 +25,7 @@ object GatewayBalances extends XrpCommand[Rq, Rs] {
   ) extends XrpCommandRq derives ConfiguredCodec {
     val command: Command = Command.GATEWAY_BALANCES
   }
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
+
   // TODO: Gateway Balances Models
   case class Rs(
       account: AccountAddress,
@@ -35,6 +34,4 @@ object GatewayBalances extends XrpCommand[Rq, Rs] {
       assets: Option[Json],
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 }

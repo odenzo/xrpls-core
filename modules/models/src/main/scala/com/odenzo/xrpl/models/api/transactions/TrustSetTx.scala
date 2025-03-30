@@ -14,6 +14,10 @@ import com.odenzo.xrpl.models.data.flags.Flags
 import com.odenzo.xrpl.models.data.monetary.{ CurrencyAmount, Quality }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object TrustSetTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * @param account
   * @param limitAmount
@@ -31,8 +35,4 @@ case class TrustSetTx(
     qualityOut: Option[Quality] = None,
 ) extends XrpTxn derives ConfiguredCodec {
   val txnType: XrpTxnType = XrpTxnType.TrustSet
-}
-
-object TrustSetTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
 }

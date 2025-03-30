@@ -9,6 +9,18 @@ import com.odenzo.xrpl.models.data.memos.{ Memo, Memos }
 import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object TxCommon extends CirceCodecUtils {
+  given Configuration = CirceCodecUtils.customConfiguration(capitalize)
+
+  /** Need some nice factory builders */
+  val default: TxCommon = TxCommon(fee = CurrencyAmount.Drops(555).some)
+
+  def psuedoTxnDefault: TxCommon = TxCommon(
+    fee      = CurrencyAmount.Drops(0).some,
+    sequence = AccountTxnNumber(0).some,
+  )
+}
+
 /**
   * Some common TxJson Request Parameters This includes both single-signed and
   * multi-signed transaction. What happens if we loose hash on multi-sign
@@ -50,16 +62,4 @@ case class TxCommon(
   }
   def withMemos(m: Memos): TxCommon                         = this.copy(memos = Some(m))
   def withLastLedgerSeq(ledgerIndex: LedgerIndex): TxCommon = this.copy(lastLedgerSequence = Some(ledgerIndex))
-}
-
-object TxCommon extends CirceCodecUtils {
-  given Configuration = CirceCodecUtils.customConfiguration(capitalize)
-
-  /** Need some nice factory builders */
-  val default: TxCommon = TxCommon(fee = CurrencyAmount.Drops(555).some)
-
-  def psuedoTxnDefault: TxCommon = TxCommon(
-    fee      = CurrencyAmount.Drops(0).some,
-    sequence = AccountTxnNumber(0).some,
-  )
 }

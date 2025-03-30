@@ -12,10 +12,10 @@ object BuildSettings {
 
     val scala3Options = Seq(
       "-source",
-      "3.3",
+      "3.6",
 //      "-semanticdb-text",
       "-new-syntax",
-      "-pagewidth=120",
+//      "-pagewidth=120",
 //      "-experimental",
 //      "-language:implicitConversions",
 //      "-language:experimental.betterFors",
@@ -33,9 +33,9 @@ object BuildSettings {
       // "-Xkind-projector", // allow `*` as wildcard to be compatible with kind projector
       //   "-Xfatal-warnings", // fail the compilation if there are any warnings
       // "-Xmigration"       // warn about constructs whose behavior may have changed since version
-      "-Wall",
+      // "-Wall",
       "-Wvalue-discard",
-      "-Wunused:all",
+      // "-Wunused:all",
       "-WunstableInlineAccessors",
       "-Wshadow:all",
       "-Wsafe-init",

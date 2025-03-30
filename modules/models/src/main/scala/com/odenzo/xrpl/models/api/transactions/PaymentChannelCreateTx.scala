@@ -9,6 +9,10 @@ import com.odenzo.xrpl.models.data.keys.XrpPublicKey.given
 import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object PaymentChannelCreateTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * Funding an existing payment channel.
   * [[https://ripple.com/build/transactions/#paymentchannelcreate]]
@@ -26,8 +30,4 @@ case class PaymentChannelCreateTx(
 
   val txnType: XrpTxnType = XrpTxnType.PaymentChannelCreate
 
-}
-
-object PaymentChannelCreateTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
 }

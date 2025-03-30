@@ -6,6 +6,10 @@ import com.odenzo.xrpl.models.data.atoms.*
 import com.odenzo.xrpl.models.data.atoms.blob.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object OracleSetTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * Creates (or modifies) existing book order offer.
   *   - https://xrpl.org/docs/references/protocol/transactions/types/oracleset
@@ -17,21 +21,20 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * @param base
   */
 case class OracleSetTx(
-                        account: AccountAddress,
-                        oracleDocumentID: Long,
-                        provider: Blob,
-                        URI: Blob,
-                        lastUpdateTime: XrplTime,
-                        assetClass: Blob, // ASCII BLOB as Hex, max 16
-                        priceDataSeries: List[PriceData],
+    account: AccountAddress,
+    oracleDocumentID: Long,
+    provider: Blob,
+    URI: Blob,
+    lastUpdateTime: XrplTime,
+    assetClass: Blob, // ASCII BLOB as Hex, max 16
+    priceDataSeries: List[PriceData],
 ) extends XrpTxn derives ConfiguredCodec {
 
   def txnType: XrpTxnType = XrpTxnType.OfferCreate
 }
 
-object OracleSetTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}
+object PriceData:
+  given Configuration = Configuration.default
 
 /**
   * This says baseAsset is a currency, but has example of 9127blahblah which
@@ -39,6 +42,3 @@ object OracleSetTx {
   * XrplCurrency. So aborting this one for now.
   */
 case class PriceData(baseAsset: String, quoteAsset: String, assetPrice: BigInt) derives ConfiguredCodec
-
-object PriceData:
-  given Configuration = Configuration.default

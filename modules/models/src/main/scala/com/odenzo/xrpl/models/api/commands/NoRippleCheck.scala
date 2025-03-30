@@ -14,9 +14,6 @@ object NoRippleCheck extends XrpCommand[NoRippleCheck.Rq, NoRippleCheck.Rs] {
     case user, gateway
   }
 
-  object Role:
-    given Configuration = Configuration.default
-
   /**
     * @param account
     *   Account Address to check
@@ -43,9 +40,6 @@ object NoRippleCheck extends XrpCommand[NoRippleCheck.Rq, NoRippleCheck.Rs] {
     val command: Command = Command.NORIPPLE_CHECK
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
   /**
     * Oh, ledger_current_index returned if ask for "current". If ask for
     * validated then get the standard ldeger_hash and ledger_index. Since I
@@ -68,8 +62,5 @@ object NoRippleCheck extends XrpCommand[NoRippleCheck.Rq, NoRippleCheck.Rs] {
     def problemsNEL: Option[NonEmptyList[String]]  = NonEmptyList.fromList(problems)
     def transactionNEL: Option[NonEmptyList[Json]] = transactions.flatMap(NonEmptyList.fromList)
   }
-
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

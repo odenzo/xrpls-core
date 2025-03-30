@@ -6,6 +6,10 @@ import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, AccountTxnNumber, Xrp
 import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object OfferCreateTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * Creates (or modifies) existing book order offer.
   * https://ripple.com/build/transactions/#offercreate
@@ -27,6 +31,3 @@ case class OfferCreateTx(
   def txnType: XrpTxnType = XrpTxnType.OfferCreate
 }
 
-object OfferCreateTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}

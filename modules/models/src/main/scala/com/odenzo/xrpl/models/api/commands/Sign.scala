@@ -8,7 +8,8 @@ import io.circe.JsonObject
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 object Sign {
-  val command: Command = Command.SIGN
+  val command: Command        = Command.SIGN
+  private given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   /** This doesn't support secret, specify keytype and (seedHex OR passphrase) */
   case class Rq(
@@ -24,12 +25,6 @@ object Sign {
     val command: Command = Command.SIGN
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
   case class Rs(txJson: JsonObject, txBlob: TxBlob, hash: TxnHash) extends XrpCommandRs derives ConfiguredCodec
-
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

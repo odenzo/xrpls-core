@@ -6,6 +6,10 @@ import com.odenzo.xrpl.models.data.atoms.AccountAddress
 import io.circe.Decoder
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object SetRegularKeyTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * @param account
   *   Master account
@@ -16,8 +20,4 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
 case class SetRegularKeyTx(account: AccountAddress, regularKey: Option[AccountAddress]) extends XrpTxn
     derives ConfiguredCodec {
   def txnType: XrpTxnType = XrpTxnType.SetRegularKey
-}
-
-object SetRegularKeyTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
 }

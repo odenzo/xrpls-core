@@ -9,6 +9,7 @@ import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 object LedgerRequest extends XrpCommand[LedgerRequest.Rq, LedgerRequest.Rs] {
+  
 
   /**
     * TODO: Not done at all. Asks Rippled to fetch the ledger if missing.
@@ -46,12 +47,4 @@ object LedgerRequest extends XrpCommand[LedgerRequest.Rq, LedgerRequest.Rs] {
     */
   case class LedgerRequestSucceed(ledger: Json, ledgerIndex: LedgerIndex)
 
-  object Rq {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
-  }
-
-  object Rs {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-  }
 }

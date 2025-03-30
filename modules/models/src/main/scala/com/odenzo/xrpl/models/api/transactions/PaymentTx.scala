@@ -9,6 +9,10 @@ import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
 import com.odenzo.xrpl.models.data.paths.PaymentPath
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object PaymentTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * V1 vs V2 differences. sendMax must be None for XRP-to-XRP. deliverMin can
   * skip but may result in partial payment? DeliverMax is V2.0.0 API .
@@ -28,6 +32,3 @@ case class PaymentTx(
 
 }
 
-object PaymentTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}

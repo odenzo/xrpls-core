@@ -3,6 +3,10 @@ package com.odenzo.xrpl.models.data.monetary
 import com.odenzo.xrpl.models.data.atoms.AccountAddress
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object TrustLine {
+  given Configuration = Configuration.default.withSnakeCaseMemberNames
+}
+
 /** Atom that is found in account_lines result */
 case class TrustLine(
     account: AccountAddress,
@@ -22,6 +26,3 @@ case class TrustLine(
     CurrencyAmount.FiatAmount(balance, currency, account) //
 }
 
-object TrustLine {
-  given Configuration = Configuration.default.withSnakeCaseMemberNames
-}

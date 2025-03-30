@@ -8,6 +8,10 @@ import com.odenzo.xrpl.models.data.keys.XrpPublicSigningKey
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object DIDDeleteTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * At least one of URI, data, DIDDocument must be specified.
   *   - https://xrpl.org/docs/references/protocol/transactions/types/didset
@@ -23,8 +27,4 @@ case class DIDDeleteTx(
     // Not sure about TxnSignature, same as normal as automatically included via pipelines and just inconsistent docs?
 ) extends XrpTxn derives ConfiguredCodec {
   def txnType: XrpTxnType = XrpTxnType.Clawback
-}
-
-object DIDDeleteTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
 }

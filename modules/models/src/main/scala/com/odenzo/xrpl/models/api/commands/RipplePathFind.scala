@@ -25,8 +25,6 @@ object RipplePathFind extends XrpCommand[RipplePathFind.Rq, RipplePathFind.Rs] {
   ) extends XrpCommandRq derives ConfiguredCodec {
     val command: Command = Command.RIPPLE_PATH_FIND
   }
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   case class Rs(
       alternative: List[XrplPossiblePaths],
@@ -34,7 +32,5 @@ object RipplePathFind extends XrpCommand[RipplePathFind.Rq, RipplePathFind.Rs] {
       destinationCurrencies: List[XrplCurrency],
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

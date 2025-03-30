@@ -16,8 +16,8 @@ import spire.algebra.Semigroup
   * Used to get the trust lines and their balances. For currencies other than
   * XRP. For XRP balance see AccountInfo
   * https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/account-methods/account_lines#account_lines
- *
- * @param account
+  *
+  * @param account
   * @param peer
   *   Limit lines to those between account the this account address
   * @param limit
@@ -33,6 +33,8 @@ object AccountLines extends XrpCommand[AccountLines.Rq, AccountLines.Rs] with Xr
 
   val InOut: (Rq.type, Rs.type) = (Rq, Rs)
 
+  
+
   /** This is a scrollable command */
   case class Rq(
       account: AccountAddress,
@@ -42,9 +44,6 @@ object AccountLines extends XrpCommand[AccountLines.Rq, AccountLines.Rs] with Xr
   ) extends XrpCommandRq with XrpScrolling derives ConfiguredCodec {
     val command: Command = ACCOUNT_LINES
   }
-
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames.withDefaults
 
   /// **
   //  * The result field portion for account_lines command response. Add the
@@ -67,7 +66,6 @@ object AccountLines extends XrpCommand[AccountLines.Rq, AccountLines.Rs] with Xr
     * importing standard Cats, see source code.
     */
   object Rs {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames.withDefaults
     given Semigroup[Rs] = Semigroup.instance((x, y) => x.copy(lines = x.lines ++ y.lines))
   }
 }

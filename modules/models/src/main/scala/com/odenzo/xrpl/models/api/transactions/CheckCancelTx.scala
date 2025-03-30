@@ -7,6 +7,10 @@ import com.odenzo.xrpl.models.data.atoms.hash256.*
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object CheckCancelTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * Send a Check. Receiver gets same Currency from Same issuer, or XRP. Supports
   * InvoiceId as additional field.
@@ -20,8 +24,4 @@ case class CheckCancelTx(
     checkID: Hash256,
 ) extends XrpTxn derives ConfiguredCodec {
   def txnType: XrpTxnType = XrpTxnType.CheckCreate
-}
-
-object CheckCancelTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
 }

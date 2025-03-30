@@ -12,22 +12,16 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   */
 object Fee extends XrpCommand[Fee.Rq, Fee.Rs] {
 
+  
 
   /** Case Object that is empty? */
   case class Rq() extends XrpCommandRq derives ConfiguredCodec {
     def command: Command = Command.FEE
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
   // TODO: Move the model classes out to main tree (our of commands)
   case class FeeAmounts(baseFee: Drops, medianFee: Drops, minimumFee: Drops, openLedgerFee: Drops)
       derives ConfiguredCodec
-
-  object FeeAmounts:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
 
   case class FeeLevels(
       medianLevel: BigDecimal,
@@ -35,10 +29,6 @@ object Fee extends XrpCommand[Fee.Rq, Fee.Rs] {
       openLedgerLevel: BigDecimal,
       referenceLevel: BigDecimal,
   ) derives ConfiguredCodec
-
-  object FeeLevels:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
 
   case class Rs(
       currentQueueSize: Int,
@@ -49,8 +39,5 @@ object Fee extends XrpCommand[Fee.Rq, Fee.Rs] {
       levels: FeeLevels,
       maxQueueSize: Long,
   ) extends XrpCommandRs derives ConfiguredCodec
-
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

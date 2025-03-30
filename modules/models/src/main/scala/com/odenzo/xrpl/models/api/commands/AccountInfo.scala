@@ -10,8 +10,7 @@ import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 object AccountInfo extends XrpCommand[AccountInfo.Rq, AccountInfo.Rs] {
-
-  // private val config: Configuration = Configuration.default.withSnakeCaseConstructorNames
+  
 
   /**
     * https://ripple.com/build/rippled-apis/#account-info
@@ -37,10 +36,6 @@ object AccountInfo extends XrpCommand[AccountInfo.Rq, AccountInfo.Rs] {
     val command: Command = Command.ACCOUNT_INFO
   }
 
-  object Rq:
-    given Configuration  = Configuration.default.withSnakeCaseMemberNames
-    val command: Command = Command.ACCOUNT_INFO
-
   case class Rs(
       accountData: AccountData,
       accountFlags: Map[String, Boolean], // TODO Proper enumed value I guess, a a Circe Key Encoder
@@ -51,7 +46,4 @@ object AccountInfo extends XrpCommand[AccountInfo.Rq, AccountInfo.Rs] {
       validated: Option[Boolean], // Use default value as true/false?
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    // I should check to see how far down the tree this goes if not overridden
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 }

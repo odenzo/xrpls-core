@@ -32,9 +32,6 @@ object AccountChannels extends XrpCommand[AccountChannels.Rq, AccountChannels.Rs
 
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
   case class Rs(
       account: AccountAddress,
       channels: List[RippleChannel],
@@ -42,8 +39,5 @@ object AccountChannels extends XrpCommand[AccountChannels.Rq, AccountChannels.Rs
       ledgerCurrentIndex: Option[LedgerIndex],
       ledgerHash: Option[LedgerHash],
   ) extends XrpCommandRs derives ConfiguredCodec
-
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

@@ -18,8 +18,6 @@ object Submit extends XrpCommand[Submit.Rq, Submit.Rs] {
     val command: Command = Command.SUBMIT
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   /**
     * TODO: We can apply the known Transaction.Rs to txJson or Generic BinCodec
@@ -41,6 +39,4 @@ object Submit extends XrpCommand[Submit.Rq, Submit.Rs] {
                  txJson: JsonObject,
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 }

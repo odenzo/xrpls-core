@@ -2,6 +2,9 @@ package com.odenzo.xrpl.models.api.transactions.support
 
 import io.circe.derivation.{ Configuration, ConfiguredEnumCodec }
 
+object XrpTxnType:
+  given Configuration = Configuration.default
+
 /** Out of Date for SUre! */
 enum XrpTxnType derives ConfiguredEnumCodec:
   case Payment
@@ -22,5 +25,3 @@ enum XrpTxnType derives ConfiguredEnumCodec:
   case PaymentChannelClaim
   case SignerListSet
 
-object XrpTxnType:
-  given Configuration = Configuration.default

@@ -9,6 +9,7 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * https://xrpl.org/docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/get_counts
   */
 object GetCounts extends XrpCommand[GetCounts.Rq, GetCounts.Rs] {
+  
 
   /**
     * https://ripple.com/build/rippled-apis/#get-counts
@@ -23,11 +24,4 @@ object GetCounts extends XrpCommand[GetCounts.Rq, GetCounts.Rs] {
 
   case class Rs(counts: Json) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rq {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-  }
-
-  object Rs {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-  }
 }

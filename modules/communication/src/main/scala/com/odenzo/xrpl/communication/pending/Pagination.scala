@@ -4,7 +4,15 @@ import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.{ Decoder, Json }
-//
+
+object Pagination {
+  given Configuration = Configuration.default
+
+  val defaultPaging =
+    new Pagination(limit = Some(50), marker = None, LedgerHandle.WILDCARD_LEDGER, LedgerHandle.WILDCARD_LEDGER)
+}
+
+
 /**
   * This is usually an embedded in a Result top level response for requests that
   * do scrolling and Pagination. TODO: Not Implemented Yet
@@ -21,8 +29,3 @@ case class Pagination(
   def hasMore: Boolean = marker.isDefined
 }
 //
-object Pagination {
-  given Configuration = Configuration.default
-  val defaultPaging   =
-    new Pagination(limit = Some(50), marker = None, LedgerHandle.WILDCARD_LEDGER, LedgerHandle.WILDCARD_LEDGER)
-}

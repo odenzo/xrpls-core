@@ -9,6 +9,10 @@ import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 import io.circe.Decoder
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object PaymentChannelClaimTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+
+}
 /**
   * Claim from a Payment Channel
   * [[https://ripple.com/build/transactions/#paymentchannelclaim]]
@@ -27,7 +31,4 @@ case class PaymentChannelClaimTx(
 
 }
 
-object PaymentChannelClaimTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
 
-}

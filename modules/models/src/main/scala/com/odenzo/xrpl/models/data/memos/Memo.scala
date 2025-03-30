@@ -6,6 +6,11 @@ import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object Memo extends MemoBase with CirceCodecUtils {
+  given Configuration     = customConfiguration(capitalize)
+  given Codec[ByteVector] = CirceCodecUtils.hexCodec
+}
+
 /**
   * One of the three fields is technically needed. This is the Ripple formatted
   * memo.
@@ -24,9 +29,4 @@ case class Memo(memoData: MemoData, memoFormat: Option[MemoFormat] = None, memoT
   def withFormat(f: MemoFormat): Memo = copy(memoFormat = Some(f))
   def withContent(d: MemoData): Memo  = copy(memoData = d)
 
-}
-
-object Memo extends MemoBase with CirceCodecUtils {
-  given Configuration     = customConfiguration(capitalize)
-  given Codec[ByteVector] = CirceCodecUtils.hexCodec
 }

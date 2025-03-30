@@ -26,8 +26,6 @@ object Tx extends XrpCommand[Tx.Rq, Tx.Rs] {
   }
 
   object Rq {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
     def forTransaction(txn: TxnHash): Rq = Rq(Some(txn), binary = false)
   }
 
@@ -41,9 +39,6 @@ object Tx extends XrpCommand[Tx.Rq, Tx.Rs] {
       ledgerHash: LedgerHash,
       closeTimeIso: String, // In Unix TS format
   ) extends XrpCommandRs derives ConfiguredCodec
-
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   // Add some Pointers to internal RippleDate and Sequence (Account Txn Sequence)
 

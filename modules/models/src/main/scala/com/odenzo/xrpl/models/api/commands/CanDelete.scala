@@ -7,6 +7,7 @@ import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 object CanDelete extends XrpCommand[CanDelete.Rq, CanDelete.Rs] {
+  
 
   /**
     * https://ripple.com/build/rippled-apis/#can-delete This just takes
@@ -22,15 +23,6 @@ object CanDelete extends XrpCommand[CanDelete.Rq, CanDelete.Rs] {
     val command: Command = Command.CAN_DELETE
   }
 
-  case class Rs(canDdelete: LedgerIndex) extends XrpCommandRs derives ConfiguredCodec
-
-  object Rq {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
-  }
-
-  object Rs {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-  }
+  case class Rs(canDelete: LedgerIndex) extends XrpCommandRs derives ConfiguredCodec
 
 }

@@ -15,8 +15,9 @@ object LedgerCurrent extends XrpCommand[LedgerCurrent.Rq, LedgerCurrent.Rs] {
     val command: Command = Command.LEDGER_CURRENT
   }
 
-  case class Rs(ledger_current_index: LedgerIndex) extends XrpCommandRs derives ConfiguredCodec
-
   object Rs:
     given Configuration = Configuration.default.withSnakeCaseMemberNames
+
+  case class Rs(ledger_current_index: LedgerIndex) extends XrpCommandRs derives ConfiguredCodec
+
 }

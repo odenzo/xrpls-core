@@ -28,11 +28,7 @@ object WalletPropose extends XrpCommand[WalletPropose.Rq, WalletPropose.Rs] {
     def command: Command = Command.WALLET_PROPOSE
   }
 
-  object Rq:
-    given Configuration  = Configuration.default.withSnakeCaseMemberNames
-    val command: Command = Command.WALLET_PROPOSE
-
-    // val encRpc: Encoder.AsObject[Rq] = summon[Encoder.AsObject[Rq]].mapJsonObject(commandField)
+  // val encRpc: Encoder.AsObject[Rq] = summon[Encoder.AsObject[Rq]].mapJsonObject(commandField)
 
   /**
     * @param keyType
@@ -57,6 +53,4 @@ object WalletPropose extends XrpCommand[WalletPropose.Rq, WalletPropose.Rs] {
       warning: Option[String],
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 }

@@ -18,6 +18,8 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
 object BookOffers extends XrpCommand[BookOffers.Rq, BookOffers.Rs] {
 
   import BookCurrency.given
+  
+ 
   case class Rq(
       taker: Option[AccountAddress]  = None,
       takerGets: BookCurrency, // Script or script with XRP currency and no issuer
@@ -29,11 +31,8 @@ object BookOffers extends XrpCommand[BookOffers.Rq, BookOffers.Rs] {
     val command: Command = Command.BOOK_OFFERS
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   case class Rs(offers: List[OfferNode]) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
+
 }

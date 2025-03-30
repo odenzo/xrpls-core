@@ -8,6 +8,10 @@ import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object CheckCreateTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * Send a Check. Receiver gets same Currency from Same issuer, or XRP. Supports
   * InvoiceId as additional field.
@@ -26,6 +30,3 @@ case class CheckCreateTx(
   def txnType: XrpTxnType = XrpTxnType.CheckCreate
 }
 
-object CheckCreateTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}

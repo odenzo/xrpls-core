@@ -14,6 +14,7 @@ import io.circe.generic.semiauto.{ deriveDecoder, deriveEncoder }
   * //xrpl.org/docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/feature
   */
 object Feature extends XrpCommand[Feature.Rq, Feature.Rs] {
+  
 
   /**
     * @param feature
@@ -26,27 +27,8 @@ object Feature extends XrpCommand[Feature.Rq, Feature.Rs] {
   case class Rq(feature: Option[String], vetoed: Option[Boolean]) extends XrpCommandRq derives ConfiguredCodec {
     val command: Command = Command.FEATURE
   }
-  object Rq                                                                                                    {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-  }
 
   // TODO: Enable better results with customer decoder.
-
-  /**
-    * This response has a different structure depending on if listing all the
-    * amendments or "voting" on just one. The canonical form is the case class,
-    * but if voting then we munge the reponse into the Map with just one record.
-    * @param features
-    */
-  case class Rs(features: Map[Hash256, Amendment]) extends XrpCommandRs {
-
-    /**
-      * If there is exactly one feature in the map, get it as (K,V) in Option,
-      * else None
-      */
-    def getHeadIfOne: Option[(Hash256, Amendment)] =
-      Option.when(features.sizeIs == 1)(features.head)
-  }
 
   object Rs {
 
@@ -77,8 +59,25 @@ object Feature extends XrpCommand[Feature.Rq, Feature.Rs] {
     }
 
     /** Encoder which uses the normalized form of this data structure */
-    given oldEncoder: Encoder.AsObject[Rs]   = deriveEncoder[Rs]
+    given oldEncoder: Encoder.AsObject[Rs] = deriveEncoder[Rs]
+
     given fallbackCodec: Decoder[Feature.Rs] = deriveDecoder[Rs].or(root)
+  }
+
+  /**
+    * This response has a different structure depending on if listing all the
+    * amendments or "voting" on just one. The canonical form is the case class,
+    * but if voting then we munge the reponse into the Map with just one record.
+    * @param features
+    */
+  case class Rs(features: Map[Hash256, Amendment]) extends XrpCommandRs {
+
+    /**
+      * If there is exactly one feature in the map, get it as (K,V) in Option,
+      * else None
+      */
+    def getHeadIfOne: Option[(Hash256, Amendment)] =
+      Option.when(features.sizeIs == 1)(features.head)
   }
 
 }

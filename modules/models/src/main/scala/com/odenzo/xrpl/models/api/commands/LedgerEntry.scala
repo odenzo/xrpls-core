@@ -15,7 +15,7 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * inquiry
   */
 object LedgerEntry extends XrpCommand[LedgerEntry.Rq, LedgerEntry.Rs] {
-
+  
   case class Rq(
       ledgerIndex: LedgerHandle       = LedgerHandle.validated,
       ledgerHash: Option[LedgerHash]  = None,
@@ -25,16 +25,10 @@ object LedgerEntry extends XrpCommand[LedgerEntry.Rq, LedgerEntry.Rs] {
     val command: Command = Command.LEDGER_ENTRY
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
   case class Rs(
       index: String,
       node: Option[JsonObject], // AccountRootNode?
       nodeBinary: Option[String],
   ) extends XrpCommandRs derives ConfiguredCodec
-
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

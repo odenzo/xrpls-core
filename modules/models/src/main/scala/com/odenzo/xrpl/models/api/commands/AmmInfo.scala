@@ -16,6 +16,8 @@ import io.circe.{ Json, JsonObject }
   */
 object AmmInfo extends XrpCommand[AmmInfo.Rq, AmmInfo.Rs] {
   import BookCurrency.given
+
+  
   case class Rq(
       account: Option[AccountAddress]    = None,
       ammAccount: Option[AccountAddress] = None, // Script or script with XRP currency and no issuer
@@ -28,17 +30,11 @@ object AmmInfo extends XrpCommand[AmmInfo.Rq, AmmInfo.Rs] {
     val command: Command = Command.AMM_INFO
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
   case class Rs(
       amm: Json,
       lpToken: Json,
       tradingFee: Drops,
       auctions_slot: JsonObject,
   ) extends XrpCommandRs derives ConfiguredCodec
-
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

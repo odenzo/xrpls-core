@@ -6,7 +6,6 @@ import com.odenzo.xrpl.models.ledgertree.LedgerHeader
 import io.circe.JsonObject
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
-
 /**
   * https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/ledger-methods/ledger
   * Read the docs, this is just partially implemented. Accounts is deprecated
@@ -22,6 +21,9 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * @param ledger
   */
 object Ledger extends XrpCommand[Ledger.Rq, Ledger.Rs] {
+  object Rq:
+    given Configuration = Configuration.default.withSnakeCaseMemberNames
+
   case class Rq(
       transactions: Boolean     = true,
       accounts: Boolean         = false, // Deprecated and Admin Only
@@ -33,7 +35,8 @@ object Ledger extends XrpCommand[Ledger.Rq, Ledger.Rs] {
   ) extends XrpCommandRq derives ConfiguredCodec {
     val command: Command = Command.LEDGER
   }
-  object Rq:
+
+  object Rs:
     given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   case class Rs(
@@ -42,6 +45,4 @@ object Ledger extends XrpCommand[Ledger.Rq, Ledger.Rs] {
       queueData: Option[List[JsonObject]],
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 }

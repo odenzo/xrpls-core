@@ -6,6 +6,10 @@ import com.odenzo.xrpl.models.data.atoms.hash256.*
 import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object EnableAmendment {
+  private given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * https://xrpl.org/docs/references/protocol/transactions/pseudo-transaction-types/enableamendment
   *
@@ -17,7 +21,3 @@ case class EnableAmendment(
     account: AccountAddress = AccountAddress.ACCOUNT_ZERO,
     fee: Drops              = Drops(0),
 ) derives ConfiguredCodec
-
-object EnableAmendment {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}

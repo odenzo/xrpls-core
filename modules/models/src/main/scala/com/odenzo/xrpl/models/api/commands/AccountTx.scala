@@ -16,6 +16,8 @@ import io.circe.generic.semiauto.*
   */
 object AccountTx extends XrpCommand[AccountTx.Rq, AccountTx.Rs] with XrpScrolling {
 
+  
+
   /**
     * You must use at least one of the following fields in your request:
     * ledger_index, ledger_hash, ledger_index_min, or ledger_index_max. Defaults
@@ -45,8 +47,6 @@ object AccountTx extends XrpCommand[AccountTx.Rq, AccountTx.Rs] with XrpScrollin
     val command: Command = Command.ACCOUNT_TX
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   /**
     * Get List of Validated Transacations for an Accont
@@ -64,7 +64,5 @@ object AccountTx extends XrpCommand[AccountTx.Rq, AccountTx.Rs] with XrpScrollin
       transactions: List[JsonObject], // TODO: TransactionRecords is a beast,  and TxNode
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

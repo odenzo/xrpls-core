@@ -13,6 +13,7 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 object AccountOffers extends XrpCommand[Rq, Rs] {
   val command: Command = Command.ACCOUNT_OFFERS
+  
 
   /** Get a list of outstanding offers created by an account. */
   case class Rq(
@@ -32,12 +33,4 @@ object AccountOffers extends XrpCommand[Rq, Rs] {
       offers: List[JsonObject], // FIXME: Account Offer not completed
   ) extends XrpCommandRs with XrpScrolling derives ConfiguredCodec
 
-  object Rq {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
-  }
-
-  object Rs {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-  }
 }

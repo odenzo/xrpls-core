@@ -17,6 +17,12 @@ object ServerDefinitions extends XrpCommand[ServerDefinitions.Rq, ServerDefiniti
     def command: Command = Command.SERVER_DEFINITIONS
   }
 
+  object Rs {
+
+    /** This overrides the default Configuration specific in XrpCommand */
+    given Configuration = Configuration.default.withScreamingSnakeCaseMemberNames
+  }
+
   case class Rs(
       types: Map[String, Int], // Not quite a UInt not sure about out of UINT domain, errors?
       fields: List[FieldEntryRaw], // FIELDS:List[List[<Name>,<FieldMetaData>], ..., ...]
@@ -25,7 +31,4 @@ object ServerDefinitions extends XrpCommand[ServerDefinitions.Rq, ServerDefiniti
       transactionTypes: Map[String, Int],
   ) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs {
-    given Configuration = Configuration.default.withScreamingSnakeCaseMemberNames
-  }
 }

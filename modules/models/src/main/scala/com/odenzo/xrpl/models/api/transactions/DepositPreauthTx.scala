@@ -7,6 +7,11 @@ import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object DepositPreauthTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
+
 /**
   * You must provide exactly one of Authorize, AuthorizeCredentials,
   * Unauthorize, or UnauthorizeCredentials.
@@ -27,6 +32,3 @@ case class DepositPreauthTx(
   def txnType: XrpTxnType = XrpTxnType.DepositPreauth
 }
 
-object DepositPreauthTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}

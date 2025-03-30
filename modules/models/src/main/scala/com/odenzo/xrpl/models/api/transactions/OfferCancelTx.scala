@@ -5,6 +5,10 @@ import com.odenzo.xrpl.models.api.transactions.support.{ XrpTxn, XrpTxnType }
 import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, AccountTxnNumber }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object OfferCancelTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * Cancels an existing book order offer.
   * [[https://ripple.com/build/transactions/#offercancel]]
@@ -15,6 +19,3 @@ case class OfferCancelTx(account: AccountAddress, offerSequence: AccountTxnNumbe
   def txnType: XrpTxnType = XrpTxnType.OfferCancel
 }
 
-object OfferCancelTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}

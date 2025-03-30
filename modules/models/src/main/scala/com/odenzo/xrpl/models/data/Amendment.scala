@@ -6,6 +6,10 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.{ Codec, Decoder, Encoder }
 import scodec.bits.ByteVector
 
+object Amendment:
+  given hexByteVectorCodec: Codec[ByteVector] = CirceCodecUtils.hexCodec
+  given Configuration                         = Configuration.default.withSnakeCaseMemberNames
+
 /**
   * @param id
   * @param enabled
@@ -22,12 +26,6 @@ case class Amendment(
     vetoed: Option[Vetoed],
 ) derives ConfiguredCodec
 
-object Amendment:
-  given hexByteVectorCodec: Codec[ByteVector] = CirceCodecUtils.hexCodec
-  given Configuration                         = Configuration.default.withSnakeCaseMemberNames
-
-case class Vetoed(vetoed: Boolean | String) extends AnyVal
-
 object Vetoed:
   given Decoder[Vetoed] =
     Decoder[Boolean]
@@ -40,3 +38,5 @@ object Vetoed:
     case Vetoed(v: String)  => Encoder.encodeString(v)
 
   }
+
+case class Vetoed(vetoed: Boolean | String) extends AnyVal

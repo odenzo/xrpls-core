@@ -1,7 +1,8 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import io.circe.{ Decoder, Encoder }
+import io.circe.derivation.Configuration
+import io.circe.{Decoder, Encoder}
 
 object CommandMarkers {
 
@@ -30,5 +31,6 @@ object CommandMarkers {
     type REQ = RQ
     type RES = RS
 
+    protected given Configuration = Configuration.default.withSnakeCaseMemberNames  
   }
 }

@@ -20,13 +20,7 @@ object ValidationSeed extends XrpCommand[ValidationSeed.Rq, ValidationSeed.Rs] {
     val command: Command = Command.VALIDATION_SEED
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
   case class Rs(validationKey: XrpPrivateKey, validationPublicKey: XrpPublicKey, validationSeed: XrpSeed)
       extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-  }
 }

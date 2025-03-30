@@ -10,6 +10,10 @@ import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.{ Decoder, Json }
 
+object AccountData {
+  given Configuration = CirceCodecUtils.customConfiguration(capitalize, skipping = List("index", "signer_list"))
+}
+
 /**
   * The `account_info` inquiry returns this variant of account root ledger under
   * account_data Should be merged with AccountRootEntry , this has
@@ -19,21 +23,17 @@ import io.circe.{ Decoder, Json }
   * than ledger for now.
   */
 case class AccountData(
-                        account: AccountAddress,
-                        accountTxnId: Option[AccountTxnId],
-                        balance: CurrencyAmount.Drops,
-                        flags: Flags, // Bitmap flag, can be zero
-                        ledgerEntryType: String, // Should always be AccountRoot
-                        messageKey: Option[String], // 33 byte public key, but keep as Hex String for now
-                        ownerCount: Long, // UInt32
-                        previousTxnID: Option[TxnHash], // Not there for CreatedNode
-                        previousTxnLgrSeq: Option[LedgerIndex],
-                        regularKey: Option[String], // AccountId in Base58 rXXXX format! for regular keys
-                        sequence: AccountTxnNumber, // Next Txn Number for Account
-                        index: TxnHash, // 64 char.
-                        signer_list: Option[List[Json]], // Field can not be there, or be empty array
+    account: AccountAddress,
+    accountTxnId: Option[AccountTxnId],
+    balance: CurrencyAmount.Drops,
+    flags: Flags, // Bitmap flag, can be zero
+    ledgerEntryType: String, // Should always be AccountRoot
+    messageKey: Option[String], // 33 byte public key, but keep as Hex String for now
+    ownerCount: Long, // UInt32
+    previousTxnID: Option[TxnHash], // Not there for CreatedNode
+    previousTxnLgrSeq: Option[LedgerIndex],
+    regularKey: Option[String], // AccountId in Base58 rXXXX format! for regular keys
+    sequence: AccountTxnNumber, // Next Txn Number for Account
+    index: TxnHash, // 64 char.
+    signer_list: Option[List[Json]], // Field can not be there, or be empty array
 ) derives ConfiguredCodec
-
-object AccountData {
-  given Configuration = CirceCodecUtils.customConfiguration(capitalize, skipping = List("index", "signer_list"))
-}

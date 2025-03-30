@@ -7,7 +7,8 @@ import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 object LedgerClosed extends XrpCommand[LedgerClosed.Rq, LedgerClosed.Rs] {
-  val command: Command = Command.LEDGER_CLOSED
+
+  
 
   /**
     * Gets the id of the last closed ledger.
@@ -19,6 +20,4 @@ object LedgerClosed extends XrpCommand[LedgerClosed.Rq, LedgerClosed.Rs] {
 
   case class Rs(ledgerHash: LedgerHash, ledgerIndex: LedgerIndex) extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 }

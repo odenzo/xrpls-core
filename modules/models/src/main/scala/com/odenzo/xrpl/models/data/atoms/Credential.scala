@@ -7,13 +7,14 @@ import scodec.bits.ByteVector
 
 import scala.util.Try
 
-case class CredentialType(v: ByteVector)
-
 object CredentialType:
   def fromByteVector(bv: ByteVector): Try[CredentialType] = Try(CredentialType(bv))
-  given Codec[CredentialType]                             = CirceCodecUtils.hexCodec.iemapTry[CredentialType](fromByteVector)(c => c.v)
 
-case class Credential(issuer: AccountAddress, credentialType: CredentialType) derives ConfiguredCodec
+  given Codec[CredentialType] = CirceCodecUtils.hexCodec.iemapTry[CredentialType](fromByteVector)(c => c.v)
+
+case class CredentialType(v: ByteVector)
 
 object Credential:
   given Configuration = CirceCodecUtils.capitalizeConfig
+
+case class Credential(issuer: AccountAddress, credentialType: CredentialType) derives ConfiguredCodec

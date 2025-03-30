@@ -7,6 +7,10 @@ import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object EscrowCreateTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 case class EscrowCreateTx(
                            account: AccountAddress,
                            amount: Drops, // This amount is encoded as String in docs!
@@ -20,6 +24,3 @@ case class EscrowCreateTx(
   def txnType: XrpTxnType = XrpTxnType.EscrowCreate
 }
 
-object EscrowCreateTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}

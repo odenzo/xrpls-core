@@ -8,7 +8,7 @@ import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.PaymentTx
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
 import com.odenzo.xrpl.models.data.atoms.*
-import com.odenzo.xrpl.models.data.atoms.hash256.{ Hash256, given_Order_Hash256 }
+import com.odenzo.xrpl.models.data.atoms.hash256.Hash256
 import com.odenzo.xrpl.models.data.keys.{ KeyType, XrpSeed }
 import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
 import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.validated

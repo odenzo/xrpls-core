@@ -8,6 +8,9 @@ import com.odenzo.xrpl.models.data.keys.XrpPublicSigningKey
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object DIDSetTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
 /**
   * At least one of URI, data, DIDDocument must be specified.
   *   - https://xrpl.org/docs/references/protocol/transactions/types/didset
@@ -22,6 +25,4 @@ case class DIDSetTx(
   def txnType: XrpTxnType = XrpTxnType.Clawback
 }
 
-object DIDSetTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-}
+

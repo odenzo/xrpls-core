@@ -6,6 +6,10 @@ import com.odenzo.xrpl.models.data.atoms.*
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object EscrowCancelTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+}
+
 /**
   * Don't understand the correct use case for this. I create an Escrow (account
   * to account) with cancel time, then try and cancel it before cancel time. Get
@@ -21,8 +25,4 @@ case class EscrowCancelTx(
     offerSequence: AccountTxnNumber, // This is the sequence field in EscrowCreate
 ) extends XrpTxn derives ConfiguredCodec {
   def txnType: XrpTxnType = XrpTxnType.EscrowCancel
-}
-
-object EscrowCancelTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
 }

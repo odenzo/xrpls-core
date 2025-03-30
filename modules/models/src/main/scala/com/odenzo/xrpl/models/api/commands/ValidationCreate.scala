@@ -40,12 +40,4 @@ object ValidationCreate extends XrpCommand[ValidationCreate.Rq, ValidationCreate
   case class Rs(validationKey: XrpRFC1751Passphrase, validationPublicKey: XrpPublicKey, validationSeed: XrpSeed)
       extends XrpCommandRs derives ConfiguredCodec
 
-  object Rq {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-  }
-
-  object Rs {
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-  }
-
 }

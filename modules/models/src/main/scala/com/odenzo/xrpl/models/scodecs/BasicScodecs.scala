@@ -23,7 +23,7 @@ trait BasicScodecs {
   }
 
   /** Greedy Bits <-> Hex String */
-  protected val xrphexAll: Codec[String] = Codec(hexStringToBits _, bitsToHexString)
+  protected val xrphexAll: Codec[String] = Codec(hexStringToBits, bitsToHexString)
 
   /**
     * Length in nibles where 1 nibble = 4 bits = 1/2 byte. Fixed length no VL

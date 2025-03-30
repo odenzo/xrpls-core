@@ -4,11 +4,13 @@ import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.models.data.atoms.TxnSignature.given
 import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, TxnSignature }
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
-case class Signer(account: AccountAddress, singingPubkey: XrpPublicSigningKey, txnSignature: TxnSignature)
-    derives ConfiguredCodec
 
 object Signer:
   given Configuration = CirceCodecUtils.capitalizeConfig
+
+case class Signer(account: AccountAddress, singingPubkey: XrpPublicSigningKey, txnSignature: TxnSignature)
+    derives ConfiguredCodec
+
 
   /* ```json "Signers": [ { "Signer": { "Account": "rsA2LpzuawewSBQXkiju3YQTMzW13pAAdW", "SigningPubKey":
    * "02B3EC4E5DD96029A647CFA20DA07FE1F85296505552CCAC114087E66B46BD77DF", "TxnSignature":

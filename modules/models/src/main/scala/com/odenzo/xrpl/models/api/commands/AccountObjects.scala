@@ -8,12 +8,11 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec, ConfiguredEnumCodec
 
 object AccountObjects extends XrpCommand[AccountObjects.Rq, AccountObjects.Rs] {
 
+  
+
   /** Types of AccountObjects. with state being the Trust Lines. */
   enum AccountObjectType derives ConfiguredEnumCodec:
     case bridge, check, depositPreauth, escrow, nftOoffer, nftPage, offer, paymentCchannel, signerLlist, state, ticket
-
-  object AccountObjectType:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   /**
     * TODO: This is not used yet, so not fully implemented See
@@ -29,15 +28,9 @@ object AccountObjects extends XrpCommand[AccountObjects.Rq, AccountObjects.Rs] {
     val command: Command = Command.ACCOUNT_OBJECTS
   }
 
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
-
   case class Rs(
       account: AccountAddress,
       accountObjects: List[Json],
   ) extends XrpCommandRs derives ConfiguredCodec
-
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
 }

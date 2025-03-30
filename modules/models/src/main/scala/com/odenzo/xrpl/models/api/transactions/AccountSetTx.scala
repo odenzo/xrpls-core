@@ -7,6 +7,11 @@ import com.odenzo.xrpl.models.data.flags.flags.AccountFlag
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
+object AccountSetTx {
+  given Configuration = CirceCodecUtils.capitalizeConfig
+
+}
+
 /** Set Options on a Ripple Account */
 case class AccountSetTx(
     account: AccountAddress,
@@ -15,9 +20,4 @@ case class AccountSetTx(
     transferRate: Option[Long]     = None,
 ) extends XrpTxn derives ConfiguredCodec {
   def txnType: XrpTxnType = XrpTxnType.AccountSet
-}
-
-object AccountSetTx {
-  given Configuration = CirceCodecUtils.capitalizeConfig
-
 }

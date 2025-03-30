@@ -15,18 +15,17 @@ import io.circe.derivation.{ Configuration, ConfiguredCodec }
   * Transactions
   */
 object BookChanges extends XrpCommand[BookChanges.Rq, BookChanges.Rs] {
+
+  
+
   case class Rq(
       ledgerHash: Option[LedgerHash]    = None,
       ledgerIndex: Option[LedgerHandle] = Some(validated),
   ) extends XrpCommandRq derives ConfiguredCodec {
     val command: Command = Command.BOOK_CHANGES
   }
-  object Rq:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 
   case class Rs(changes: List[JsonObject], ledgerIndex: Option[LedgerIndex], ledgerHash: Option[LedgerHash])
       extends XrpCommandRs derives ConfiguredCodec
 
-  object Rs:
-    given Configuration = Configuration.default.withSnakeCaseMemberNames
 }
