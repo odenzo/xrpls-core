@@ -7,9 +7,9 @@ import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.communication.*
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.XrpCommandRs
-import com.odenzo.xrpl.models.data.models.atoms.LedgerHash
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.atoms.LedgerHash
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.optics.JsonPath.root
 import io.circe.pointer.Pointer

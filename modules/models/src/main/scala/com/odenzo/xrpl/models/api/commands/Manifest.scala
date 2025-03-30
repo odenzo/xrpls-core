@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
+import com.odenzo.xrpl.models.data.keys.XrpPublicKey
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 

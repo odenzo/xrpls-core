@@ -1,11 +1,11 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.ledgertree.nodes.OfferNode
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, LedgerHash }
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
-import com.odenzo.xrpl.models.data.models.monetary.{ BookCurrency, Script }
+import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, LedgerHash }
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.validated
+import com.odenzo.xrpl.models.data.monetary.{ BookCurrency, Script }
+import com.odenzo.xrpl.models.ledgertree.nodes.OfferNode
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 /**

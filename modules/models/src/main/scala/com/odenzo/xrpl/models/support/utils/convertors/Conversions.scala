@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.support.utils.convertors
 
-import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-import com.odenzo.xrpl.models.data.models.monetary.*
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.FiatAmount
+import com.odenzo.xrpl.models.data.atoms.AccountAddress
+import com.odenzo.xrpl.models.data.monetary.*
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.FiatAmount
 import io.scalaland.chimney.Transformer
 import scodec.bits.{ BitVector, ByteVector }
 

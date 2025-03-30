@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.signing.core.passphases
 
 import cats.implicits.*
-import com.odenzo.xrpl.models.data.models.keys.XrpSeed
+import com.odenzo.xrpl.models.data.keys.XrpSeed
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.bits.{ ByteVector, hex }
 

@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.api.psuedotxn
 
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, XrplTime }
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
+import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, XrplTime }
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 
 /**
   * Current functionality, using FeeUnits instead of XRP.

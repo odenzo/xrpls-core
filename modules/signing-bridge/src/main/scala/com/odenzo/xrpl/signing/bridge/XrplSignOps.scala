@@ -2,8 +2,8 @@
 //
 //import com.odenzo.xrpl.common.binary.HashOps
 //import com.odenzo.xrpl.common.xrpconstants.TxHashPrefix
-//import com.odenzo.xrpl.models.data.models.atoms.{TxBlob, TxnSignature}
-//import com.odenzo.xrpl.models.data.models.keys.SigningKey
+//import com.odenzo.xrpl.models.data.atoms.{TxBlob, TxnSignature}
+//import com.odenzo.xrpl.models.data.keys.SigningKey
 //import io.circe.Json
 //import scodec.bits.{ByteVector, hex}
 //

@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.scodecs
 
-import com.odenzo.xrpl.models.data.models.fields.ids.FieldId
+import com.odenzo.xrpl.models.data.fields.ids.FieldId
 import com.odenzo.xrpl.models.internal.definitions.{ FieldMetaData, XrpConstantsSetup }
 import com.tersesystems.blindsight.{ Condition, LoggerFactory }
 import scodec.bits.BitVector

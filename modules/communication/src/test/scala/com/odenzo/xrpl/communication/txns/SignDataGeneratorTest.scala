@@ -6,9 +6,9 @@ import com.odenzo.xrpl.communication.*
 import com.odenzo.xrpl.models.api.commands.*
 import com.odenzo.xrpl.models.api.transactions.support.TxCommon
 import com.odenzo.xrpl.models.api.transactions.{ OfferCancelTx, OfferCreateTx }
-import com.odenzo.xrpl.models.data.models.atoms.*
-import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.TxnHash
-import com.odenzo.xrpl.models.data.models.monetary.*
+import com.odenzo.xrpl.models.data.atoms.*
+import com.odenzo.xrpl.models.data.atoms.RippleHashes.TxnHash
+import com.odenzo.xrpl.models.data.monetary.*
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.*
 

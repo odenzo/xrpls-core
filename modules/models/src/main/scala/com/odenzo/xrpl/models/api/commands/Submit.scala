@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountTxnNumber, TxBlob }
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
+import com.odenzo.xrpl.models.data.atoms.{ AccountTxnNumber, TxBlob }
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 import io.circe.JsonObject
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 

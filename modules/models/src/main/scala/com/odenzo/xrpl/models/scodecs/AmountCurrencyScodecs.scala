@@ -4,7 +4,7 @@ import cats.*
 import cats.data.*
 import cats.implicits.*
 import com.odenzo.xrpl.common.binary.FixedSizeBinary
-import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, Script, XrplCurrency, XrplStdCurrency }
+import com.odenzo.xrpl.models.data.monetary.{ CurrencyAmount, Script, XrplCurrency, XrplStdCurrency }
 import com.odenzo.xrpl.models.scodecs.AmountFiatScodecs.currency
 import com.odenzo.xrpl.models.scodecs.AmountScodecs.{ dropsDelegate, fiatDelegate }
 import com.tersesystems.blindsight.LoggerFactory

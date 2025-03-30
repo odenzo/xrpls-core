@@ -2,7 +2,7 @@ package com.odenzo.xrpl.signing.core.ed25519
 
 import cats.effect.IO
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.keys.XrpKeyPair
+import com.odenzo.xrpl.models.data.keys.XrpKeyPair
 import com.odenzo.xrpl.signing.core.DeriveAccountAddress
 import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory
@@ -20,11 +20,11 @@ class Ed25519KeyGeneratorsTest
 
   private val log = LoggerFactory.getLogger
 
-  import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-  import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
+  import com.odenzo.xrpl.models.data.atoms.AccountAddress
+  import com.odenzo.xrpl.models.data.atoms.AccountAddress.given
   def check(rs: WalletPropose.Rs)(using loc: munit.Location): Unit = {
     test(s"${rs.accountId.asBits.toHex} - ${rs.keyType}") {
-      import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.*
+      import com.odenzo.xrpl.models.data.keys.XrpPublicKey.*
       log.debug(s"WalletRs: ${rs.asJson}")
       val keys: XrpKeyPair = Ed25519KeyGenerators.createXrpKeyPair(rs.masterSeed)
       println(s"XrpKeyPair Public Key ${keys.publicKey.bv.toHex}")

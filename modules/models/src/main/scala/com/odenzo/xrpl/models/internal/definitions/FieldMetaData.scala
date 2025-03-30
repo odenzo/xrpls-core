@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.internal.definitions
 
-import com.odenzo.xrpl.models.data.models.fields.ids.FieldId
+import com.odenzo.xrpl.models.data.fields.ids.FieldId
 import io.circe.Codec
 
 /**

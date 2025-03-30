@@ -1,4 +1,4 @@
-package com.odenzo.xrpl.models.data.models.monetary
+package com.odenzo.xrpl.models.data.monetary
 
 import com.tersesystems.blindsight.LoggerFactory
 

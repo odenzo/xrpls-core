@@ -2,10 +2,10 @@ package com.odenzo.xrpl.models.api.transactions
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.models.api.transactions.support.{ XrpTxn, XrpTxnType }
-import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.{ PaymentChannelHash, TxnHash }
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.given
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
+import com.odenzo.xrpl.models.data.atoms.RippleHashes.{ PaymentChannelHash, TxnHash }
+import com.odenzo.xrpl.models.data.keys.XrpPublicKey
+import com.odenzo.xrpl.models.data.keys.XrpPublicKey.given
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 import io.circe.Decoder
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 

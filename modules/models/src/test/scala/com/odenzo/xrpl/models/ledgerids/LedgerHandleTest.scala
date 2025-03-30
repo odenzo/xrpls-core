@@ -1,10 +1,10 @@
 package com.odenzo.xrpl.models.ledgerids
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.atoms.LedgerHash
-import com.odenzo.xrpl.models.data.models.atoms.hash256.*
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.atoms.LedgerHash
+import com.odenzo.xrpl.models.data.atoms.hash256.*
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.syntax.given

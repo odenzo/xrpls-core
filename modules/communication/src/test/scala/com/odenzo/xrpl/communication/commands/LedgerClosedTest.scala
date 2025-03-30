@@ -2,7 +2,7 @@ package com.odenzo.xrpl.communication.commands
 
 import com.odenzo.xrpl.communication.*
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
 import com.tersesystems.blindsight.LoggerFactory
 
 class LedgerClosedTest extends LocalCommsTest(TestScenarios.mode) {

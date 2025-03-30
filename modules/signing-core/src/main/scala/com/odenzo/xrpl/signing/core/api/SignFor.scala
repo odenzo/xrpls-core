@@ -6,7 +6,7 @@
 //import cats.*
 //import cats.data.*
 //import cats.implicits.*
-//import com.odenzo.xrpl.models.data.models.keys.XrpPublicSigningKey
+//import com.odenzo.xrpl.models.data.keys.XrpPublicSigningKey
 //import monocle.{ Optional, Traversal }
 //import scodec.bits.ByteVector
 //

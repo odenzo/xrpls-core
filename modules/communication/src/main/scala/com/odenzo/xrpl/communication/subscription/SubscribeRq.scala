@@ -2,7 +2,7 @@ package com.odenzo.xrpl.communication.subscription
 
 import cats.data.NonEmptyList
 import cats.syntax.all.*
-import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
+import com.odenzo.xrpl.models.data.atoms.AccountAddress
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 import java.util.UUID

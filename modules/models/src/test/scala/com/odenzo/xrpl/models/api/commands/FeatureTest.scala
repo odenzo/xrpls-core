@@ -6,7 +6,7 @@ import cats.effect.*
 import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.models.api.commands.Submit
-import com.odenzo.xrpl.models.data.models.atoms.TxBlob
+import com.odenzo.xrpl.models.data.atoms.TxBlob
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.*
 import io.circe.literal.json

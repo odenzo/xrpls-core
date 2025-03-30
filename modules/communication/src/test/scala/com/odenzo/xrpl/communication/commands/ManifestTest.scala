@@ -2,7 +2,7 @@ package com.odenzo.xrpl.communication.commands
 
 import com.odenzo.xrpl.communication.{ LocalCommsTest, TestScenarios, XrplEngine }
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
+import com.odenzo.xrpl.models.data.keys.XrpPublicKey
 import com.tersesystems.blindsight.LoggerFactory
 
 class ManifestTest extends LocalCommsTest(TestScenarios.mode) {

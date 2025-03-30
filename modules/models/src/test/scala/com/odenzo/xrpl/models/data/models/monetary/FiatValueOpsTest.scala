@@ -1,9 +1,9 @@
-package com.odenzo.xrpl.models.data.models.monetary
+package com.odenzo.xrpl.models.data.monetary
 
 //
 
 
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{ Drops, FiatAmount, given }
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.{ Drops, FiatAmount, given }
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Decoder.Result
 import io.circe.literal.json

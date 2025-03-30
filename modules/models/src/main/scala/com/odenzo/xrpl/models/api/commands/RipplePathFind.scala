@@ -5,10 +5,10 @@ import cats.data.*
 import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, LedgerHash }
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, XrplCurrency }
-import com.odenzo.xrpl.models.data.models.paths.XrplPossiblePaths
+import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, LedgerHash }
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.monetary.{ CurrencyAmount, XrplCurrency }
+import com.odenzo.xrpl.models.data.paths.XrplPossiblePaths
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 /** This is the  simple version of path find, RPC and WS supported. */

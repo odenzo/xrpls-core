@@ -2,7 +2,7 @@ package com.odenzo.xrpl.signing.core.passphases
 
 import cats.effect.IO
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.keys.XrpSeed
+import com.odenzo.xrpl.models.data.keys.XrpSeed
 import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory
 
@@ -16,7 +16,7 @@ class PassphraseKeysTest
     extends CommandRqRsTestDataIOSpec[WalletPropose.Rq, WalletPropose.Rs]("WalletProposeRqRs.json") {
 
   private val log                                                     = LoggerFactory.getLogger
-  import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
+  import com.odenzo.xrpl.models.data.atoms.AccountAddress.given
   def checkRFC(rs: WalletPropose.Rs)(using loc: munit.Location): Unit = {
     test(s"${rs.accountId.asBits.toHex} - ${rs.keyType}") {
       val rfcPassphrase: String = rs.masterKey

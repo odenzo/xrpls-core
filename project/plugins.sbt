@@ -20,7 +20,7 @@ addSbtPlugin("org.typelevel" % "sbt-typelevel" % "0.7.7")
 // Set me up for CI release, but don't touch my scalacOptions!
 addSbtPlugin("org.typelevel" % "sbt-typelevel-ci-release" % "0.7.7")
 
-addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.6.4")
+addSbtPlugin("org.scalameta" % "sbt-mdoc" % "2.6.5")
 
 addSbtPlugin("org.typelevel" % "laika-sbt" % "1.3.1")
 

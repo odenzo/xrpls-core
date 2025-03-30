@@ -3,8 +3,8 @@ package com.odenzo.xrpl.models.scodecs.controllers
 import _root_.scodec.*
 import _root_.scodec.codecs.*
 import com.odenzo.xrpl.common.utils.BlindsightLogging
-import com.odenzo.xrpl.models.data.models.atoms.AccountAddress.given
-import com.odenzo.xrpl.models.data.models.fields.ids.FieldId
+import com.odenzo.xrpl.models.data.atoms.AccountAddress.given
+import com.odenzo.xrpl.models.data.fields.ids.FieldId
 import com.odenzo.xrpl.models.internal.definitions.FieldMetaData
 import com.odenzo.xrpl.models.scodecs.AdditionalScodecs.xrplTransactionType
 import com.odenzo.xrpl.models.scodecs.{ AmountScodecs, MetaData, VL }

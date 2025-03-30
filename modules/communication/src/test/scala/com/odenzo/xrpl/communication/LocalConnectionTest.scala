@@ -6,7 +6,7 @@ import com.odenzo.xrpl.communication.config.XrplEngineConfig
 import com.odenzo.xrpl.communication.rpc.RPCEngine
 import com.odenzo.xrpl.communication.websocket.WSEngine
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
+import com.odenzo.xrpl.models.data.atoms.AccountAddress
 import com.tersesystems.blindsight.LoggerFactory
 import org.http4s.Uri
 

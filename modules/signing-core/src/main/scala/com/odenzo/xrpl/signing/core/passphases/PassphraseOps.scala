@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.signing.core.passphases
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.models.data.models.keys.XrpSeed
+import com.odenzo.xrpl.models.data.keys.XrpSeed
 import scodec.bits.ByteVector
 
 /**

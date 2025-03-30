@@ -2,11 +2,11 @@ package com.odenzo.xrpl.models.api.transactions.support
 
 import cats.syntax.all.*
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
-import com.odenzo.xrpl.models.data.models.atoms.AccountTxnNumber
-import com.odenzo.xrpl.models.data.models.flags.Flags
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
-import com.odenzo.xrpl.models.data.models.memos.{ Memo, Memos }
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount
+import com.odenzo.xrpl.models.data.atoms.AccountTxnNumber
+import com.odenzo.xrpl.models.data.flags.Flags
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.memos.{ Memo, Memos }
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 /**

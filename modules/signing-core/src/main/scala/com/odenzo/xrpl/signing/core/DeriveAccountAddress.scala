@@ -3,8 +3,8 @@ package com.odenzo.xrpl.signing.core
 import cats.effect.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, AccountId }
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
+import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, AccountId }
+import com.odenzo.xrpl.models.data.keys.XrpPublicKey
 import com.odenzo.xrpl.models.xrpconstants.TypePrefix
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.bits.Bases.Alphabets.HexUppercase

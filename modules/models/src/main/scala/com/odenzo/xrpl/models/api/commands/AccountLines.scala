@@ -5,10 +5,10 @@ import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import com.odenzo.xrpl.models.api.commands.Command.ACCOUNT_LINES
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs, XrpScrolling }
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, LedgerHash }
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
-import com.odenzo.xrpl.models.data.models.monetary.TrustLine
+import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, LedgerHash }
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.monetary.TrustLine
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import spire.algebra.Semigroup
 

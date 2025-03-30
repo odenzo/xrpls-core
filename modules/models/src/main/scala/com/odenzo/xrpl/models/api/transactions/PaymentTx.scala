@@ -2,11 +2,11 @@ package com.odenzo.xrpl.models.api.transactions
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.models.api.transactions.support.{ XrpTxn, XrpTxnType }
-import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.InvoiceHash
-import com.odenzo.xrpl.models.data.models.flags.Flags
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount
-import com.odenzo.xrpl.models.data.models.paths.PaymentPath
+import com.odenzo.xrpl.models.data.atoms.AccountAddress
+import com.odenzo.xrpl.models.data.atoms.RippleHashes.InvoiceHash
+import com.odenzo.xrpl.models.data.flags.Flags
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
+import com.odenzo.xrpl.models.data.paths.PaymentPath
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 /**

@@ -1,9 +1,9 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs, XrpScrolling }
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, LedgerHash }
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, LedgerHash }
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.generic.semiauto.*

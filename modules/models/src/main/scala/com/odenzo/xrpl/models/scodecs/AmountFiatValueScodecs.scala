@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.scodecs
 
-import com.odenzo.xrpl.models.data.models.monetary.FiatValue
+import com.odenzo.xrpl.models.data.monetary.FiatValue
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.*
 import scodec.Codec.*

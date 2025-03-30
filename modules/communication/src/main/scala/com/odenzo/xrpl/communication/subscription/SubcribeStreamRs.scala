@@ -1,9 +1,9 @@
 package com.odenzo.xrpl.communication.subscription
 
-import com.odenzo.xrpl.models.data.models.atoms.{ LedgerHash, XrplTime }
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerIndexRange
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
+import com.odenzo.xrpl.models.data.atoms.{ LedgerHash, XrplTime }
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.ledgerids.LedgerIndexRange
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 import io.circe.literal.json
 
 /**

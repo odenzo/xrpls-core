@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.atoms.*
+import com.odenzo.xrpl.models.data.atoms.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 object LogLevel extends XrpCommand[LogLevel.Rq, LogLevel.Rs] {

@@ -1,9 +1,9 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.TxnHash
-import com.odenzo.xrpl.models.data.models.atoms.TxBlob
-import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpSeed }
+import com.odenzo.xrpl.models.data.atoms.RippleHashes.TxnHash
+import com.odenzo.xrpl.models.data.atoms.TxBlob
+import com.odenzo.xrpl.models.data.keys.{ KeyType, XrpSeed }
 import io.circe.JsonObject
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 

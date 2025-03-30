@@ -3,9 +3,9 @@ package com.odenzo.xrpl.models.scodecs
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import com.odenzo.xrpl.models.data.models.atoms.*
-import com.odenzo.xrpl.models.data.models.monetary.XrplCurrency
-import com.odenzo.xrpl.models.data.models.paths.{ XRPLPath, XRPLPathStep }
+import com.odenzo.xrpl.models.data.atoms.*
+import com.odenzo.xrpl.models.data.monetary.XrplCurrency
+import com.odenzo.xrpl.models.data.paths.{ XRPLPath, XRPLPathStep }
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.Json
 import scodec.*

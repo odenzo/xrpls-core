@@ -3,9 +3,9 @@ package com.odenzo.xrpl.models.scodecs
 import cats.*
 import cats.data.*
 import cats.implicits.*
-import com.odenzo.xrpl.models.data.models.monetary
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.{ Drops, FiatAmount }
-import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, FiatValue, Script, XrplStdCurrency }
+import com.odenzo.xrpl.models.data.monetary
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.{ Drops, FiatAmount }
+import com.odenzo.xrpl.models.data.monetary.{ CurrencyAmount, FiatValue, Script, XrplStdCurrency }
 import com.odenzo.xrpl.models.scodecs.AmountCurrencyScodecs.{ currencyCustom, currencyIsoCode }
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.*
@@ -55,10 +55,10 @@ object AmountScodecs {
   /**
     * This either decodes a ful XRP for Full FiatAmount (including value,
     * currency and issuer.
-    * [[com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount]] is an enum
-    * with [[com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops]]
+    * [[com.odenzo.xrpl.models.data.monetary.CurrencyAmount]] is an enum
+    * with [[com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops]]
     * or
-    * [[com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.FiatAmount]]
+    * [[com.odenzo.xrpl.models.data.monetary.CurrencyAmount.FiatAmount]]
     */
 //  val amountCodec: Codec[CurrencyAmount] = discriminated[CurrencyAmount]
 //    .by(bool(1))

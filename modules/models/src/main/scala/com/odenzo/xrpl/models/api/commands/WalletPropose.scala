@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpAdminCommandRq, XrpCommand, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.atoms.*
-import com.odenzo.xrpl.models.data.models.keys.{ KeyType, XrpPublicKey, XrpSeed }
+import com.odenzo.xrpl.models.data.atoms.*
+import com.odenzo.xrpl.models.data.keys.{ KeyType, XrpPublicKey, XrpSeed }
 import io.circe.derivation.*
 
 /**
@@ -11,7 +11,7 @@ import io.circe.derivation.*
   * null. So need to drop null values
   */
 object WalletPropose extends XrpCommand[WalletPropose.Rq, WalletPropose.Rs] {
-  import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.given
+  import com.odenzo.xrpl.models.data.keys.XrpPublicKey.given
 
   /**
     * @param keyType

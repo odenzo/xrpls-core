@@ -1,8 +1,8 @@
 package com.odenzo.xrpl.signing.core.ed25519
 
 import com.odenzo.xrpl.common.binary.XrpBinaryOps
-import com.odenzo.xrpl.models.data.models.keys.*
-import com.odenzo.xrpl.models.data.models.keys.KeyType.ed25519
+import com.odenzo.xrpl.models.data.keys.*
+import com.odenzo.xrpl.models.data.keys.KeyType.ed25519
 import com.tersesystems.blindsight.LoggerFactory
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair
 import org.bouncycastle.crypto.generators.Ed25519KeyPairGenerator

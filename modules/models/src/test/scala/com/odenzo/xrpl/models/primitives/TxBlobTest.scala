@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.models.primitives
 
 import com.odenzo.xrpl.models.api.commands.Submit
-import com.odenzo.xrpl.models.data.models.atoms.TxBlob
+import com.odenzo.xrpl.models.data.atoms.TxBlob
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.JsonObject
 import io.circe.syntax.given

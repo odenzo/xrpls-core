@@ -2,10 +2,10 @@ package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.AccountChannels.{ Rq, Rs }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.RippleChannel
-import com.odenzo.xrpl.models.data.models.atoms.{ AccountAddress, LedgerHash }
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.RippleChannel
+import com.odenzo.xrpl.models.data.atoms.{ AccountAddress, LedgerHash }
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 
 ///**

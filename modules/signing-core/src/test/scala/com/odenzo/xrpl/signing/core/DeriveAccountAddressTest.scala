@@ -2,8 +2,8 @@ package com.odenzo.xrpl.signing.core
 
 import cats.effect.IO
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.atoms.AccountAddress
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey
+import com.odenzo.xrpl.models.data.atoms.AccountAddress
+import com.odenzo.xrpl.models.data.keys.XrpPublicKey
 import com.odenzo.xrpl.signing.testkit.CommandRqRsTestDataIOSpec
 import com.tersesystems.blindsight.LoggerFactory
 import io.circe.syntax.EncoderOps

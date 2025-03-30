@@ -6,10 +6,10 @@ import com.odenzo.xrpl.common.utils.BlindsightLogging
 import com.odenzo.xrpl.communication.models.XrplEngineCommandResult
 import com.odenzo.xrpl.communication.{ LocalCommsTest, TestScenarios, XrplEngine }
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.atoms.*
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.xrp
+import com.odenzo.xrpl.models.data.atoms.*
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.validated
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.xrp
 import com.tersesystems.blindsight.{ Condition, LoggerFactory }
 import io.circe.syntax.*
 

@@ -1,7 +1,7 @@
 package com.odenzo.xrpl.communication.pending
 
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.{ Decoder, Json }
 //

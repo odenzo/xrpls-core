@@ -1,9 +1,9 @@
 package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.atoms.LedgerHash
-import com.odenzo.xrpl.models.data.models.atoms.RippleHashes.TxnHash
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.atoms.LedgerHash
+import com.odenzo.xrpl.models.data.atoms.RippleHashes.TxnHash
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 

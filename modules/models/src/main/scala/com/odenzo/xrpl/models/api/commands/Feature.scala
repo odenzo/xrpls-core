@@ -2,9 +2,9 @@ package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models
-import com.odenzo.xrpl.models.data.models.Amendment
-import com.odenzo.xrpl.models.data.models.atoms.hash256.*
+import com.odenzo.xrpl.models.data
+import com.odenzo.xrpl.models.data.Amendment
+import com.odenzo.xrpl.models.data.atoms.hash256.*
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 import io.circe.generic.semiauto.{ deriveDecoder, deriveEncoder }

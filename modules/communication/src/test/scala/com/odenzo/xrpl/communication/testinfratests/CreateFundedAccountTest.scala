@@ -2,10 +2,10 @@ package com.odenzo.xrpl.communication.testinfratests
 
 import com.odenzo.xrpl.communication.*
 import com.odenzo.xrpl.models.api.commands.*
-import com.odenzo.xrpl.models.data.models.keys.KeyType
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.validated
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.*
+import com.odenzo.xrpl.models.data.keys.KeyType
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.validated
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.*
 import com.odenzo.xrpl.models.internal.Wallet
 import com.tersesystems.blindsight.LoggerFactory
 

@@ -2,8 +2,8 @@ package com.odenzo.xrpl.models.api.transactions
 
 import com.odenzo.xrpl.common.utils.CirceCodecUtils
 import com.odenzo.xrpl.models.api.transactions.support.{ XrpTxn, XrpTxnType }
-import com.odenzo.xrpl.models.data.models.atoms.*
-import com.odenzo.xrpl.models.data.models.monetary.CurrencyAmount.Drops
+import com.odenzo.xrpl.models.data.atoms.*
+import com.odenzo.xrpl.models.data.monetary.CurrencyAmount.Drops
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 

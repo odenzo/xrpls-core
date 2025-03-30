@@ -2,9 +2,9 @@ package com.odenzo.xrpl.models.api.commands
 
 import cats.implicits.*
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.models.keys.XrpPrivateKey.given
-import com.odenzo.xrpl.models.data.models.keys.XrpPublicKey.given
-import com.odenzo.xrpl.models.data.models.keys.{ XrpPrivateKey, XrpPublicKey, XrpSeed }
+import com.odenzo.xrpl.models.data.keys.XrpPrivateKey.given
+import com.odenzo.xrpl.models.data.keys.XrpPublicKey.given
+import com.odenzo.xrpl.models.data.keys.{ XrpPrivateKey, XrpPublicKey, XrpSeed }
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 object ValidationSeed extends XrpCommand[ValidationSeed.Rq, ValidationSeed.Rs] {

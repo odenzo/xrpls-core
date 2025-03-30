@@ -1,4 +1,4 @@
-package com.odenzo.xrpl.models.data.models.monetary.ledgertree
+package com.odenzo.xrpl.models.data.monetary.ledgertree
 
 //package com.odenzo.xrpl.models.atoms.ledgertree
 //

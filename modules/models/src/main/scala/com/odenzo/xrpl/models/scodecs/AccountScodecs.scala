@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.scodecs
 
-import com.odenzo.xrpl.models.data.models.atoms.*
+import com.odenzo.xrpl.models.data.atoms.*
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.*
 import scodec.bits.*
@@ -19,7 +19,7 @@ import scodec.bits.*
   * [[[https://developers.ripple.com/accounts.html#address-encoding]] is good
   * reference point.
   *
-  * [[com.odenzo.xrpl.models.data.models.accounts.AccountAddress]] contains
+  * [[com.odenzo.xrpl.models.data.accounts.AccountAddress]] contains
   */
 object AccountScodecs {
   private val log = LoggerFactory.getLogger

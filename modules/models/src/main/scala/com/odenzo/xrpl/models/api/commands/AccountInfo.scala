@@ -2,10 +2,10 @@ package com.odenzo.xrpl.models.api.commands
 
 import com.odenzo.xrpl.models.api.commands.AccountInfo.{ Rq, Rs }
 import com.odenzo.xrpl.models.api.commands.CommandMarkers.{ XrpCommand, XrpCommandRq, XrpCommandRs }
-import com.odenzo.xrpl.models.data.ledgertree.AccountData
-import com.odenzo.xrpl.models.data.models.atoms.*
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle
-import com.odenzo.xrpl.models.data.models.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.data.atoms.*
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle
+import com.odenzo.xrpl.models.data.ledgerids.LedgerHandle.LedgerIndex
+import com.odenzo.xrpl.models.ledgertree.AccountData
 import io.circe.*
 import io.circe.derivation.{ Configuration, ConfiguredCodec }
 

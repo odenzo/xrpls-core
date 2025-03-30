@@ -1,6 +1,6 @@
 package com.odenzo.xrpl.models.scodecs
 
-import com.odenzo.xrpl.models.data.models.monetary.{ CurrencyAmount, dropOps }
+import com.odenzo.xrpl.models.data.monetary.{ CurrencyAmount, dropOps }
 import com.tersesystems.blindsight.LoggerFactory
 import scodec.*
 import scodec.bits.*

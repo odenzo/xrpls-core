@@ -17,7 +17,8 @@ ThisBuild / resolvers ++= Seq(Resolver.mavenLocal, "jitpack" at "https://jitpack
 Test / logBuffered := true
 Test / parallelExecution := false
 
-addCommandAlias("dev-docs", "docos/mdoc;docos/laikaPreview")
+addCommandAlias("mdoc", "documentation/docs/")
+addCommandAlias("laika", "documentation/laika/laikaPreview")
 addCommandAlias("test-container", ";clean;compile;testOnly -- --include-tags=TC;")
 addCommandAlias("test-integration", ";clean;compile;testOnly -- --include-tags=Integration;")
 addCommandAlias("test-unit", ";clean;compile;testOnly -- --exclude-tags=Integration,TC,DB;")
@@ -27,7 +28,7 @@ addCommandAlias("docker-stage", "app/docker:stage;")
 addCommandAlias("build-docs", "root/unidoc;docos/mdoc;docos/laikaSite")
 
 lazy val xrplv2 = (project in file("."))
-  .aggregate(common, models, communications, `signing-bridge`, `signing-core`, unidocs)
+  .aggregate(common, models, communications, `signing-bridge`, `signing-core`, unidocs, docs)
   .settings(publish / skip := true, name := "XRPLS")
 
 //lazy val macros = (project in file("modules/xrpl-macros")).settings(
@@ -61,7 +62,7 @@ lazy val `signing-core` = (project in file("modules/signing-core"))
            )
 
 lazy val `signing-bridge` = (project in file("modules/signing-bridge"))
-  .dependsOn(common, models, `signing-core` % "compile->compile;test->test",  communications)
+  .dependsOn(common, models, `signing-core` % "compile->compile;test->test", communications)
   .settings(name := "xrpls-signing-bridge",
             scalacOptions := scala3Options,
             libraryDependencies ++= Libs.stdlibs ++ Libs.bouncycastle,
@@ -74,12 +75,11 @@ lazy val application = (project in file("modules/application"))
             libraryDependencies ++= Libs.stdlibs ++ Libs.bouncycastle,
            )
 
-lazy val documentations = (project in file("modules/documentation"))
+lazy val docs = (project in file("site"))
   .dependsOn(common, models, communications, `signing-core`, `signing-bridge`)
   .enablePlugins(TypelevelSitePlugin)
   .settings(name := "documentation")
   .settings(
-  
     //   tlBaseVersion := "0.0",
     tlSiteIsTypelevelProject := None,
     mdocVariables := Map(
@@ -90,8 +90,8 @@ lazy val documentations = (project in file("modules/documentation"))
 /** Not sure unidoc is best idea for now but */
 lazy val unidocs = project
   .in(file("modules/unidocs"))
-  .enablePlugins(TypelevelUnidocPlugin) // also enables the ScalaUnidocPlugin
+  .enablePlugins(TypelevelUnidocPlugin)
   .settings(
-    name := "xrpls-docs",
+    name := "xrpls-uni docs",
     ScalaUnidoc / unidoc / unidocProjectFilter := inProjects(common, models, communications),
   )
